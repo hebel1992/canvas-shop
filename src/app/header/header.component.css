@@ -1,7 +1,95 @@
 .main-header {
   height: 100%;
-  background: lightgray;
+  background: gray;
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.main-header__title {
+  font-style: italic;
+  font-family: "Abyssinica SIL", serif;
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.social-media {
+  padding: 0;
+  list-style: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-media li {
+  color: darkgray;
+  margin: 0 0.7rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.social-media li:hover,
+.social-media li:active {
+  color: lightgray;
+}
+
+.options {
+  padding: 0;
+  list-style: none;
+  display: none;
+}
+
+.options li {
+  color: darkgray;
+  margin: 0 0.9rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.options li:hover,
+.options li:active {
+  color: lightgray;
+}
+
+.options__item fa-icon{
+  font-size: 1.7rem;
+}
+
+.options__item:nth-child(2) span{
+  margin-left: 0.2rem;
+}
+
+.toggle-button {
+  display: block;
+  width: 3.5rem;
+  background: transparent;
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 0.6rem;
+  outline: none;
+}
+
+.toggle-button__bar {
+  width: 80%;
+  height: 0.1rem;
+  background: lightgray;
+  display: block;
+  margin: 0.6rem auto;
+}
+
+@media (min-width: 60rem) {
+  .toggle-button {
+    display: none;
+  }
+
+  .social-media {
+    display: flex;
+  }
+
+  .options {
+    display: flex;
+  }
 }
