@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {faFacebook, faInstagram, faSnapchat, faTwitter, faYoutube} from '@fortawesome/free-brands-svg-icons';
-import {faShoppingCart, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faShoppingCart, faSortDown, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,25 +8,35 @@ import {faShoppingCart, faUser} from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
   faSnapchat = faSnapchat;
   faInstagram = faInstagram;
   faFacebook = faFacebook;
   faTwitter = faTwitter;
   faYoutube = faYoutube;
-
   faUser = faUser;
+  faArrowDown = faSortDown;
   faShoppingCart = faShoppingCart;
-  showMobileNav = false;
+
   isAuthenticated = true;
+  showMobileNav = false;
+  showSettings = false;
 
-  constructor() {
+  @ViewChild('settingsDropdown', {static: true}) settingsDropdown: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  clickOut(event) {
+    if (!this.settingsDropdown.nativeElement.contains(event.target)) {
+      this.showSettings = false;
+    }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onToggleButtonClick() {
     this.showMobileNav = !this.showMobileNav;
+  }
+
+  onMyAccountClick() {
+    this.showSettings = !this.showSettings;
   }
 }

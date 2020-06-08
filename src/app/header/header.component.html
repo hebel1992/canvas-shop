@@ -37,10 +37,14 @@
       <fa-icon [icon]="faUser"></fa-icon>
       <span>Sign in</span>
     </li>
-    <li class="mobile-options__item" *ngIf="isAuthenticated">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <span>My account</span>
+    <li #settingsDropdown class="desktop-options__item" (click)="onMyAccountClick()">
+      <div *ngIf="isAuthenticated">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>My account</span>
+        <fa-icon [icon]="faArrowDown" class="arrow-down"></fa-icon>
+      </div>
     </li>
+
   </ul>
 
   <button class="toggle-button" (click)="onToggleButtonClick()">
@@ -49,7 +53,7 @@
     <span class="toggle-button__bar"></span>
   </button>
 </header>
-<div class="mobile-nav" *ngIf="showMobileNav">
+<div class="mobile-nav" [ngClass]="{'show-mobile-nav': showMobileNav}">
   <ul class="mobile-nav__items">
     <li>
       <a>
@@ -76,16 +80,24 @@
         <fa-icon [icon]="faYoutube"></fa-icon>
         YouTube</a>
     </li>
-    <li class="mobile-options__item">
+    <li>
       <fa-icon [icon]="faShoppingCart"></fa-icon>
     </li>
-    <li class="mobile-options__item" *ngIf="!isAuthenticated">
+    <li *ngIf="!isAuthenticated">
       <fa-icon [icon]="faUser"></fa-icon>
       <span>Sign in</span>
     </li>
-    <li class="mobile-options__item" *ngIf="isAuthenticated">
+    <li *ngIf="isAuthenticated">
       <fa-icon [icon]="faUser"></fa-icon>
       <span>My account</span>
+      <fa-icon class="arrow-down" [icon]="faArrowDown"></fa-icon>
     </li>
+  </ul>
+</div>
+
+<div class="settings" [ngClass]="{'show-settings': showSettings}">
+  <ul class="settings-items">
+    <li>Profile</li>
+    <li>Log out</li>
   </ul>
 </div>
