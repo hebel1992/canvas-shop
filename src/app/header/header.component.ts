@@ -17,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   faUser = faUser;
   faShoppingCart = faShoppingCart;
-
+  showMobileNav = false;
+  isAuthenticated = true;
 
   constructor() {
   }
@@ -25,4 +26,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onToggleButtonClick() {
+    this.showMobileNav = !this.showMobileNav;
+  }
 }

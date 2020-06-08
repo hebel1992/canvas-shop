@@ -1,7 +1,7 @@
 <header class="main-header">
   <a class="main-header__title"> MARLO </a>
 
-  <ul class="social-media">
+  <ul class="desktop-social-media">
     <li>
       <a>
         <fa-icon [icon]="faSnapchat"></fa-icon>
@@ -29,18 +29,63 @@
     </li>
   </ul>
 
-  <ul class="options">
-    <li class="options__item">
+  <ul class="desktop-options">
+    <li class="desktop-options__item">
       <fa-icon [icon]="faShoppingCart"></fa-icon>
     </li>
-    <li class="options__item">
-      <fa-icon [icon]="faUser"></fa-icon> <span>Sign in</span>
+    <li class="desktop-options__item" *ngIf="!isAuthenticated">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span>Sign in</span>
+    </li>
+    <li class="mobile-options__item" *ngIf="isAuthenticated">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span>My account</span>
     </li>
   </ul>
 
-  <button class="toggle-button">
+  <button class="toggle-button" (click)="onToggleButtonClick()">
     <span class="toggle-button__bar"></span>
     <span class="toggle-button__bar"></span>
     <span class="toggle-button__bar"></span>
   </button>
 </header>
+<div class="mobile-nav" *ngIf="showMobileNav">
+  <ul class="mobile-nav__items">
+    <li>
+      <a>
+        <fa-icon [icon]="faSnapchat"></fa-icon>
+        Snapchat</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faInstagram"></fa-icon>
+        Instagram</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        Facebook</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faTwitter"></fa-icon>
+        Twitter</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faYoutube"></fa-icon>
+        YouTube</a>
+    </li>
+    <li class="mobile-options__item">
+      <fa-icon [icon]="faShoppingCart"></fa-icon>
+    </li>
+    <li class="mobile-options__item" *ngIf="!isAuthenticated">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span>Sign in</span>
+    </li>
+    <li class="mobile-options__item" *ngIf="isAuthenticated">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <span>My account</span>
+    </li>
+  </ul>
+</div>
