@@ -37,14 +37,13 @@
       <fa-icon [icon]="faUser"></fa-icon>
       <span>Sign in</span>
     </li>
-    <li #settingsDropdown class="desktop-options__item" (click)="onMyAccountClick()">
-      <div *ngIf="isAuthenticated">
+    <li #desktopSettingsDropdown class="desktop-options__item">
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickDesktop()">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>My account</span>
         <fa-icon [icon]="faArrowDown" class="arrow-down"></fa-icon>
       </div>
     </li>
-
   </ul>
 
   <button class="toggle-button" (click)="onToggleButtonClick()">
@@ -87,15 +86,21 @@
       <fa-icon [icon]="faUser"></fa-icon>
       <span>Sign in</span>
     </li>
-    <li *ngIf="isAuthenticated">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <span>My account</span>
-      <fa-icon class="arrow-down" [icon]="faArrowDown"></fa-icon>
+    <li #mobileSettingsDropdown>
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>My account</span>
+        <fa-icon class="arrow-down" [icon]="faArrowDown"></fa-icon>
+      </div>
+    </li>
+    <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">
+      <p class="mobile-nav-settings__item">Settings</p>
+      <p class="mobile-nav-settings__item">Log out</p>
     </li>
   </ul>
 </div>
 
-<div class="settings" [ngClass]="{'show-settings': showSettings}">
+<div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
   <ul class="settings-items">
     <li>Profile</li>
     <li>Log out</li>

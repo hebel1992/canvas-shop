@@ -19,14 +19,18 @@ export class HeaderComponent implements OnInit {
 
   isAuthenticated = true;
   showMobileNav = false;
-  showSettings = false;
+  showSettingsDesktop = false;
+  showSettingsMobile = false;
 
-  @ViewChild('settingsDropdown', {static: true}) settingsDropdown: ElementRef;
+  @ViewChild('desktopSettingsDropdown', {static: true}) desktopSettingsDropdown: ElementRef;
+  @ViewChild('mobileSettingsDropdown', {static: true}) mobileSettingsDropdown: ElementRef;
 
   @HostListener('document:click', ['$event'])
   clickOut(event) {
-    if (!this.settingsDropdown.nativeElement.contains(event.target)) {
-      this.showSettings = false;
+    if (!this.desktopSettingsDropdown.nativeElement.contains(event.target) &&
+      !this.mobileSettingsDropdown.nativeElement.contains(event.target)) {
+      this.showSettingsDesktop = false;
+      this.showSettingsMobile = false;
     }
   }
 
@@ -36,7 +40,11 @@ export class HeaderComponent implements OnInit {
     this.showMobileNav = !this.showMobileNav;
   }
 
-  onMyAccountClick() {
-    this.showSettings = !this.showSettings;
+  onMyAccountClickDesktop() {
+    this.showSettingsDesktop = !this.showSettingsDesktop;
+  }
+
+  onMyAccountClickMobile(){
+    this.showSettingsMobile = !this.showSettingsMobile;
   }
 }
