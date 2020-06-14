@@ -7,18 +7,29 @@ import {FooterComponent} from './footer/footer.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {RouterModule} from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryImageComponent } from './gallery/gallery-image/gallery-image.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    GalleryComponent
+    GalleryComponent,
+    GalleryImageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

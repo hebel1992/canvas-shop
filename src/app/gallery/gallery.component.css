@@ -1,3 +1,37 @@
-main {
-  margin-top: 5.1rem;
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+.main-title{
+  color: darkblue;
+  align-self: center;
+}
+
+.main-content{
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20rem);
+  grid-auto-rows: 22rem;
+  grid-gap: 2rem;
+}
+
+app-gallery-image{
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
+  transition: transform 0.3s;
+}
+
+app-gallery-image:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+@media (min-width: 56rem) {
+  .main-content{
+    grid-template-columns: repeat(auto-fill, 16rem);
+    grid-auto-rows: 18rem;
+  }
+}
+

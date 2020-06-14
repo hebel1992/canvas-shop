@@ -18,7 +18,21 @@ app-header {
   z-index: 10;
 }
 
+main {
+  grid-area: main;
+  width: 100%;
+  justify-self: center;
+  margin-top: 2rem;
+}
+
 app-footer{
   grid-area: footer;
   background: black;
 }
+
+@media (min-width: 40rem) {
+  main{
+    width: 75%;
+  }
+}
+
