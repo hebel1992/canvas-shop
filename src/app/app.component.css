@@ -21,8 +21,8 @@ app-header {
 main {
   grid-area: main;
   width: 100%;
-  justify-self: center;
   margin-top: 2rem;
+  border: 2px solid blue;
 }
 
 app-footer{
@@ -30,9 +30,4 @@ app-footer{
   background: black;
 }
 
-@media (min-width: 40rem) {
-  main{
-    width: 75%;
-  }
-}
 

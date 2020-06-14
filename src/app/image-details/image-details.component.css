@@ -1,0 +1,22 @@
+main {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+img {
+  max-width:30rem;
+  max-height:30rem;
+  width: auto;
+  height: auto;
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
+}

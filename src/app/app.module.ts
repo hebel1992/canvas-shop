@@ -13,6 +13,7 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AppRoutingModule} from './app-routing.module';
+import { ImageDetailsComponent } from './image-details/image-details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {AppRoutingModule} from './app-routing.module';
     FooterComponent,
     GalleryComponent,
     GalleryImageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ImageDetailsComponent
   ],
   imports: [
     BrowserModule,

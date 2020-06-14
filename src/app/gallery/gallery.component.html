@@ -1,7 +1,9 @@
-<div>
-  <h1 class="main-title">Popular photos</h1>
-  <div class="main-content">
-    <app-gallery-image *ngFor="let image of images"
-                       [image]="image"></app-gallery-image>
+<main>
+  <div>
+    <h1 class="main-title">Popular photos</h1>
+    <div class="main-content">
+      <app-gallery-image *ngFor="let image of images"
+                         [image]="image"></app-gallery-image>
+    </div>
   </div>
-</div>
+</main>

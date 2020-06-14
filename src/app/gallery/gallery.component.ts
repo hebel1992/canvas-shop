@@ -17,6 +17,5 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.images = this.imageService.getImages();
-    console.log(this.images);
   }
 }

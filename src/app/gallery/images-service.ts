@@ -13,6 +13,14 @@ export class ImagesService {
     return this.images.slice();
   }
 
+  getImage(id: string) {
+    for (const image of this.images) {
+      if (image.id === id) {
+        return image;
+      }
+    }
+  }
+
   setImages(images: Image[]) {
     this.images = images;
     this.imagesChanged.next(this.images);
