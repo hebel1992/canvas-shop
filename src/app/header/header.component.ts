@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   @ViewChild('desktopSettingsDropdown', {static: true}) desktopSettingsDropdown: ElementRef;
   @ViewChild('mobileSettingsDropdown', {static: true}) mobileSettingsDropdown: ElementRef;
+  @ViewChild('mobileNav', {static: true}) mobileNav: ElementRef;
 
   @HostListener('document:click', ['$event'])
   clickOut(event) {
@@ -34,17 +35,29 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {
+  }
 
   onToggleButtonClick() {
-    this.showMobileNav = !this.showMobileNav;
+    const htmlElement = this.mobileNav.nativeElement as HTMLElement;
+    if (!this.mobileNav.nativeElement.classList.contains('show-mobile-nav')) {
+      htmlElement.style.display = 'inline-block';
+      setTimeout(() => {
+        this.showMobileNav = !this.showMobileNav;
+      }, 10);
+    } else {
+      this.showMobileNav = !this.showMobileNav;
+      setTimeout(() => {
+        htmlElement.style.display = 'none';
+      }, 500);
+    }
   }
 
   onMyAccountClickDesktop() {
     this.showSettingsDesktop = !this.showSettingsDesktop;
   }
 
-  onMyAccountClickMobile(){
+  onMyAccountClickMobile() {
     this.showSettingsMobile = !this.showSettingsMobile;
   }
 }

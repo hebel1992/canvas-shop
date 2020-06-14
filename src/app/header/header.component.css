@@ -102,13 +102,12 @@
   width: 100%;
   height: fit-content;
   background: gray;
-  display: inline-block;
+  display: none;
   transform: translateY(-22.5rem);
-  transition: all 500ms ease-out;
+  transition: transform 500ms ease-out;
 }
 
 .show-mobile-nav {
-  display: inline-block;
   transform: translateY(0);
 }
 
