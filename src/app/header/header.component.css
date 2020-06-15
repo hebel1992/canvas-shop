@@ -56,12 +56,22 @@
   color: #eceeea;
 }
 
+a {
+  text-decoration: none;
+  color: darkgray;
+}
+
+a:hover,
+a:active {
+  color: #eceeea;
+}
+
 .desktop-options__item fa-icon {
   font-size: 1.7rem;
 }
 
 .desktop-options__item:nth-child(2) span,
-.desktop-options__item:nth-child(3) span{
+.desktop-options__item:nth-child(3) span {
   margin-left: 0.4rem;
 }
 
@@ -82,7 +92,7 @@
   display: inline-block;
 }
 
-.settings-items{
+.settings-items {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -95,7 +105,7 @@
   padding: .5rem;
 }
 
-.settings-items li:hover{
+.settings-items li:hover {
   background: #eceeea;
 }
 
@@ -134,13 +144,13 @@
   color: #eceeea;
 }
 
-.mobile-nav-settings{
+.mobile-nav-settings {
   display: none;
   background: #eceeea;
   padding: 0.2rem 0;
 }
 
-.mobile-nav-settings__item{
+.mobile-nav-settings__item {
   color: black;
   padding: 0.5rem 1rem;
   margin: 0.2rem 0;
@@ -148,7 +158,7 @@
 }
 
 .mobile-nav-settings__item:hover,
-.mobile-nav-settings__item:active{
+.mobile-nav-settings__item:active {
   background: #e0e2de;
 }
 
@@ -179,7 +189,6 @@
   display: block;
   margin: 0.6rem auto;
 }
-
 
 @media (min-width: 72rem) {
   .toggle-button {

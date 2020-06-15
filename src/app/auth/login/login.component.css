@@ -1,0 +1,82 @@
+.container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greetings {
+  margin: 1.5rem 0 0 0;
+}
+
+.register-link {
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.sign-in-form {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field fa-icon{
+  margin-right: 0.2rem;
+}
+
+button {
+  width: 100%;
+  height: 3rem;
+}
+
+.forgot-password-link {
+  width: 100%;
+  color: dodgerblue;
+  cursor: pointer;
+  text-align: right;
+  margin: 0.4rem;
+}
+
+hr {
+  width: 95%;
+  margin: 3rem 0;
+  border-top: 1px solid darkgray;
+}
+
+.sign-in-with-provider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  height: 4rem;
+  margin: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sign-in-with-provider-button span{
+  margin-left: 0.5rem;
+}
+
+.facebook-button {
+  background: cornflowerblue;
+  color: white;
+  border-color: cornflowerblue;
+}
+
+.facebook-button fa-icon{
+  font-size: 1.5rem;
+}
+
+.google-button fa-icon{
+  font-size: 1.5rem;
+  color: green;
+}

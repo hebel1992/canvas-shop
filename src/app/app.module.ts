@@ -15,6 +15,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {AppRoutingModule} from './app-routing.module';
 import { ImageDetailsComponent } from './image-details/image-details.component';
 import {MaterialModule} from './material/material.module';
+import { LoginComponent } from './auth/login/login.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,10 +26,12 @@ import {MaterialModule} from './material/material.module';
     GalleryComponent,
     GalleryImageComponent,
     PageNotFoundComponent,
-    ImageDetailsComponent
+    ImageDetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
     FontAwesomeModule,

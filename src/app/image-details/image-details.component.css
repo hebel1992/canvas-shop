@@ -42,12 +42,8 @@ button {
 
 @media (min-width: 50rem) {
   img {
-    max-width: 40rem;
-    max-height: 40rem;
-  }
-
-  button {
-    width: 40rem;
+    max-width: 30rem;
+    max-height: 30rem;
   }
 }
 
@@ -57,13 +53,13 @@ button {
     grid-template-columns: 35% 35%;
     grid-template-rows: auto auto;
     justify-content: center;
-    grid-gap: 2rem;
+    grid-gap: 0 2rem;
   }
 
   img {
     grid-column: 1;
-    max-width: 30rem;
-    max-height: 30rem;
+    max-width: 28rem;
+    max-height: 28rem;
     justify-self: center;
   }
 
@@ -79,5 +75,6 @@ button {
 
   .description {
     grid-column: span 2;
+    align-self: start;
   }
 }

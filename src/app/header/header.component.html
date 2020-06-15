@@ -34,8 +34,10 @@
       <fa-icon [icon]="faShoppingCart"></fa-icon>
     </li>
     <li class="desktop-options__item" *ngIf="!isAuthenticated">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <span>Sign in</span>
+      <a routerLink="/login">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>Sign in</span>
+      </a>
     </li>
     <li #desktopSettingsDropdown class="desktop-options__item">
       <div *ngIf="isAuthenticated" (click)="onMyAccountClickDesktop()">
@@ -83,8 +85,10 @@
       <fa-icon [icon]="faShoppingCart"></fa-icon>
     </li>
     <li *ngIf="!isAuthenticated">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <span>Sign in</span>
+      <a routerLink="/login">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>Sign in</span>
+      </a>
     </li>
     <li #mobileSettingsDropdown>
       <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()">

@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   faArrowDown = faSortDown;
   faShoppingCart = faShoppingCart;
 
-  isAuthenticated = true;
+  isAuthenticated = false;
   showMobileNav = false;
   showSettingsDesktop = false;
   showSettingsMobile = false;
