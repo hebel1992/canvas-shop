@@ -34,7 +34,7 @@
       <fa-icon [icon]="faShoppingCart"></fa-icon>
     </li>
     <li class="desktop-options__item" *ngIf="!isAuthenticated">
-      <a routerLink="/login">
+      <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>Sign in</span>
       </a>
@@ -82,10 +82,10 @@
         YouTube</a>
     </li>
     <li>
-      <fa-icon [icon]="faShoppingCart"></fa-icon>
+      <a><fa-icon [icon]="faShoppingCart"></fa-icon></a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a routerLink="/login">
+      <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>Sign in</span>
       </a>
@@ -103,6 +103,9 @@
     </li>
   </ul>
 </div>
+
+<a routerLink="/login" routerLinkActive #auth="routerLinkActive" style="display: none"></a>
+<a routerLink="/register" routerLinkActive #register="routerLinkActive" style="display: none"></a>
 
 <div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
   <ul class="settings-items">

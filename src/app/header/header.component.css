@@ -190,6 +190,10 @@ a:active {
   margin: 0.6rem auto;
 }
 
+.active {
+  color: #e0e2de;
+}
+
 @media (min-width: 72rem) {
   .toggle-button {
     display: none;
