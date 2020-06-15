@@ -1,11 +1,6 @@
-main {
-  margin: auto;
-  width: 100%;
-  height: 100%;
-}
-
 .container {
   height: 100%;
+  width: 100%;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -19,4 +14,26 @@ img {
   height: auto;
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
+}
+
+button{
+  display: block;
+  width: 30rem;
+}
+
+.quantity{
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+@media(min-width: 50rem){
+  img {
+    max-width:40rem;
+    max-height:40rem;
+  }
+
+  button{
+    width: 40rem;
+  }
 }

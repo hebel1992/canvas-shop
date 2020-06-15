@@ -1,12 +1,8 @@
-* {
-  box-sizing: border-box;
-}
-
 .full-content {
   margin: 0;
   display: grid;
   height: 100%;
-  grid-template-rows: 3rem auto fit-content(8rem);
+  grid-template-rows: 5rem auto fit-content(8rem);
   grid-template-areas: "header" "main" "footer";
 }
 
@@ -14,14 +10,13 @@ app-header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 3rem;
+  height: 5rem;
   z-index: 10;
 }
 
 main {
   grid-area: main;
   width: 100%;
-  margin-top: 2rem;
   border: 2px solid blue;
 }
 

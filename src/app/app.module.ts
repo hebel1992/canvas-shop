@@ -14,6 +14,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {AppRoutingModule} from './app-routing.module';
 import { ImageDetailsComponent } from './image-details/image-details.component';
+import {MaterialModule} from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,10 @@ import { ImageDetailsComponent } from './image-details/image-details.component';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     FontAwesomeModule,
-    RouterModule,
+    MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
