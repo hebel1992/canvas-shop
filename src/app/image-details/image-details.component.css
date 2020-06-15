@@ -8,32 +8,76 @@
 }
 
 img {
-  max-width:30rem;
-  max-height:30rem;
+  max-width: 30rem;
+  max-height: 30rem;
   width: auto;
   height: auto;
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
 }
 
-button{
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.4rem 0;
+}
+
+.quantity-input {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 0.5rem;
+}
+
+button {
   display: block;
   width: 30rem;
 }
 
-.quantity{
-  display: flex;
-  justify-content: center;
-  margin: 1.5rem 0;
+.delivery-info {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
-@media(min-width: 50rem){
+@media (min-width: 50rem) {
   img {
-    max-width:40rem;
-    max-height:40rem;
+    max-width: 40rem;
+    max-height: 40rem;
   }
 
-  button{
+  button {
     width: 40rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  .container {
+    display: grid;
+    grid-template-columns: 35% 35%;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    grid-gap: 2rem;
+  }
+
+  img {
+    grid-column: 1;
+    max-width: 30rem;
+    max-height: 30rem;
+    justify-self: center;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 90%;
+  }
+
+  .description {
+    grid-column: span 2;
   }
 }
