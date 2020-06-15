@@ -1,26 +1,36 @@
 <div class="container">
-  <h1 class="greetings">Hello</h1>
-  <p>Please sign in or <a><span class="register-link">create an account</span></a></p>
+  <div class="page-title">
+    <h1 class="greetings">Hello</h1>
+    <p>Please sign in or <a><span class="register-link">create an account</span></a></p>
+  </div>
   <div class="sign-in-form">
     <h2 class="sign-in-form__title">Sign in</h2>
     <mat-form-field appearance="outline">
-      <mat-label><fa-icon [icon]="faUser"></fa-icon>Email</mat-label>
+      <mat-label>
+        <fa-icon [icon]="faUser"></fa-icon>
+        Email
+      </mat-label>
       <input matInput>
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label><fa-icon [icon]="faPassword"></fa-icon>Password</mat-label>
+      <mat-label>
+        <fa-icon [icon]="faPassword"></fa-icon>
+        Password
+      </mat-label>
       <input matInput type="password">
     </mat-form-field>
     <button mat-raised-button color="primary">Sign in</button>
     <p class="forgot-password-link">Forgot password?</p>
   </div>
   <hr>
-  <div class="sign-in-with-provider-button facebook-button">
-    <fa-icon [icon]="faFacebook"></fa-icon>
-    <span>Sign in with Facebook</span>
-  </div>
-  <div class="sign-in-with-provider-button google-button">
-    <fa-icon [icon]="faGoogle"></fa-icon>
-    <span>Sign in with Google</span>
+  <div class="sign-in-with-provider">
+    <div class="sign-in-with-provider-button facebook-button">
+      <fa-icon [icon]="faFacebook"></fa-icon>
+      <span>Sign in with Facebook</span>
+    </div>
+    <div class="sign-in-with-provider-button google-button">
+      <fa-icon [icon]="faGoogle"></fa-icon>
+      <span>Sign in with Google</span>
+    </div>
   </div>
 </div>
