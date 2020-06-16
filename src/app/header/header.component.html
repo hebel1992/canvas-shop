@@ -34,7 +34,12 @@
   </ul>
   <ul #authStateElement class="desktop-options">
     <li class="desktop-options__item">
-      <fa-icon [icon]="faShoppingCart"></fa-icon><span *ngIf="basket && basket.length>0" style="color: black">{{basket.length}}</span>
+      <div [matBadgeHidden]="!basket || basket.length<1"
+           [matBadge]="basket ? basket.length : null"
+           matBadgeSize="medium"
+      >
+        <fa-icon [icon]="faShoppingCart"></fa-icon>
+      </div>
     </li>
     <li class="desktop-options__item" *ngIf="!isAuthenticated">
       <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
@@ -87,7 +92,12 @@
     </li>
     <li>
       <a>
-        <fa-icon [icon]="faShoppingCart"></fa-icon><span *ngIf="basket && basket.length>0" style="color: black">{{basket.length}}</span>
+        <div style="display: inline-block" [matBadgeHidden]="!basket || basket.length<1"
+             [matBadge]="basket ? basket.length : null"
+             matBadgeSize="medium"
+        >
+          <fa-icon [icon]="faShoppingCart"></fa-icon>
+        </div>
       </a>
     </li>
     <li *ngIf="!isAuthenticated">
