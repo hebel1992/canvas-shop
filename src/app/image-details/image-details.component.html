@@ -3,10 +3,10 @@
   <div class="buttons">
     <div class="quantity">
       Quantity:
-      <input class="quantity-input" type="text">
+      <input class="quantity-input" type="text"  [(ngModel)]="quantity">
     </div>
     <button mat-raised-button color="primary">Buy it now</button>
-    <button mat-button>Add to basket</button>
+    <button mat-button (click)="onAddToBasket()">Add to basket</button>
     <button mat-button routerLink="/gallery">Back to gallery</button>
     <p class="delivery-info">Delivery: 2-3 working days</p>
   </div>

@@ -20,9 +20,19 @@ main {
   border: 2px solid blue;
 }
 
-app-footer{
+app-footer {
   grid-area: footer;
   background: black;
 }
 
+.error-message {
+  width: 100%;
+  position: absolute;
+  top: 4%;
+  color: red;
+  z-index: 15;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
 

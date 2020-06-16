@@ -21,11 +21,27 @@
 }
 
 .sign-in-form {
+  position: relative;
   padding: 1rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.error-message{
+  color: red;
+  width: 100%;
+  text-align: center;
+}
+
+.spinner {
+  position: absolute;
+  top: 40%;
+}
+
+.hide-element {
+  opacity: 0;
 }
 
 mat-form-field {
@@ -43,6 +59,7 @@ button {
 
 .forgot-password-link {
   width: 100%;
+  max-width: 30rem;
   color: dodgerblue;
   cursor: pointer;
   text-align: right;
@@ -115,13 +132,22 @@ hr {
     color: #eceeea;
   }
 
-  .sign-in-with-provider-button{
+  .sign-in-with-provider-button {
     width: 95%;
+  }
+
+  .spinner {
+    top: 45%;
+    left: 25%;
   }
 }
 
 @media (min-width: 90rem) {
   .container {
     grid-template-columns: 30% 5% 30%;
+  }
+
+  .spinner{
+    left: 30%;
   }
 }

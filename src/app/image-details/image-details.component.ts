@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Image} from '../gallery/image.model';
 import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
+import {BasketService} from '../basket/basket-service';
 
 @Component({
   selector: 'app-image-details',
@@ -10,9 +11,11 @@ import {ImagesService} from '../gallery/images-service';
 })
 export class ImageDetailsComponent implements OnInit {
   image: Image;
+  quantity = 1;
 
   constructor(private route: ActivatedRoute,
-              private imageService: ImagesService) {
+              private imageService: ImagesService,
+              private basketService: BasketService) {
   }
 
   ngOnInit(): void {
@@ -22,4 +25,7 @@ export class ImageDetailsComponent implements OnInit {
     });
   }
 
+  onAddToBasket() {
+    this.basketService.updateBasket(this.image, this.quantity);
+  }
 }

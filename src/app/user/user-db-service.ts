@@ -1,0 +1,49 @@
+import {Injectable} from '@angular/core';
+import {UserService} from './user-service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {UserDataModel} from './user-data.model';
+import {map, tap} from 'rxjs/operators';
+import {BasketItemModel} from '../basket/basket-item.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserDbService {
+  constructor(private db: AngularFirestore,
+              private userService: UserService) {
+  }
+
+  fetchUserData(userId: string) {
+    return this.db.collection('users').doc(userId).get().pipe(map(data => {
+      let userData;
+      const loggedUserData = data.data();
+      if (loggedUserData) {
+        userData = new UserDataModel(
+          loggedUserData.id,
+          loggedUserData.email,
+          loggedUserData.firstName,
+          loggedUserData.lastName,
+          loggedUserData.phone,
+          loggedUserData.addressLine1,
+          loggedUserData.addressLine2,
+          loggedUserData.city,
+          loggedUserData.postCode,
+          loggedUserData.county,
+          loggedUserData.basket
+        );
+      }
+      return userData;
+    }), tap(userData => {
+      this.userService.setUserData(userData);
+    })).toPromise<UserDataModel>();
+  }
+
+  updateBasket(newBasket: BasketItemModel[], userId) {
+    this.db.collection('users').doc(userId).update({
+      basket: newBasket
+    }).then(() => {
+        this.userService.updateBasket(newBasket);
+      }
+    );
+  }
+}

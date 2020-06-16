@@ -21,6 +21,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {FormsModule} from '@angular/forms';
+import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-await-spinner.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {FormsModule} from '@angular/forms';
     ImageDetailsComponent,
     LoginComponent,
     RegisterComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AuthAwaitSpinnerComponent
   ],
   imports: [
     BrowserModule,

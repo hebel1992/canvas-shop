@@ -29,9 +29,12 @@
     </li>
   </ul>
 
-  <ul class="desktop-options">
+  <ul *ngIf="loadingAuthState" class="loadingAuthStateSpinner">
+    <app-auth-await-spinner></app-auth-await-spinner>
+  </ul>
+  <ul #authStateElement class="desktop-options">
     <li class="desktop-options__item">
-      <fa-icon [icon]="faShoppingCart"></fa-icon>
+      <fa-icon [icon]="faShoppingCart"></fa-icon><span *ngIf="basket && basket.length>0" style="color: black">{{basket.length}}</span>
     </li>
     <li class="desktop-options__item" *ngIf="!isAuthenticated">
       <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
@@ -54,6 +57,7 @@
     <span class="toggle-button__bar"></span>
   </button>
 </header>
+<p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
 <div #mobileNav class="mobile-nav" [ngClass]="{'show-mobile-nav': showMobileNav}">
   <ul class="mobile-nav__items">
     <li>
@@ -82,7 +86,9 @@
         YouTube</a>
     </li>
     <li>
-      <a><fa-icon [icon]="faShoppingCart"></fa-icon></a>
+      <a>
+        <fa-icon [icon]="faShoppingCart"></fa-icon><span *ngIf="basket && basket.length>0" style="color: black">{{basket.length}}</span>
+      </a>
     </li>
     <li *ngIf="!isAuthenticated">
       <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
@@ -99,7 +105,7 @@
     </li>
     <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">
       <p class="mobile-nav-settings__item">Settings</p>
-      <p class="mobile-nav-settings__item">Log out</p>
+      <p class="mobile-nav-settings__item" (click)="onLogoutClick()">Log out</p>
     </li>
   </ul>
 </div>
@@ -110,6 +116,6 @@
 <div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
   <ul class="settings-items">
     <li>Profile</li>
-    <li>Log out</li>
+    <li (click)="onLogoutClick()">Log out</li>
   </ul>
 </div>

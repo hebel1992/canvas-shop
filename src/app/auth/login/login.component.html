@@ -3,7 +3,10 @@
     <h1 class="greetings">Hello</h1>
     <p>Please sign in or <a><span class="register-link" routerLink="/register">create an account</span></a></p>
   </div>
-  <div class="sign-in-form" *ngIf="!isLoading">
+  <div class="spinner" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="sign-in-form" [ngClass]="{'hide-element': isLoading}">
     <h2 class="sign-in-form__title">Sign in</h2>
     <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
       <mat-form-field appearance="outline">
@@ -39,6 +42,7 @@
       </button>
     </form>
     <p class="forgot-password-link">Forgot password?</p>
+    <p class="error-message" *ngIf="signInError">{{signInError}}</p>
   </div>
   <hr>
   <div class="sign-in-with-provider">

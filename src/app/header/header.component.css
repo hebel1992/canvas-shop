@@ -118,6 +118,14 @@ a:active {
   transition: transform 500ms ease-out;
 }
 
+.display-mobile-nav {
+  display: inline-block;
+}
+
+.hide-mobile-nav {
+  display: none;
+}
+
 .show-mobile-nav {
   transform: translateY(0);
 }
@@ -192,6 +200,22 @@ a:active {
 
 .active {
   color: #e0e2de;
+}
+
+.loadingAuthStateSpinner{
+  margin: 0;
+  position: fixed;
+  right: 6%;
+}
+
+.error-message{
+  position: fixed;
+  z-index: 15;
+  color: red;
+  top:4%;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
 }
 
 @media (min-width: 72rem) {
