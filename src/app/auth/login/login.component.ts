@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {faFacebookSquare, faGoogle} from '@fortawesome/free-brands-svg-icons';
 import {faEnvelope, faUnlock} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +17,28 @@ export class LoginComponent implements OnInit {
   faUser = faEnvelope;
   faPassword = faUnlock;
 
-  constructor() { }
+  signInError: string;
+  isLoading = false;
 
-  ngOnInit(): void {
+  constructor(private router: Router,
+              private authService: AuthService) {
   }
 
+  ngOnInit() {
+  }
+
+  onLogin(loginForm: NgForm) {
+    this.isLoading = true;
+    const email = loginForm.value.emailLog;
+    const password = loginForm.value.passwordLog;
+
+    this.authService.login(email, password).then(resp => {
+      this.signInError = null;
+      this.isLoading = false;
+      this.router.navigate(['/']);
+    }).catch(err => {
+      this.isLoading = false;
+      this.signInError = err;
+    });
+  }
 }

@@ -18,6 +18,9 @@ import {MaterialModule} from './material/material.module';
 import { LoginComponent } from './auth/login/login.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegisterComponent } from './auth/register/register.component';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,17 +32,20 @@ import { RegisterComponent } from './auth/register/register.component';
     PageNotFoundComponent,
     ImageDetailsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
+    FormsModule,
     AppRoutingModule,
     FontAwesomeModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

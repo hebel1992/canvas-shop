@@ -3,23 +3,41 @@
     <h1 class="greetings">Hello</h1>
     <p>Please sign in or <a><span class="register-link" routerLink="/register">create an account</span></a></p>
   </div>
-  <div class="sign-in-form">
+  <div class="sign-in-form" *ngIf="!isLoading">
     <h2 class="sign-in-form__title">Sign in</h2>
-    <mat-form-field appearance="outline">
-      <mat-label>
-        <fa-icon [icon]="faUser"></fa-icon>
-        Email
-      </mat-label>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>
-        <fa-icon [icon]="faPassword"></fa-icon>
-        Password
-      </mat-label>
-      <input matInput type="password">
-    </mat-form-field>
-    <button mat-raised-button color="primary">Sign in</button>
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <mat-form-field appearance="outline">
+        <mat-label>
+          <fa-icon [icon]="faUser"></fa-icon>
+          Email
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="emailLog"
+               #emailLog="ngModel"
+               required
+               email>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          <fa-icon [icon]="faPassword"></fa-icon>
+          Password
+        </mat-label>
+        <input matInput
+               type="password"
+               ngModel
+               name="passwordLog"
+               #passwordLog="ngModel"
+               required>
+      </mat-form-field>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid"
+      >Sign in
+      </button>
+    </form>
     <p class="forgot-password-link">Forgot password?</p>
   </div>
   <hr>
