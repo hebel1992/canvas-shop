@@ -1,10 +1,22 @@
 <app-loading-spinner *ngIf="loadingBasket" class="spinner"></app-loading-spinner>
 <div class="container" #basketContainer>
   <h1 class="container-title">Shopping cart</h1>
+  <p *ngIf="basket && basket.length<1" class="empty-cart-message">Your cart is empty</p>
   <app-basket-item *ngFor="let item of basket"
                    [imageId]="item.imageId"
                    [quantity]="item.quantity"
                    (quantityChanged)="updateQuantity($event, item.imageId)"
                    (itemDeleted)="deleteElement(item.imageId)"
   ></app-basket-item>
+  <div class="summary-container" *ngIf="basket && basket.length>0">
+    <div class="continue-shopping" routerLink="/gallery">
+      <span>
+        Continue shopping
+      </span>
+    </div>
+    <div class="total-price">
+      <span class="total-price__text">Total: <span class="total-price__amount">£{{summary}}</span></span>
+      <button mat-raised-button color="primary" class="total-price__button">Checkout</button>
+    </div>
+  </div>
 </div>

@@ -13,6 +13,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   basket: BasketItemModel[];
   basketSubscription: Subscription;
   loadingBasket = false;
+  summary = 0;
 
   @ViewChild('basketContainer', {static: true}) basketContainer: ElementRef;
 
@@ -22,12 +23,19 @@ export class BasketComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const htmlElement = this.basketContainer.nativeElement as HTMLElement;
     this.basket = this.basketService.getBasket();
+
+    if (this.basket) {
+      this.summary = this.basketService.setAndGetSummary(this.basket);
+    }
+
     if (!this.basket) {
       htmlElement.style.opacity = '0';
       this.loadingBasket = true;
     }
+
     this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
       this.basket = basket;
+      this.summary = this.basketService.setAndGetSummary(this.basket);
       this.loadingBasket = false;
       htmlElement.style.opacity = '1';
     });

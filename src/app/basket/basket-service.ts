@@ -88,6 +88,8 @@ export class BasketService {
     const foundByIndex = this.basket.findIndex(item => item.imageId === id);
     this.basket[foundByIndex] = image;
 
+    this.basketChanged.next(this.basket);
+
     this.updateGlobalBasket();
   }
 

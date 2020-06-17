@@ -66,9 +66,14 @@ a:active {
   color: #eceeea;
 }
 
+.desktop-options__item:focus{
+  outline: none;
+}
+
 .desktop-options__item fa-icon {
   font-size: 1.7rem;
 }
+
 
 .desktop-options__item:nth-child(2) span,
 .desktop-options__item:nth-child(3) span {
