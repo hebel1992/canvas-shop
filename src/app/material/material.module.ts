@@ -4,13 +4,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const MaterialComponents = [
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
   MatBadgeModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 ];
 
 @NgModule({

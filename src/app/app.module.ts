@@ -23,6 +23,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import {FormsModule} from '@angular/forms';
 import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-await-spinner.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import {DialogComponent} from './shared/dialog/dialog.component';
+import {CanDeactivateGuard} from './user/can-deactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     RegisterComponent,
     LoadingSpinnerComponent,
     AuthAwaitSpinnerComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
