@@ -12,6 +12,7 @@ import {BasketService} from '../basket/basket-service';
 export class ImageDetailsComponent implements OnInit {
   image: Image;
   quantity = 1;
+  errorMessage: string;
 
   constructor(private route: ActivatedRoute,
               private imageService: ImagesService,
@@ -26,6 +27,8 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onAddToBasket() {
-    this.basketService.updateBasket(this.image, this.quantity);
+    this.basketService.updateBasket(this.image, this.quantity).catch(err => {
+      this.errorMessage = err.message;
+    });
   }
 }

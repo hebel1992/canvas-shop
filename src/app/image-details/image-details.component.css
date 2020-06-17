@@ -42,6 +42,14 @@ button {
   font-size: 2rem;
 }
 
+.error-message{
+  color: red;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  top:7.5%
+}
+
 @media (min-width: 50rem) {
   img {
     max-width: 30rem;

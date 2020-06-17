@@ -84,7 +84,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.errorMessage = err.message;
       });
     } else {
-      this.errorMessage = 'You are not logged in';
+      this.errorMessage = 'You are not logged in!';
     }
   }
 

@@ -103,9 +103,15 @@
                [ngModel]="currentUser ? currentUser.postCode: ''"
         >
       </mat-form-field>
-      <mat-form-field class="wide-grid-element">
+      <mat-form-field class="wide-grid-element"
+      >
         <mat-label>County</mat-label>
-        <mat-select [value]="currentUser? currentUser.county : null">
+        <mat-select
+          ngModel
+          name="county"
+          #county="ngModel"
+          [ngModel]="currentUser ? currentUser.county: null"
+        >
           <mat-optgroup label="England">
             <mat-option *ngFor="let county of countiesOfEngland"
                         value="{{county}}"
@@ -130,8 +136,8 @@
       </mat-form-field>
     </div>
     <div class="form-buttons">
-      <button mat-raised-button color="primary">Save</button>
-      <button mat-button routerLink="/gallery">Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button mat-button routerLink="/gallery" type="button">Cancel</button>
     </div>
   </form>
 </div>

@@ -47,11 +47,12 @@ export class UserDbService {
       addressLine2: userData.addressLine2,
       city: userData.city,
       postCode: userData.postCode,
+      county: userData.county
     });
   }
 
   updateBasket(newBasket: BasketItemModel[], userId) {
-    this.db.collection('users').doc(userId).update({
+    return this.db.collection('users').doc(userId).update({
       basket: newBasket
     }).then(() => {
         this.userService.updateBasket(newBasket);
