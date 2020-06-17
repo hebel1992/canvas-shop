@@ -33,7 +33,7 @@
     <app-auth-await-spinner></app-auth-await-spinner>
   </ul>
   <ul #authStateElement class="desktop-options">
-    <li class="desktop-options__item">
+    <li class="desktop-options__item" routerLink="/basket">
       <div [matBadgeHidden]="!basket || basket.length<1"
            [matBadge]="basket ? basket.length : null"
            matBadgeSize="medium"
@@ -91,7 +91,7 @@
         YouTube</a>
     </li>
     <li>
-      <a>
+      <a routerLink="/basket">
         <div style="display: inline-block" [matBadgeHidden]="!basket || basket.length<1"
              [matBadge]="basket ? basket.length : null"
              matBadgeSize="medium"

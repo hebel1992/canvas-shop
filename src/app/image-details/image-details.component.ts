@@ -27,8 +27,6 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onAddToBasket() {
-    this.basketService.updateBasket(this.image, this.quantity).catch(err => {
-      this.errorMessage = err.message;
-    });
+    this.basketService.updateBasket(this.image, this.quantity);
   }
 }

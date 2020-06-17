@@ -70,7 +70,7 @@ export class BasketService {
 
     if (this.userService.getCurrentUser()) {
       const userId = this.userService.getCurrentUser().id;
-      return this.userDbService.updateBasket(this.basket, userId);
+      this.userDbService.updateBasket(this.basket, userId);
     } else {
       this.setLocalStorageBasket(this.basket);
     }

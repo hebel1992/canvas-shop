@@ -1,0 +1,7 @@
+<div class="container">
+  <h1 class="container-title">Shopping cart</h1>
+  <app-basket-item *ngFor="let item of basket"
+                   [imageId]="item.imageId"
+                   [quantity]="item.quantity"
+  ></app-basket-item>
+</div>

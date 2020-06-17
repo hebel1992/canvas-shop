@@ -1,0 +1,15 @@
+<div class="container">
+  <img src="{{image.imageUrl}}" alt="Photo" class="image">
+  <div class="quantity-element">
+    <span>Quantity:</span>
+    <div class="quantity-element__action">
+      <button> - </button>
+      <input type="text" [(ngModel)]="quantity">
+      <button> + </button>
+    </div>
+  </div>
+  <div class="price">£{{image.price}}</div>
+  <fa-icon [icon]="faBin"
+           class="bin"
+  ></fa-icon>
+</div>

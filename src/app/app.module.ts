@@ -25,6 +25,8 @@ import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-awai
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import {DialogComponent} from './shared/dialog/dialog.component';
 import {CanDeactivateGuard} from './user/can-deactivate-guard.service';
+import { BasketComponent } from './basket/basket.component';
+import { BasketItemComponent } from './basket/basket-item/basket-item.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {CanDeactivateGuard} from './user/can-deactivate-guard.service';
     LoadingSpinnerComponent,
     AuthAwaitSpinnerComponent,
     UserProfileComponent,
-    DialogComponent
+    DialogComponent,
+    BasketComponent,
+    BasketItemComponent
   ],
   imports: [
     BrowserModule,
