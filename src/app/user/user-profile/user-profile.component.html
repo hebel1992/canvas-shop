@@ -1,5 +1,6 @@
 <div class="container">
-  <form class="form-container" #form="ngForm" #formElement>
+  <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+  <form (ngSubmit)="onUserUpdate(form)" class="form-container" #form="ngForm" #formElement>
     <h1 class="section-title">Personal details</h1>
     <div class="form-section">
       <mat-form-field appearance="standard">
@@ -88,17 +89,6 @@
                name="city"
                #city="ngModel"
                [ngModel]="currentUser ? currentUser.city: ''"
-        >
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>
-          City/Town
-        </mat-label>
-        <input matInput
-               type="text"
-               ngModel
-               name="city"
-               #city="ngModel"
         >
       </mat-form-field>
       <mat-form-field appearance="standard">

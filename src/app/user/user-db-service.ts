@@ -38,6 +38,18 @@ export class UserDbService {
     })).toPromise<UserDataModel>();
   }
 
+  updateData(userData, userId: string) {
+    return this.db.collection('users').doc(userId).update({
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      phone: userData.phone,
+      addressLine1: userData.addressLine1,
+      addressLine2: userData.addressLine2,
+      city: userData.city,
+      postCode: userData.postCode,
+    });
+  }
+
   updateBasket(newBasket: BasketItemModel[], userId) {
     this.db.collection('users').doc(userId).update({
       basket: newBasket

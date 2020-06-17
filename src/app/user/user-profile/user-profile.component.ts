@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../user-service';
 import {UserDataModel} from '../user-data.model';
 import {Observable, Subscription} from 'rxjs';
@@ -6,17 +6,20 @@ import {map} from 'rxjs/operators';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
+import {UserDbService} from '../user-db-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   currentUser: UserDataModel;
   userSubscription: Subscription;
   loadingUserData = false;
   changesSaved = false;
+  errorMessage: string;
 
   countiesOfEngland;
   countiesOfScotland;
@@ -27,6 +30,8 @@ export class UserProfileComponent implements OnInit {
   @ViewChild('formElement', {static: true}) formElement: ElementRef;
 
   constructor(private userService: UserService,
+              private userDbService: UserDbService,
+              private router: Router,
               private dialog: MatDialog) {
   }
 
@@ -64,5 +69,26 @@ export class UserProfileComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  onUserUpdate(form: NgForm) {
+    if (this.currentUser) {
+      this.userDbService.updateData(form.form.value, this.currentUser.id).then(() => {
+        this.changesSaved = true;
+        this.userDbService.fetchUserData(this.currentUser.id).catch(err => {
+          throw new Error(err);
+        }).then(() => {
+          this.router.navigate(['/gallery']);
+        });
+      }).catch(err => {
+        this.errorMessage = err.message;
+      });
+    } else {
+      this.errorMessage = 'You are not logged in';
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 }
