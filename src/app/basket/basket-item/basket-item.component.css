@@ -47,13 +47,15 @@
 
 .bin {
   color: red;
+  cursor: pointer;
 }
+
 
 @media (min-width: 60rem) {
   .container {
     flex-direction: row;
     justify-content: space-between;
-    width: 60vw;
+    width: 50vw;
     align-items: center;
     padding: 2rem
   }

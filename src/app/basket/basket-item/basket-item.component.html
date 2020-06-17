@@ -3,13 +3,14 @@
   <div class="quantity-element">
     <span>Quantity:</span>
     <div class="quantity-element__action">
-      <button> - </button>
+      <button (click)="onDecreaseQuantity()"> - </button>
       <input type="text" [(ngModel)]="quantity">
-      <button> + </button>
+      <button (click)="onIncreaseQuantity()"> + </button>
     </div>
   </div>
   <div class="price">£{{image.price}}</div>
   <fa-icon [icon]="faBin"
            class="bin"
+           (click)="onDelete()"
   ></fa-icon>
 </div>

@@ -14,3 +14,9 @@
 app-basket-item{
   margin: 1rem 0;
 }
+
+.spinner {
+  position: fixed;
+  top:40%;
+  left:50%;
+}

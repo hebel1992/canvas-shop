@@ -7,7 +7,7 @@ import {UserDbService} from '../user/user-db-service';
 
 @Injectable({providedIn: 'root'})
 export class BasketService {
-  basket: BasketItemModel[] = [];
+  basket: BasketItemModel[];
   basketChanged = new Subject<BasketItemModel[]>();
   getSummary = new Subject<number>();
 
@@ -16,7 +16,9 @@ export class BasketService {
   }
 
   getBasket() {
-    return this.basket.slice();
+    if (this.basket) {
+      return this.basket.slice();
+    }
   }
 
   setBasket(basket: BasketItemModel[]) {
@@ -68,17 +70,39 @@ export class BasketService {
     }
     this.basketChanged.next(this.basket);
 
-    if (this.userService.getCurrentUser()) {
-      const userId = this.userService.getCurrentUser().id;
-      this.userDbService.updateBasket(this.basket, userId);
-    } else {
-      this.setLocalStorageBasket(this.basket);
-    }
+    this.updateGlobalBasket();
+  }
+
+  deleteItem(itemId: string) {
+    const foundByIndex = this.basket.findIndex(item => item.imageId === itemId);
+    this.basket.splice(foundByIndex, 1);
+
+    this.basketChanged.next(this.basket);
+
+    this.updateGlobalBasket();
+  }
+
+  updateQuantity(value: number, id: string) {
+    const image = this.basket.find(item => item.imageId === id);
+    image.quantity = +image.quantity + value;
+    const foundByIndex = this.basket.findIndex(item => item.imageId === id);
+    this.basket[foundByIndex] = image;
+
+    this.updateGlobalBasket();
   }
 
   private setLocalStorageBasket(basket: BasketItemModel[]) {
     this.basket = basket;
     localStorage.setItem('basket', JSON.stringify(basket));
     this.basketChanged.next(this.basket);
+  }
+
+  private updateGlobalBasket() {
+    if (this.userService.getCurrentUser()) {
+      const userId = this.userService.getCurrentUser().id;
+      this.userDbService.updateBasket(this.basket, userId);
+    } else {
+      this.setLocalStorageBasket(this.basket);
+    }
   }
 }

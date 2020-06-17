@@ -1,7 +1,10 @@
-<div class="container">
+<app-loading-spinner *ngIf="loadingBasket" class="spinner"></app-loading-spinner>
+<div class="container" #basketContainer>
   <h1 class="container-title">Shopping cart</h1>
   <app-basket-item *ngFor="let item of basket"
                    [imageId]="item.imageId"
                    [quantity]="item.quantity"
+                   (quantityChanged)="updateQuantity($event, item.imageId)"
+                   (itemDeleted)="deleteElement(item.imageId)"
   ></app-basket-item>
 </div>
