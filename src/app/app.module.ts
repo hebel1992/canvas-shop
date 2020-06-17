@@ -22,6 +22,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import {FormsModule} from '@angular/forms';
 import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-await-spinner.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-awai
     LoginComponent,
     RegisterComponent,
     LoadingSpinnerComponent,
-    AuthAwaitSpinnerComponent
+    AuthAwaitSpinnerComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,148 @@
+<div class="container">
+  <form class="form-container" #formElement>
+    <h1 class="section-title">Personal details</h1>
+    <div class="form-section">
+      <mat-form-field appearance="standard">
+        <mat-label>
+          First name
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="firstName"
+               #firstName="ngModel"
+               [ngModel]="currentUser ? currentUser.firstName: ''"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>
+          Last name
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="lastName"
+               #lastName="ngModel"
+               [ngModel]="currentUser ? currentUser.lastName: ''"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="wide-grid-element">
+        <mat-label>
+          Email
+        </mat-label>
+        <input matInput
+               type="email"
+               ngModel
+               name="email"
+               #email="ngModel"
+               [ngModel]="currentUser ? currentUser.email: ''"
+               disabled
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="wide-grid-element">
+        <mat-label>
+          Phone number
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="phone"
+               #phone="ngModel"
+               [ngModel]="currentUser ? currentUser.phone: ''"
+        >
+      </mat-form-field>
+    </div>
+    <h1 class="section-title">Shipping address</h1>
+    <div class="form-section">
+      <mat-form-field appearance="standard" class="wide-grid-element">
+        <mat-label>
+          Address line 1
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="addressLine1"
+               #addressLine1="ngModel"
+               [ngModel]="currentUser ? currentUser.addressLine1: ''"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard" class="wide-grid-element">
+        <mat-label>
+          Address line 2
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="addressLine2"
+               #addressLine2="ngModel"
+               [ngModel]="currentUser ? currentUser.addressLine2: ''"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>
+          City/Town
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="city"
+               #city="ngModel"
+               [ngModel]="currentUser ? currentUser.city: ''"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>
+          City/Town
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="city"
+               #city="ngModel"
+        >
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>
+          Post code
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="postCode"
+               #postCode="ngModel"
+               [ngModel]="currentUser ? currentUser.postCode: ''"
+        >
+      </mat-form-field>
+      <mat-form-field class="wide-grid-element">
+        <mat-label>County</mat-label>
+        <mat-select [value]="currentUser? currentUser.county : null">
+          <mat-optgroup label="England">
+            <mat-option *ngFor="let county of countiesOfEngland"
+                        value="{{county}}"
+            >{{county}}</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Scotland">
+            <mat-option *ngFor="let county of countiesOfScotland"
+                        value="{{county}}"
+            >{{county}}</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Wales">
+            <mat-option *ngFor="let county of countiesOfWales"
+                        value="{{county}}"
+            >{{county}}</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Northern Ireland">
+            <mat-option *ngFor="let county of countiesOfNorthernIreland"
+                        value="{{county}}"
+            >{{county}}</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-buttons">
+      <button mat-raised-button color="primary">Save</button>
+      <button mat-button routerLink="/gallery">Cancel</button>
+    </div>
+  </form>
+</div>
+<app-loading-spinner class="spinner" *ngIf="loadingUserData"></app-loading-spinner>

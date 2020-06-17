@@ -114,7 +114,7 @@
       </div>
     </li>
     <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">
-      <p class="mobile-nav-settings__item">Settings</p>
+      <p class="mobile-nav-settings__item" routerLink="/profile">Profile</p>
       <p class="mobile-nav-settings__item" (click)="onLogoutClick()">Log out</p>
     </li>
   </ul>
@@ -125,7 +125,7 @@
 
 <div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
   <ul class="settings-items">
-    <li>Profile</li>
+    <li routerLink="/profile">Profile</li>
     <li (click)="onLogoutClick()">Log out</li>
   </ul>
 </div>
