@@ -32,7 +32,9 @@ export class AppComponent implements OnInit {
     this.auth.authState.subscribe(user => {
       if (user) {
         this.userDbService.fetchUserData(user.uid).then(userData => {
-          this.basketService.setBasket(userData.basket);
+          if (userData) {
+            this.basketService.setBasket(userData.basket);
+          }
         }).catch(err => {
           this.error = err.message;
         });

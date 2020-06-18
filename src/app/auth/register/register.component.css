@@ -28,3 +28,36 @@ button {
   width: 100%;
   height: 3rem;
 }
+
+.message {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 15%;
+}
+
+.error {
+  color: red;
+}
+
+.success{
+  color: green;
+  font-weight: bold;
+}
+
+.spinner{
+  position: absolute;
+  left: 40%;
+  top: 40%;
+}
+
+@media (min-width: 40rem) {
+  .message{
+    top: 15%;
+  }
+
+  .spinner{
+    left: 47%;
+    top: 30%;
+  }
+}

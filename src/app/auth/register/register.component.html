@@ -1,29 +1,50 @@
-<div class="container">
+<p *ngIf="success" class="message success">{{success}}</p>
+<p *ngIf="error" class="message error">{{error}}</p>
+<app-loading-spinner *ngIf="isLoading" class="spinner"></app-loading-spinner>
+<div class="container" *ngIf="!isLoading">
   <div class="page-title">
     <h1>Create account</h1>
   </div>
-  <div class="sign-up-form">
+  <form class="sign-up-form" #signUpForm="ngForm" (ngSubmit)="onCreateAccountSubmit(signUpForm)">
     <mat-form-field appearance="outline">
       <mat-label>
         <fa-icon [icon]="faUser"></fa-icon>
         Email
       </mat-label>
-      <input matInput>
+      <input matInput
+             type="text"
+             ngModel
+             #email="ngModel"
+             name="email"
+             required
+             email="">
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>
         <fa-icon [icon]="faPassword"></fa-icon>
-        Password
+        Password (min. 6 characters)
       </mat-label>
-      <input matInput type="password">
+      <input matInput
+             type="password"
+             ngModel
+             #password="ngModel"
+             name="password"
+             required
+             minlength="6">
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>
         <fa-icon [icon]="faPassword"></fa-icon>
         Confirm password
       </mat-label>
-      <input matInput type="password">
+      <input matInput
+             type="password"
+             ngModel
+             #password2="ngModel"
+             name="password2"
+             required
+             minlength="6">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Sign up</button>
-  </div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">Sign up</button>
+  </form>
 </div>
