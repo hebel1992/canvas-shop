@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
 import {BasketService} from '../basket/basket-service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-image-details',

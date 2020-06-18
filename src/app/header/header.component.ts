@@ -31,6 +31,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userSubscription: Subscription;
   basketSubscription: Subscription;
+  basketAnimationSubscription: Subscription;
+  animationActive = false;
   errorMessage = null;
   basket: BasketItemModel[];
 
@@ -58,6 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadingAuthState = true;
     const htmlElement = this.authStateElement.nativeElement as HTMLElement;
     htmlElement.style.opacity = '0';
+
     this.userSubscription = this.userService.userDataChanged.subscribe(userData => {
       if (userData) {
         this.isAuthenticated = true;
@@ -67,10 +70,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.loadingAuthState = false;
       htmlElement.style.opacity = '1';
     });
+
     this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
       this.basket = basket;
       this.loadingAuthState = false;
       htmlElement.style.opacity = '1';
+    });
+
+    this.basketAnimationSubscription = this.basketService.basketAnimation.subscribe(() => {
+      this.animationActive = true;
+      setTimeout(() => {
+        this.animationActive = false;
+      }, 2000);
     });
   }
 
@@ -108,5 +119,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     this.basketSubscription.unsubscribe();
+    this.basketAnimationSubscription.unsubscribe();
   }
 }

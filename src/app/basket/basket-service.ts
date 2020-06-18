@@ -9,6 +9,7 @@ import {UserDbService} from '../user/user-db-service';
 export class BasketService {
   basket: BasketItemModel[];
   basketChanged = new Subject<BasketItemModel[]>();
+  basketAnimation = new Subject<any>();
   getSummary = new Subject<number>();
 
   constructor(private userDbService: UserDbService,
@@ -69,6 +70,7 @@ export class BasketService {
       });
     }
     this.basketChanged.next(this.basket);
+    this.basketAnimation.next();
 
     this.updateGlobalBasket();
   }

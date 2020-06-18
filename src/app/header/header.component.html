@@ -37,6 +37,7 @@
       <div [matBadgeHidden]="!basket || basket.length<1"
            [matBadge]="basket ? basket.length : null"
            matBadgeSize="medium"
+           [ngClass]="{'animate-basket':animationActive}"
       >
         <fa-icon [icon]="faShoppingCart"></fa-icon>
       </div>
