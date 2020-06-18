@@ -69,6 +69,14 @@ app-basket-item {
   outline: none;
 }
 
+.error{
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
 @media (min-width: 60rem) {
   .summary-container{
     flex-direction: row;

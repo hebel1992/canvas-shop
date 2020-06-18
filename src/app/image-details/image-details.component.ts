@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
 import {BasketService} from '../basket/basket-service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-image-details',
@@ -31,7 +30,9 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onAddToBasket() {
-    this.basketService.updateBasket(this.image, this.quantity);
+    this.basketService.updateBasket(this.image, this.quantity).catch(err => {
+      this.errorMessage = err;
+    });
     this.snackBar.open('Product added to basket!', 'Dismiss', {
       duration: 3000
     });

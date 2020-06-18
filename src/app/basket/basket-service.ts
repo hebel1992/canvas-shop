@@ -72,7 +72,7 @@ export class BasketService {
     this.basketChanged.next(this.basket);
     this.basketAnimation.next();
 
-    this.updateGlobalBasket();
+    return this.updateGlobalBasket();
   }
 
   deleteItem(itemId: string) {
@@ -81,7 +81,7 @@ export class BasketService {
 
     this.basketChanged.next(this.basket);
 
-    this.updateGlobalBasket();
+    return this.updateGlobalBasket();
   }
 
   updateQuantity(value: number, id: string) {
@@ -92,7 +92,7 @@ export class BasketService {
 
     this.basketChanged.next(this.basket);
 
-    this.updateGlobalBasket();
+    return this.updateGlobalBasket();
   }
 
   private setLocalStorageBasket(basket: BasketItemModel[]) {
@@ -101,10 +101,10 @@ export class BasketService {
     this.basketChanged.next(this.basket);
   }
 
-  private updateGlobalBasket() {
+  private async updateGlobalBasket() {
     if (this.userService.getCurrentUser()) {
       const userId = this.userService.getCurrentUser().id;
-      this.userDbService.updateBasket(this.basket, userId);
+      await this.userDbService.updateBasket(this.basket, userId);
     } else {
       this.setLocalStorageBasket(this.basket);
     }

@@ -20,68 +20,57 @@ export class AuthService {
               private userDbService: UserDbService) {
   }
 
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
     const session = firebase.auth.Auth.Persistence.SESSION;
-    return this.auth.setPersistence(session).then(() => {
-      return this.auth.signInWithEmailAndPassword(email, password).then(() => {
-        this.basketService.destroyLocalStorageBasket();
-      });
-    });
+
+    await this.auth.setPersistence(session);
+    await this.auth.signInWithEmailAndPassword(email, password);
+    this.basketService.destroyLocalStorageBasket();
   }
 
   async register(email: string, password: string) {
     const session = firebase.auth.Auth.Persistence.SESSION;
 
-    try {
-      await this.auth.setPersistence(session);
-      const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
-      await this.createUserProfile(userCredential);
-    } catch (err) {
-      throw new Error(err);
-    }
+    await this.auth.setPersistence(session);
+    const userCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+    await this.createUserProfile(userCredential);
   }
 
-  logout() {
-    return this.auth.signOut().then(() => {
-      this.router.navigate(['/']);
-      this.userService.setUserData(null);
-    });
+  async logout() {
+    await this.auth.signOut();
+    this.userService.setUserData(null);
+    await this.router.navigate(['/']);
   }
 
-  resetPassword(email: string) {
-    return this.auth.sendPasswordResetEmail(email);
+  async resetPassword(email: string) {
+    await this.auth.sendPasswordResetEmail(email);
   }
 
   private async createUserProfile(cred: firebase.auth.UserCredential) {
-    try {
-      const userRef = await this.db.collection('users').doc(cred.user.uid).ref.get();
-
-      if (!userRef.exists) {
-        let localBasket: BasketItemModel[] = [];
-        if (localStorage.getItem('basket')) {
-          localBasket = JSON.parse(localStorage.getItem('basket'));
-          localStorage.removeItem('basket');
-        }
-        await this.db.collection('users').doc(cred.user.uid).set({
-          id: cred.user.uid,
-          firstName: '',
-          lastName: '',
-          email: cred.user.email,
-          phone: '',
-          addressLine1: '',
-          addressLine2: '',
-          city: '',
-          postCode: '',
-          county: '',
-          basket: localBasket,
-          shoppingHistory: []
-        });
-      } else {
+    const userRef = await this.db.collection('users').doc(cred.user.uid).ref.get();
+    if (!userRef.exists) {
+      let localBasket: BasketItemModel[] = [];
+      if (localStorage.getItem('basket')) {
+        localBasket = JSON.parse(localStorage.getItem('basket'));
         localStorage.removeItem('basket');
       }
-      await this.userDbService.fetchUserData(cred.user.uid);
-    } catch (err) {
-      throw new Error(err);
+      await this.db.collection('users').doc(cred.user.uid).set({
+        id: cred.user.uid,
+        firstName: '',
+        lastName: '',
+        email: cred.user.email,
+        phone: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        postCode: '',
+        county: '',
+        basket: localBasket,
+        shoppingHistory: []
+      });
+    } else {
+      localStorage.removeItem('basket');
     }
+    await this.userDbService.fetchUserData(cred.user.uid);
   }
 }

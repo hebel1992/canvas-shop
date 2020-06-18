@@ -14,6 +14,7 @@ export class BasketComponent implements OnInit, OnDestroy {
   basketSubscription: Subscription;
   loadingBasket = false;
   summary = 0;
+  error: string;
 
   @ViewChild('basketContainer', {static: true}) basketContainer: ElementRef;
 
@@ -23,30 +24,33 @@ export class BasketComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const htmlElement = this.basketContainer.nativeElement as HTMLElement;
     this.basket = this.basketService.getBasket();
-
     if (this.basket) {
       this.summary = this.basketService.setAndGetSummary(this.basket);
     }
 
     if (!this.basket) {
-      htmlElement.style.opacity = '0';
       this.loadingBasket = true;
+      htmlElement.style.opacity = '0';
     }
 
     this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
       this.basket = basket;
       this.summary = this.basketService.setAndGetSummary(this.basket);
-      this.loadingBasket = false;
       htmlElement.style.opacity = '1';
+      this.loadingBasket = false;
     });
   }
 
   updateQuantity(quantity: number, imageId: string) {
-    this.basketService.updateQuantity(quantity, imageId);
+    this.basketService.updateQuantity(quantity, imageId).catch(err => {
+      this.error = err;
+    });
   }
 
   deleteElement(imageId: string) {
-    this.basketService.deleteItem(imageId);
+    this.basketService.deleteItem(imageId).catch(err => {
+      this.error = err;
+    });
   }
 
   ngOnDestroy(): void {
