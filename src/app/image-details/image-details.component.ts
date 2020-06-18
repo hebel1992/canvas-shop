@@ -3,6 +3,7 @@ import {Image} from '../gallery/image.model';
 import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
 import {BasketService} from '../basket/basket-service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-image-details',
@@ -13,10 +14,12 @@ export class ImageDetailsComponent implements OnInit {
   image: Image;
   quantity = 1;
   errorMessage: string;
+  fullScreenImage = false;
 
   constructor(private route: ActivatedRoute,
               private imageService: ImagesService,
-              private basketService: BasketService) {
+              private basketService: BasketService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -28,5 +31,12 @@ export class ImageDetailsComponent implements OnInit {
 
   onAddToBasket() {
     this.basketService.updateBasket(this.image, this.quantity);
+    this.snackBar.open('Product added to basket!', 'Dismiss', {
+      duration: 3000
+    });
+  }
+
+  onImageClick() {
+    this.fullScreenImage = !this.fullScreenImage;
   }
 }

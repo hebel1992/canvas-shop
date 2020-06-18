@@ -1,6 +1,6 @@
 <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
 <div class="container">
-  <img class="image" src="{{image.imageUrl}}" alt="Photo">
+  <img class="image" src="{{image.imageUrl}}" alt="Photo" (click)="onImageClick()" [ngClass]="{'full-screen-img': fullScreenImage}">
   <div class="buttons">
     <div class="quantity">
       Quantity:
@@ -32,4 +32,5 @@
     risus, in efficitur libero
     lobortis a.</p>
 </div>
+<div class="backdrop" [ngClass]="{'show-backdrop': fullScreenImage}" (click)="onImageClick()"></div>
 

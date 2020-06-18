@@ -14,6 +14,7 @@ img {
   height: auto;
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
+  cursor: zoom-in;
 }
 
 .quantity {
@@ -42,20 +43,30 @@ button {
   font-size: 2rem;
 }
 
-.error-message{
+.error-message {
   color: red;
   position: fixed;
   width: 100%;
   text-align: center;
-  top:7.5%
+  top: 7.5%
 }
 
-@media (min-width: 50rem) {
-  img {
-    max-width: 30rem;
-    max-height: 30rem;
-  }
+.backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  z-index: 14;
+  cursor: zoom-out;
 }
+
+.show-backdrop{
+  display: block;
+}
+
 
 @media (min-width: 80rem) {
   .container {
@@ -68,9 +79,20 @@ button {
 
   img {
     grid-column: 1;
-    max-width: 28rem;
+    max-width: 30rem;
     max-height: 28rem;
     justify-self: center;
+  }
+
+  .full-screen-img {
+    position: fixed;
+    z-index: 15;
+    max-width: 60vw;
+    max-height: 95vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: zoom-out;
   }
 
   .buttons {
