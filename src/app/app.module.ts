@@ -23,10 +23,12 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import {FormsModule} from '@angular/forms';
 import { AuthAwaitSpinnerComponent } from './shared/auth-await-spinner/auth-await-spinner.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import {DialogComponent} from './shared/dialog/dialog.component';
+import {DialogComponent} from './user/user-profile/canDeactivate-dialog/dialog.component';
 import {CanDeactivateGuard} from './user/can-deactivate-guard.service';
 import { BasketComponent } from './basket/basket.component';
 import { BasketItemComponent } from './basket/basket-item/basket-item.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { ResetPasswordDialogComponent } from './auth/reset-password/reset-password-dialog/reset-password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { BasketItemComponent } from './basket/basket-item/basket-item.component'
     UserProfileComponent,
     DialogComponent,
     BasketComponent,
-    BasketItemComponent
+    BasketItemComponent,
+    ResetPasswordComponent,
+    ResetPasswordDialogComponent
   ],
   imports: [
     BrowserModule,

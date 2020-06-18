@@ -41,7 +41,7 @@
       >Sign in
       </button>
     </form>
-    <p class="forgot-password-link">Forgot password?</p>
+    <p class="forgot-password-link" (click)="resetPassword()">Forgot password?</p>
     <p class="error-message" *ngIf="signInError">{{signInError}}</p>
   </div>
   <hr>

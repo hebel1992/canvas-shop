@@ -3,7 +3,7 @@ import {UserService} from '../user-service';
 import {UserDataModel} from '../user-data.model';
 import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {DialogComponent} from '../../shared/dialog/dialog.component';
+import {DialogComponent} from './canDeactivate-dialog/dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
 import {UserDbService} from '../user-db-service';

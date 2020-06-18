@@ -26,4 +26,8 @@ export class AuthService {
       this.userService.setUserData(null);
     });
   }
+
+  resetPassword(email: string) {
+    return this.auth.sendPasswordResetEmail(email);
+  }
 }

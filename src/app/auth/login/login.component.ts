@@ -4,6 +4,8 @@ import {faEnvelope, faUnlock} from '@fortawesome/free-solid-svg-icons';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {ResetPasswordDialogComponent} from '../reset-password/reset-password-dialog/reset-password-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
   isLoading = false;
 
   constructor(private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -40,5 +43,9 @@ export class LoginComponent implements OnInit {
       this.isLoading = false;
       this.signInError = err;
     });
+  }
+
+  resetPassword() {
+    const dialogRef = this.dialog.open(ResetPasswordDialogComponent);
   }
 }
