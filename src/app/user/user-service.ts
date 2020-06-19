@@ -19,10 +19,10 @@ export class UserService {
     return this.userData;
   }
 
-  updateBasket(newBasket: BasketItemModel[]) {
-    this.userData.basket = newBasket;
-    this.userDataChanged.next(this.userData);
-  }
+  // updateBasket(newBasket: BasketItemModel[]) {
+  //   this.userData.basket = newBasket;
+  //   this.userDataChanged.next(this.userData);
+  // }
 
   getEnglandCounties(){
     return [

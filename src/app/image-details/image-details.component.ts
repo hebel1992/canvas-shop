@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Image} from '../gallery/image.model';
 import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
@@ -15,6 +15,7 @@ export class ImageDetailsComponent implements OnInit {
   quantity = 1;
   errorMessage: string;
   fullScreenImage = false;
+  private innerWidth;
 
   constructor(private route: ActivatedRoute,
               private imageService: ImagesService,
@@ -22,7 +23,13 @@ export class ImageDetailsComponent implements OnInit {
               private snackBar: MatSnackBar) {
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+  }
+
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
     this.route.params.subscribe(params => {
       const id = params.id;
       this.image = this.imageService.getImage(id);
@@ -39,6 +46,8 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onImageClick() {
-    this.fullScreenImage = !this.fullScreenImage;
+    if (this.innerWidth > 1000) {
+      this.fullScreenImage = !this.fullScreenImage;
+    }
   }
 }

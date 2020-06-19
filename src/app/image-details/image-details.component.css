@@ -17,6 +17,17 @@ img {
   cursor: zoom-in;
 }
 
+.full-screen-img {
+  position: fixed;
+  z-index: 15;
+  max-width: 60vw;
+  max-height: 95vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: zoom-out;
+}
+
 .quantity {
   display: flex;
   justify-content: center;
@@ -82,17 +93,6 @@ button {
     max-width: 30rem;
     max-height: 28rem;
     justify-self: center;
-  }
-
-  .full-screen-img {
-    position: fixed;
-    z-index: 15;
-    max-width: 60vw;
-    max-height: 95vh;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    cursor: zoom-out;
   }
 
   .buttons {

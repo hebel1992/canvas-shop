@@ -39,7 +39,7 @@ export class UserDbService {
   }
 
   async updateData(userData, userId: string) {
-    await this.db.collection('users').doc(userId).update({
+    return await this.db.collection('users').doc(userId).update({
       firstName: userData.firstName,
       lastName: userData.lastName,
       phone: userData.phone,
@@ -52,9 +52,9 @@ export class UserDbService {
   }
 
   async updateBasket(newBasket: BasketItemModel[], userId) {
-    await this.db.collection('users').doc(userId).update({
+    // this.userService.updateBasket(newBasket);
+    return await this.db.collection('users').doc(userId).update({
       basket: newBasket
     });
-    this.userService.updateBasket(newBasket);
   }
 }
