@@ -53,7 +53,7 @@ export class BasketService {
     return summary;
   }
 
-  updateBasket(image: ImageModel, qty) {
+   async updateBasket(image: ImageModel, qty) {
     const img = this.basket.find(item => item.imageId === image.id);
     if (img) {
       const newQuantity = +img.quantity + +qty;
@@ -72,19 +72,19 @@ export class BasketService {
     this.basketChanged.next(this.basket);
     this.basketAnimation.next();
 
-    return this.updateGlobalBasket();
+    await this.updateGlobalBasket();
   }
 
-  deleteItem(itemId: string) {
+  async deleteItem(itemId: string) {
     const foundByIndex = this.basket.findIndex(item => item.imageId === itemId);
     this.basket.splice(foundByIndex, 1);
 
     this.basketChanged.next(this.basket);
 
-    return this.updateGlobalBasket();
+    await this.updateGlobalBasket();
   }
 
-  updateQuantity(value: number, id: string) {
+  async updateQuantity(value: number, id: string) {
     const image = this.basket.find(item => item.imageId === id);
     image.quantity = +image.quantity + value;
     const foundByIndex = this.basket.findIndex(item => item.imageId === id);
@@ -92,7 +92,7 @@ export class BasketService {
 
     this.basketChanged.next(this.basket);
 
-    return this.updateGlobalBasket();
+    await this.updateGlobalBasket();
   }
 
   private setLocalStorageBasket(basket: BasketItemModel[]) {

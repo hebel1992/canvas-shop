@@ -8,6 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {NgForm} from '@angular/forms';
 import {UserDbService} from '../user-db-service';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase';
+import {faFacebookSquare, faGoogle} from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,6 +22,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   loadingUserData = false;
   changesSaved = false;
   errorMessage: string;
+
+  faFacebook = faFacebookSquare;
+  faGoogle = faGoogle;
 
   countiesOfEngland;
   countiesOfScotland;
@@ -55,6 +60,20 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.countiesOfScotland = this.userService.getScotlandCounties();
     this.countiesOfWales = this.userService.getWalesCounties();
     this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
+  }
+
+  linkAccountWithFacebook() {
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().currentUser.linkWithPopup(facebookProvider).catch(error => {
+      this.errorMessage = error.message;
+    });
+  }
+
+  linkAccountWithGoogle() {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().currentUser.linkWithPopup(googleProvider).catch(error => {
+      this.errorMessage = error.message;
+    });
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {

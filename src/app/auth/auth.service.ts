@@ -42,8 +42,8 @@ export class AuthService {
     await this.router.navigate(['/']);
   }
 
-  async resetPassword(email: string) {
-    await this.auth.sendPasswordResetEmail(email);
+  resetPassword(email: string) {
+    return this.auth.sendPasswordResetEmail(email);
   }
 
   private async createUserProfile(cred: firebase.auth.UserCredential) {
@@ -69,7 +69,7 @@ export class AuthService {
         shoppingHistory: []
       });
     } else {
-      localStorage.removeItem('basket');
+      this.basketService.destroyLocalStorageBasket();
     }
     await this.userDbService.fetchUserData(cred.user.uid);
   }

@@ -38,7 +38,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).then(resp => {
       this.signInError = null;
       this.isLoading = false;
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).catch(err => {
+        throw new Error(err);
+      });
     }).catch(err => {
       this.isLoading = false;
       this.signInError = err;

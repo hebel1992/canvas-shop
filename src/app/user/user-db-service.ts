@@ -38,8 +38,8 @@ export class UserDbService {
     })).toPromise<UserDataModel>();
   }
 
-  async updateData(userData, userId: string) {
-    return await this.db.collection('users').doc(userId).update({
+  updateData(userData, userId: string) {
+    return this.db.collection('users').doc(userId).update({
       firstName: userData.firstName,
       lastName: userData.lastName,
       phone: userData.phone,
@@ -51,9 +51,9 @@ export class UserDbService {
     });
   }
 
-  async updateBasket(newBasket: BasketItemModel[], userId) {
+  updateBasket(newBasket: BasketItemModel[], userId) {
     // this.userService.updateBasket(newBasket);
-    return await this.db.collection('users').doc(userId).update({
+    return this.db.collection('users').doc(userId).update({
       basket: newBasket
     });
   }

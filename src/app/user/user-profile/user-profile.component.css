@@ -42,6 +42,47 @@ mat-form-field {
   margin: 2rem 0;
 }
 
+.link-to-provider {
+  width: 100%;
+  max-width: 50rem;
+  margin: 3rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link-to-provider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  height: 4rem;
+  margin: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.link-to-provider-button span {
+  margin-left: 0.5rem;
+}
+
+.facebook-button {
+  background: cornflowerblue;
+  color: white;
+  border-color: cornflowerblue;
+}
+
+.facebook-button fa-icon {
+  font-size: 1.5rem;
+}
+
+.google-button fa-icon {
+  font-size: 1.5rem;
+  color: green;
+}
+
 .spinner{
   position: fixed;
   top: 45%;
@@ -70,5 +111,9 @@ mat-form-field {
 
   .wide-grid-element {
     grid-column: span 2;
+  }
+
+  .link-to-provider{
+    flex-direction: row;
   }
 }
