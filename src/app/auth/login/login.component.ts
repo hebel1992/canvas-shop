@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   faPassword = faUnlock;
 
   signInError: string;
+  googleFbSignInError: string;
   isLoading = false;
 
   constructor(private router: Router,
@@ -49,5 +50,17 @@ export class LoginComponent implements OnInit {
 
   resetPassword() {
     const dialogRef = this.dialog.open(ResetPasswordDialogComponent);
+  }
+
+  loginWithFacebook() {
+    this.authService.loginWithFacebook().catch(err => {
+      this.googleFbSignInError = err.message;
+    });
+  }
+
+  loginWithGoogle() {
+    this.authService.loginWithGoogle().catch(err => {
+      this.googleFbSignInError = err.message;
+    });
   }
 }

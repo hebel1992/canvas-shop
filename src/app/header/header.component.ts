@@ -102,6 +102,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+
+
   onMyAccountClickDesktop() {
     this.showSettingsDesktop = !this.showSettingsDesktop;
   }

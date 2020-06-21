@@ -3,9 +3,9 @@
   <div class="quantity-element">
     <span>Quantity:</span>
     <div class="quantity-element__action">
-      <button (click)="onDecreaseQuantity()"> - </button>
+      <button (click)="onDecreaseQuantity()" mat-raised-button> <span> - </span> </button>
       <input type="text" [(ngModel)]="quantity">
-      <button (click)="onIncreaseQuantity()"> + </button>
+      <button (click)="onIncreaseQuantity()" mat-raised-button> <span> + </span> </button>
     </div>
   </div>
   <div class="price">£{{image.price}}</div>

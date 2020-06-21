@@ -1,6 +1,6 @@
 .container {
-  min-width: 20rem;
-  width: 40vw;
+  min-width: 16rem;
+  width: 60vw;
   margin: 0;
   padding: 2rem 2rem 1rem 2rem;
   display: flex;
@@ -34,11 +34,22 @@
   align-items: center;
 }
 
-.quantity-element__action input,
-.quantity-element__action button {
-  width: 1.7rem;
+.quantity-element__action input{
+  width: 1.9rem;
   height: 1.7rem;
   text-align: center;
+  border: 1px solid blue;
+  border-radius: 3px;
+}
+
+.quantity-element__action button{
+  width: 1.7rem !important;
+  min-width: unset !important;
+  height: 1.6rem !important;
+  min-height: unset !important;;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .price {

@@ -115,5 +115,7 @@ mat-form-field {
 
   .link-to-provider{
     flex-direction: row;
+    max-width: 49rem;
   }
 }
+

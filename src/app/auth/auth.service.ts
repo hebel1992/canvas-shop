@@ -36,6 +36,51 @@ export class AuthService {
     await this.createUserProfile(userCredential);
   }
 
+  async loginWithFacebook() {
+    const session = firebase.auth.Auth.Persistence.SESSION;
+
+    await this.auth.setPersistence(session);
+
+    await new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.FacebookAuthProvider();
+
+      return this.auth.signInWithPopup(provider).then(cred => {
+        resolve(cred);
+        this.createUserProfile(cred);
+        this.router.navigate(['/']);
+      }, err => {
+        reject(err);
+      });
+    });
+
+    // return this.auth.setPersistence(session).then(() => {
+    //   return new Promise<any>(((resolve, reject) => {
+    //     const provider = new firebase.auth.FacebookAuthProvider();
+    //     this.auth.signInWithPopup(provider).then(cred => {
+    //       resolve(cred);
+    //       this.createUserProfile(cred);
+    //       this.router.navigate(['']);
+    //     }, err => {
+    //       reject(err);
+    //     });
+    //   }));
+    // });
+  }
+
+  async loginWithGoogle() {
+    const session = firebase.auth.Auth.Persistence.SESSION;
+    await this.auth.setPersistence(session);
+
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+
+    const cred = await this.auth.signInWithPopup(provider);
+
+    await this.createUserProfile(cred);
+    await this.router.navigate(['']);
+  }
+
   async logout() {
     await this.auth.signOut();
     this.userService.setUserData(null);

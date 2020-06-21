@@ -26,8 +26,8 @@ app-basket-item {
 }
 
 .summary-container {
-  min-width: 20rem;
-  width: 40vw;
+  min-width: 16rem;
+  width: 60vw;
   margin: 0;
   padding: 2rem 2rem 1rem 2rem;
   display: flex;

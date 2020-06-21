@@ -46,11 +46,12 @@
   </div>
   <hr>
   <div class="sign-in-with-provider">
-    <div class="sign-in-with-provider-button facebook-button">
+    <p *ngIf="googleFbSignInError" class="googleFbSignInError">{{googleFbSignInError}}</p>
+    <div class="sign-in-with-provider-button facebook-button" (click)="loginWithFacebook()">
       <fa-icon [icon]="faFacebook"></fa-icon>
       <span>Sign in with Facebook</span>
     </div>
-    <div class="sign-in-with-provider-button google-button">
+    <div class="sign-in-with-provider-button google-button" (click)="loginWithGoogle()">
       <fa-icon [icon]="faGoogle"></fa-icon>
       <span>Sign in with Google</span>
     </div>

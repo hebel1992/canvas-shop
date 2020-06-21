@@ -1,6 +1,6 @@
 .container {
-  height: 100%;
   width: 100%;
+  height: 100%;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -8,10 +8,10 @@
 }
 
 img {
-  max-width: 30rem;
-  max-height: 30rem;
-  width: auto;
+  max-width: 15rem;
+  max-height: 15rem;
   height: auto;
+  width: auto;
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
   cursor: zoom-in;
@@ -43,15 +43,20 @@ img {
   font-size: 1rem;
 }
 
+.buttons{
+  max-width: 15rem;
+}
+
 button {
   display: block;
-  width: 30rem;
+  width: 100%;
 }
 
 .delivery-info {
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
+  width: 100%;
 }
 
 .error-message {
@@ -78,6 +83,42 @@ button {
   display: block;
 }
 
+.description{
+  width: 100%;
+}
+
+@media (min-width: 23rem) {
+  img {
+    max-width: 18rem;
+    max-height: 18rem;
+  }
+
+  .buttons{
+    max-width: 18rem;
+  }
+}
+
+@media (min-width: 25rem) {
+  img {
+    max-width: 20rem;
+    max-height: 20rem;
+  }
+
+  .buttons{
+    max-width: 20rem;
+  }
+}
+
+@media (min-width: 34rem) {
+  img {
+    max-width: 30rem;
+    max-height: 30rem;
+  }
+
+  .buttons{
+    max-width: 30rem;
+  }
+}
 
 @media (min-width: 80rem) {
   .container {

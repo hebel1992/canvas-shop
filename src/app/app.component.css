@@ -2,6 +2,7 @@
   margin: 0;
   display: grid;
   height: 100%;
+  width: 100%;
   grid-template-rows: 5rem auto fit-content(8rem);
   grid-template-areas: "header" "main" "footer";
 }
@@ -17,7 +18,6 @@ app-header {
 main {
   grid-area: main;
   width: 100%;
-  border: 2px solid blue;
 }
 
 app-footer {
