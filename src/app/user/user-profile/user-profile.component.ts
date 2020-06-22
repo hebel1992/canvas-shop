@@ -22,6 +22,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   loadingUserData = false;
   changesSaved = false;
   errorMessage: string;
+  successMessage: string;
 
   faFacebook = faFacebookSquare;
   faGoogle = faGoogle;
@@ -64,16 +65,26 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   linkAccountWithFacebook() {
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().currentUser.linkWithPopup(facebookProvider).catch(error => {
-      this.errorMessage = error.message;
-    });
+    firebase.auth().currentUser.linkWithPopup(facebookProvider)
+      .then(() => {
+        this.successMessage = 'Accounts successfully linked';
+      })
+      .catch(error => {
+        this.errorMessage = error.message;
+      });
   }
 
   linkAccountWithGoogle() {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().currentUser.linkWithPopup(googleProvider).catch(error => {
-      this.errorMessage = error.message;
-    });
+    firebase.auth().currentUser.linkWithPopup(googleProvider)
+      .then(() => {
+        this.errorMessage = null;
+        this.successMessage = 'Accounts successfully linked';
+      })
+      .catch(error => {
+        this.successMessage = null;
+        this.errorMessage = error.message;
+      });
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -91,6 +102,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onUserUpdate(form: NgForm) {
+    this.successMessage = null;
     if (this.currentUser) {
       this.userDbService.updateData(form.form.value, this.currentUser.id).then(() => {
         this.changesSaved = true;

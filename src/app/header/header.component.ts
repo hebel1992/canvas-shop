@@ -128,13 +128,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   closeMobileNavAndRedirect(route: string) {
     const htmlElement = this.mobileNav.nativeElement as HTMLElement;
-    this.showMobileNav = !this.showMobileNav;
-    setTimeout(() => {
-      htmlElement.classList.remove('display-mobile-nav');
-      htmlElement.classList.add('hide-mobile-nav');
-    }, 500);
+    if (this.mobileNav.nativeElement.classList.contains('show-mobile-nav')) {
+      this.showMobileNav = !this.showMobileNav;
+      setTimeout(() => {
+        htmlElement.classList.remove('display-mobile-nav');
+        htmlElement.classList.add('hide-mobile-nav');
+      }, 500);
+    }
     this.router.navigate([route]).catch(err => {
-      this.errorMessage = err;
+      this.errorMessage = err.message;
     });
   }
 }

@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['']);
       }, 2500);
     }).catch(err => {
-      this.error = err;
+      this.error = err.message;
       this.isLoading = false;
     });
     signUpForm.reset();

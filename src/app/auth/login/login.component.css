@@ -36,8 +36,10 @@
 }
 
 .spinner {
-  position: absolute;
-  top: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .hide-element {
@@ -146,17 +148,12 @@ hr {
 
   .spinner {
     top: 45%;
-    left: 25%;
   }
 }
 
 @media (min-width: 90rem) {
   .container {
     grid-template-columns: 30% 5% 30%;
-  }
-
-  .spinner {
-    left: 30%;
   }
 
   .googleFbSignInError {

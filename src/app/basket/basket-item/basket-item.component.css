@@ -44,13 +44,18 @@
 }
 
 .quantity-element__action button {
+  position: relative;
   width: 1.7rem !important;
   min-width: unset !important;
   height: 1.6rem !important;
-  min-height: unset !important;;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: unset !important;
+}
+
+.quantity-element__action button .sign{
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .price {

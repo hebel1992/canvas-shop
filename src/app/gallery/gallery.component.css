@@ -26,7 +26,6 @@ app-gallery-image {
 }
 
 app-gallery-image:hover {
-  transform: scale(1.1);
   cursor: pointer;
 }
 
@@ -34,6 +33,10 @@ app-gallery-image:hover {
   .main-content {
     grid-template-columns: repeat(auto-fill, 16rem);
     grid-auto-rows: 18rem;
+  }
+
+  app-gallery-image:hover {
+    transform: scale(1.1);
   }
 }
 

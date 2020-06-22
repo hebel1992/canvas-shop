@@ -44,9 +44,9 @@
     <p class="forgot-password-link" (click)="resetPassword()">Forgot password?</p>
     <p class="error-message" *ngIf="signInError">{{signInError}}</p>
   </div>
-  <hr>
-  <div class="sign-in-with-provider">
-    <p *ngIf="googleFbSignInError" class="googleFbSignInError">{{googleFbSignInError}}</p>
+  <hr [ngClass]="{'hide-element': isLoading}">
+  <div class="sign-in-with-provider" [ngClass]="{'hide-element': isLoading}">
+    <p *ngIf="googleFbSignInMessage" class="googleFbSignInError">{{googleFbSignInMessage}}</p>
     <div class="sign-in-with-provider-button facebook-button" (click)="loginWithFacebook()">
       <fa-icon [icon]="faFacebook"></fa-icon>
       <span>Sign in with Facebook</span>

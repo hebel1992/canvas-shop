@@ -36,22 +36,19 @@ export class AuthService {
     await this.createUserProfile(userCredential);
   }
 
-  async loginWithFacebook() {
+  async loginWithFacebook(innerWith) {
     const session = firebase.auth.Auth.Persistence.SESSION;
-
     await this.auth.setPersistence(session);
 
-    await new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
 
-      return this.auth.signInWithPopup(provider).then(cred => {
-        resolve(cred);
-        this.createUserProfile(cred);
-        this.router.navigate(['/']);
-      }, err => {
-        reject(err);
-      });
-    });
+    if (innerWith > 1000) {
+      const cred = await this.auth.signInWithPopup(provider);
+      await this.createUserProfile(cred);
+      await this.router.navigate(['/gallery']);
+    } else {
+      await this.auth.signInWithRedirect(provider);
+    }
   }
 
   async loginWithGoogle(innerWith) {

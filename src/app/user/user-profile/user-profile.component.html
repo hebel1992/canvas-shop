@@ -1,5 +1,6 @@
 <div class="container">
-  <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+  <p *ngIf="errorMessage" class="message error">{{errorMessage}}</p>
+  <p *ngIf="successMessage" class="message success">{{successMessage}}</p>
   <div class="link-to-provider">
     <div class="link-to-provider-button facebook-button" (click)="linkAccountWithFacebook()">
       <fa-icon [icon]="faFacebook"></fa-icon>
