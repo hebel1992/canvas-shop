@@ -155,6 +155,10 @@ a:active {
   cursor: pointer;
 }
 
+.mobile-nav__items__basket a{
+  font-size: 1.5rem;
+}
+
 .mobile-nav__items li:nth-child(7) span,
 .mobile-nav__items li:nth-child(8) span {
   margin-left: 0.5rem;
@@ -223,6 +227,7 @@ a:active {
   margin: 0;
   position: fixed;
   right: 6%;
+  opacity: 0;
 }
 
 .error-message {
@@ -250,6 +255,10 @@ a:active {
 
   .mobile-nav {
     display: none;
+  }
+
+  .loadingAuthStateSpinner {
+    opacity: 1;
   }
 }
 

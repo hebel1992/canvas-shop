@@ -10,6 +10,7 @@ import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {CanDeactivateGuard} from './user/can-deactivate-guard.service';
 import {BasketComponent} from './basket/basket.component';
 import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
+import {CanActivateGuardService} from './user/can-activate-guard.service';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/gallery', pathMatch: 'full'},
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
-  {path: 'profile', component: UserProfileComponent, canDeactivate: [CanDeactivateGuard]},
+  {path: 'profile', component: UserProfileComponent, canDeactivate: [CanDeactivateGuard], canActivate: [CanActivateGuardService]},
   {path: 'basket', component: BasketComponent, resolve: [ImagesResolverService]},
   {path: 'not-found', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/not-found'}

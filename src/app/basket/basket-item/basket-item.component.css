@@ -1,5 +1,6 @@
 .container {
   min-width: 16rem;
+  max-width: 23rem;
   width: 60vw;
   margin: 0;
   padding: 2rem 2rem 1rem 2rem;
@@ -34,7 +35,7 @@
   align-items: center;
 }
 
-.quantity-element__action input{
+.quantity-element__action input {
   width: 1.9rem;
   height: 1.7rem;
   text-align: center;
@@ -42,7 +43,7 @@
   border-radius: 3px;
 }
 
-.quantity-element__action button{
+.quantity-element__action button {
   width: 1.7rem !important;
   min-width: unset !important;
   height: 1.6rem !important;
@@ -69,6 +70,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 50vw;
+    max-width: 50vw;
     align-items: center;
     padding: 2rem
   }

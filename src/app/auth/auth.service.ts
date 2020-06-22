@@ -52,22 +52,9 @@ export class AuthService {
         reject(err);
       });
     });
-
-    // return this.auth.setPersistence(session).then(() => {
-    //   return new Promise<any>(((resolve, reject) => {
-    //     const provider = new firebase.auth.FacebookAuthProvider();
-    //     this.auth.signInWithPopup(provider).then(cred => {
-    //       resolve(cred);
-    //       this.createUserProfile(cred);
-    //       this.router.navigate(['']);
-    //     }, err => {
-    //       reject(err);
-    //     });
-    //   }));
-    // });
   }
 
-  async loginWithGoogle() {
+  async loginWithGoogle(innerWith) {
     const session = firebase.auth.Auth.Persistence.SESSION;
     await this.auth.setPersistence(session);
 
@@ -75,10 +62,13 @@ export class AuthService {
     provider.addScope('profile');
     provider.addScope('email');
 
-    const cred = await this.auth.signInWithPopup(provider);
-
-    await this.createUserProfile(cred);
-    await this.router.navigate(['']);
+    if (innerWith > 1000) {
+      const cred = await this.auth.signInWithPopup(provider);
+      await this.createUserProfile(cred);
+      await this.router.navigate(['/gallery']);
+    } else {
+      await this.auth.signInWithRedirect(provider);
+    }
   }
 
   async logout() {
@@ -91,7 +81,7 @@ export class AuthService {
     return this.auth.sendPasswordResetEmail(email);
   }
 
-  private async createUserProfile(cred: firebase.auth.UserCredential) {
+  async createUserProfile(cred: firebase.auth.UserCredential) {
     const userRef = await this.db.collection('users').doc(cred.user.uid).ref.get();
     if (!userRef.exists) {
       let localBasket: BasketItemModel[] = [];

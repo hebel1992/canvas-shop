@@ -91,8 +91,8 @@
         <fa-icon [icon]="faYoutube"></fa-icon>
         YouTube</a>
     </li>
-    <li>
-      <a routerLink="/basket">
+    <li class="mobile-nav__items__basket">
+      <a (click)="closeMobileNavAndRedirect('/basket')">
         <div style="display: inline-block" [matBadgeHidden]="!basket || basket.length<1"
              [matBadge]="basket ? basket.length : null"
              matBadgeSize="medium"
@@ -102,7 +102,7 @@
       </a>
     </li>
     <li *ngIf="!isAuthenticated">
-      <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
+      <a (click)="closeMobileNavAndRedirect('/login')" [ngClass]="{'active': auth.isActive || register.isActive }">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>Sign in</span>
       </a>
@@ -115,7 +115,7 @@
       </div>
     </li>
     <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">
-      <p class="mobile-nav-settings__item" routerLink="/profile">Profile</p>
+      <p class="mobile-nav-settings__item" (click)="closeMobileNavAndRedirect('/profile')">Profile</p>
       <p class="mobile-nav-settings__item" (click)="onLogoutClick()">Log out</p>
     </li>
   </ul>

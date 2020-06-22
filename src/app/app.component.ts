@@ -4,6 +4,8 @@ import {UserService} from './user/user-service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {BasketService} from './basket/basket-service';
 import {NavigationEnd, Router} from '@angular/router';
+import * as firebase from 'firebase';
+import {AuthService} from './auth/auth.service';
 
 @Component({
   selector: 'app-root',

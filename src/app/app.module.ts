@@ -29,6 +29,7 @@ import { BasketComponent } from './basket/basket.component';
 import { BasketItemComponent } from './basket/basket-item/basket-item.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { ResetPasswordDialogComponent } from './auth/reset-password/reset-password-dialog/reset-password-dialog.component';
+import {CanActivateGuardService} from './user/can-activate-guard.service';
 
 @NgModule({
   declarations: [

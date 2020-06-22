@@ -7,6 +7,7 @@ import {AuthService} from '../auth/auth.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
 import {UserDbService} from '../user/user-db-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -53,7 +54,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private userDbService: UserDbService,
               private authService: AuthService,
-              private basketService: BasketService) {
+              private basketService: BasketService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -102,8 +104,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   onMyAccountClickDesktop() {
     this.showSettingsDesktop = !this.showSettingsDesktop;
   }
@@ -115,6 +115,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogoutClick() {
     this.authService.logout().catch(err => {
       this.errorMessage = err.message;
+    }).then(() => {
+      this.closeMobileNavAndRedirect('/gallery');
     });
   }
 
@@ -122,5 +124,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
     this.basketSubscription.unsubscribe();
     this.basketAnimationSubscription.unsubscribe();
+  }
+
+  closeMobileNavAndRedirect(route: string) {
+    const htmlElement = this.mobileNav.nativeElement as HTMLElement;
+    this.showMobileNav = !this.showMobileNav;
+    setTimeout(() => {
+      htmlElement.classList.remove('display-mobile-nav');
+      htmlElement.classList.add('hide-mobile-nav');
+    }, 500);
+    this.router.navigate([route]).catch(err => {
+      this.errorMessage = err;
+    });
   }
 }
