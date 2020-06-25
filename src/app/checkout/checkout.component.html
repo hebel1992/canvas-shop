@@ -1,0 +1,16 @@
+<div class="container">
+  <p class="message error">{{error}}</p>
+  <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
+  <button mat-raised-button color="primary"
+          class="purchase-button"
+          [disabled]="purchaseStarted"
+          (click)="purchaseImages()"
+  >Purchase
+  </button>
+  <button mat-raised-button color="primary"
+          class="purchase-button"
+          [disabled]="purchaseStarted"
+          (click)="fullFillTesting()"
+  >FullFill Test
+  </button>
+</div>

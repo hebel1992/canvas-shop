@@ -97,8 +97,7 @@ export class AuthService {
         city: '',
         postCode: '',
         county: '',
-        basket: localBasket,
-        shoppingHistory: []
+        basket: localBasket
       });
     } else {
       this.basketService.destroyLocalStorageBasket();

@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ImagesResolverService implements Resolve<Image[]> {
+export class GalleryResolverService implements Resolve<Image[]> {
   constructor(private imagesStorageService: ImagesStorageService,
               private imageService: ImagesService) {
   }
