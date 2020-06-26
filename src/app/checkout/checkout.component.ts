@@ -3,6 +3,8 @@ import {StripeCheckoutService} from './stripe-checkout.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
+import {UserService} from '../user/user-service';
+import {UserDataModel} from '../user/user-data.model';
 
 @Component({
   selector: 'app-checkout',
@@ -13,17 +15,35 @@ export class CheckoutComponent implements OnInit {
   purchaseStarted = false;
   basket: BasketItemModel[];
   basketSubscription: Subscription;
+  currentUser: UserDataModel;
+  userSubscription;
   error: string;
 
+  countiesOfEngland;
+  countiesOfScotland;
+  countiesOfWales;
+  countiesOfNorthernIreland;
+
   constructor(private stripeCheckoutService: StripeCheckoutService,
-              private basketService: BasketService) {
+              private basketService: BasketService,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.userService.getCurrentUser();
+    this.userSubscription = this.userService.userDataChanged.subscribe(user => {
+      this.currentUser = user;
+    });
+
     this.basket = this.basketService.getBasket();
     this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
       this.basket = basket;
     });
+
+    this.countiesOfEngland = this.userService.getEnglandCounties();
+    this.countiesOfScotland = this.userService.getScotlandCounties();
+    this.countiesOfWales = this.userService.getWalesCounties();
+    this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
   }
 
   purchaseImages() {
@@ -37,9 +57,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  testMethod() {
-    this.stripeCheckoutService.testMethod('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
-      console.log(res);
-    }, error => console.log(error));
-  }
+  // testMethod() {
+  //   this.stripeCheckoutService.testMethod('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
+  //     console.log(res);
+  //   }, error => console.log(error));
+  // }
 }

@@ -53,7 +53,7 @@ export class BasketService {
     return summary;
   }
 
-   async updateBasket(image: ImageModel, qty) {
+  async updateBasket(image: ImageModel, qty) {
     const img = this.basket.find(item => item.imageId === image.id);
     if (img) {
       const newQuantity = +img.quantity + +qty;
@@ -95,7 +95,7 @@ export class BasketService {
     await this.updateGlobalBasket();
   }
 
-  private setLocalStorageBasket(basket: BasketItemModel[]) {
+  setLocalStorageBasket(basket: BasketItemModel[]) {
     this.basket = basket;
     localStorage.setItem('basket', JSON.stringify(basket));
     this.basketChanged.next(this.basket);

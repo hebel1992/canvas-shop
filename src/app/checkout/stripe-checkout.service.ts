@@ -75,9 +75,9 @@ export class StripeCheckoutService {
       );
   }
 
-  testMethod(sessionId) {
-    return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
-      sessionId
-    });
-  }
+  // testMethod(sessionId) {
+  //   return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
+  //     sessionId
+  //   });
+  // }
 }
