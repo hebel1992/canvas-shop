@@ -35,13 +35,18 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
+    this.basket = this.basketService.getBasket();
+    if (this.basket) {
+      this.summary = this.basketService.setAndGetSummary(this.basket);
+    }
+
     this.userSubscription = this.userService.userDataChanged.subscribe(user => {
       this.currentUser = user;
     });
 
-    this.basket = this.basketService.getBasket();
     this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
       this.basket = basket;
+      this.summary = this.basketService.setAndGetSummary(this.basket);
     });
 
     this.countiesOfEngland = this.userService.getEnglandCounties();
@@ -61,12 +66,15 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  onDelete(imageId: string) {
+    this.basketService.deleteItem(imageId).catch(err => {
+      this.error = err;
+    });
+  }
+
   // testMethod() {
   //   this.stripeCheckoutService.testMethod('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
   //     console.log(res);
   //   }, error => console.log(error));
   // }
-  onDelete(imageId: string) {
-
-  }
 }

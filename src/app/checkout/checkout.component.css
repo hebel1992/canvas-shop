@@ -1,6 +1,11 @@
 .container {
   width: 100%;
   margin: 0;
+  padding: 0;
+}
+
+.content{
+  width: 100%;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -24,8 +29,12 @@
   margin: 0.5rem 0;
 }
 
-.checkout-step__button {
+.checkout-step__finalize{
+  width: 100%;
+}
 
+.checkout-step__button {
+  width: 85%;
 }
 
 /*Basket*/
@@ -94,8 +103,8 @@
 
 .basket-summary__desc{
   position: absolute;
-  left: 15%;
-  text-align: center;
+  width: 40%;
+  text-align: right;
 }
 
 .basket-summary__desc div{
@@ -147,26 +156,42 @@
   .checkout-step__field {
     width: 80%;
   }
+
+  .checkout-step__button {
+    width: 90%;
+  }
 }
 
 @media (min-width: 40rem) {
-  .basket-summary__desc{
-    left: 22%;
+  .checkout-step__button {
+    width: 93%;
   }
 }
 
-
-@media (min-width: 55rem) {
-  .basket-summary__desc{
-    left: 27%;
+@media (min-width: 65rem) {
+  .content{
+    display: grid;
+    grid-template-columns: 35% 25%;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    grid-gap: 0 2rem;
   }
-}
 
-@media (min-width: 70rem) {
-  /*.container{*/
-  /*  display: grid;*/
-  /*  */
-  /*}*/
+  .title{
+    grid-column: span 2;
+    justify-self: center;
+  }
+
+  .form{
+    max-width: 35rem;
+  }
+
+  .basket{
+    width: 100%;
+    align-self: start;
+    margin-top: 1.5rem;
+    max-width: 20rem;
+  }
 }
 
 

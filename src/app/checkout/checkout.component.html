@@ -1,170 +1,172 @@
 <div class="container">
   <!--  <p class="message error">{{error}}</p>-->
   <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
-  <h1>Checkout</h1>
-  <form class="form">
-    <mat-vertical-stepper linear>
-      <mat-step label="Personal data" [completed]=personalData.valid>
-        <div ngModelGroup="personalData" #personalData="ngModelGroup" class="checkout-step">
-          <mat-radio-group class="checkout-step__field"
-                           color="primary">
-            <mat-radio-button value="mr" style="margin-right: 30px" checked>Mr.</mat-radio-button>
-            <mat-radio-button value="mrs">Mrs.</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>First name</mat-label>
-            <input matInput
-                   name="firstName"
-                   [ngModel]="currentUser?currentUser.firstName:''"
-                   #firstName="ngModel"
-                   required
-            >
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>Last name</mat-label>
-            <input matInput
-                   name="lastName"
-                   [ngModel]="currentUser?currentUser.lastName:''"
-                   required
-            >
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>
-              Email
-            </mat-label>
-            <input matInput
-                   name="email"
-                   [ngModel]="currentUser?currentUser.email:''"
-                   required
-                   email
-            >
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>
-              Phone number (optional)
-            </mat-label>
-            <input matInput
-                   name="phone"
-                   [ngModel]="currentUser?currentUser.phone:''">
-            <!--                   pattern="^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$"-->
-            <mat-hint align="end">Only digits</mat-hint>
-          </mat-form-field>
+  <div class="content">
+    <h1 class="title">Checkout</h1>
+    <form class="form">
+      <mat-vertical-stepper linear>
+        <mat-step label="Personal data" [completed]=personalData.valid>
+          <div ngModelGroup="personalData" #personalData="ngModelGroup" class="checkout-step">
+            <mat-radio-group class="checkout-step__field"
+                             color="primary">
+              <mat-radio-button value="mr" style="margin-right: 30px" checked>Mr.</mat-radio-button>
+              <mat-radio-button value="mrs">Mrs.</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>First name</mat-label>
+              <input matInput
+                     name="firstName"
+                     [ngModel]="currentUser?currentUser.firstName:''"
+                     #firstName="ngModel"
+                     required
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Last name</mat-label>
+              <input matInput
+                     name="lastName"
+                     [ngModel]="currentUser?currentUser.lastName:''"
+                     required
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>
+                Email
+              </mat-label>
+              <input matInput
+                     name="email"
+                     [ngModel]="currentUser?currentUser.email:''"
+                     required
+                     email
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>
+                Phone number (optional)
+              </mat-label>
+              <input matInput
+                     name="phone"
+                     [ngModel]="currentUser?currentUser.phone:''">
+              <!--                   pattern="^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$"-->
+              <mat-hint align="end">Only digits</mat-hint>
+            </mat-form-field>
+          </div>
+        </mat-step>
+        <mat-step label="Shipping address" [completed]="address.valid">
+          <div ngModelGroup="address" #address="ngModelGroup" class="checkout-step">
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Address line 1</mat-label>
+              <input matInput
+                     name="addressLine1"
+                     [ngModel]="currentUser?currentUser.addressLine1:''"
+                     required>
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Address line 2</mat-label>
+              <input matInput
+                     name="addressLine2"
+                     [ngModel]="currentUser?currentUser.addressLine2:''">
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>City/Town</mat-label>
+              <input matInput
+                     name="city"
+                     [ngModel]="currentUser?currentUser.city:''">
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Post code</mat-label>
+              <input matInput
+                     name="postCode"
+                     [ngModel]="currentUser?currentUser.postCode:''"
+                     required
+                     pattern="([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})">
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>County</mat-label>
+              <mat-select [value]="currentUser? currentUser.county : null">
+                <mat-optgroup label="England">
+                  <mat-option *ngFor="let county of countiesOfEngland"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Scotland">
+                  <mat-option *ngFor="let county of countiesOfScotland"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Wales">
+                  <mat-option *ngFor="let county of countiesOfWales"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Northern Ireland">
+                  <mat-option *ngFor="let county of countiesOfNorthernIreland"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-step>
+        <mat-step label="Finalize" class="checkout-step__finalize">
+          <button mat-raised-button color="primary"
+                  class="checkout-step__button"
+                  [disabled]="purchaseStarted"
+                  (click)="purchaseImages()"
+          >Proceed to payment
+          </button>
+        </mat-step>
+      </mat-vertical-stepper>
+    </form>
+
+    <!--  basket-->
+    <div class="basket">
+
+      <div class="basket-header">
+        <div class="basket-header__elem">Basket</div>
+      </div>
+
+      <div *ngFor="let item of basket" class="basket-item">
+        <div class="basket-item__elem">
+          <img class="image" src="{{item.imageUrl}}">
         </div>
-      </mat-step>
-      <mat-step label="Shipping address" [completed]="address.valid">
-        <div ngModelGroup="address" #address="ngModelGroup" class="checkout-step">
-          <mat-form-field class="checkout-step__field">
-            <mat-label>Address line 1</mat-label>
-            <input matInput
-                   name="addressLine1"
-                   [ngModel]="currentUser?currentUser.addressLine1:''"
-                   required>
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>Address line 2</mat-label>
-            <input matInput
-                   name="addressLine2"
-                   [ngModel]="currentUser?currentUser.addressLine2:''">
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>City/Town</mat-label>
-            <input matInput
-                   name="city"
-                   [ngModel]="currentUser?currentUser.city:''">
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>Post code</mat-label>
-            <input matInput
-                   name="postCode"
-                   [ngModel]="currentUser?currentUser.postCode:''"
-                   required
-                   pattern="([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})">
-          </mat-form-field>
-          <mat-form-field class="checkout-step__field">
-            <mat-label>County</mat-label>
-            <mat-select [value]="currentUser? currentUser.county : null">
-              <mat-optgroup label="England">
-                <mat-option *ngFor="let county of countiesOfEngland"
-                            value="{{county}}"
-                >{{county}}</mat-option>
-              </mat-optgroup>
-              <mat-optgroup label="Scotland">
-                <mat-option *ngFor="let county of countiesOfScotland"
-                            value="{{county}}"
-                >{{county}}</mat-option>
-              </mat-optgroup>
-              <mat-optgroup label="Wales">
-                <mat-option *ngFor="let county of countiesOfWales"
-                            value="{{county}}"
-                >{{county}}</mat-option>
-              </mat-optgroup>
-              <mat-optgroup label="Northern Ireland">
-                <mat-option *ngFor="let county of countiesOfNorthernIreland"
-                            value="{{county}}"
-                >{{county}}</mat-option>
-              </mat-optgroup>
-            </mat-select>
-          </mat-form-field>
+        <div class="basket-item__elem">
+          x {{item.quantity}}
         </div>
-      </mat-step>
-      <mat-step label="Finalize" class="checkout-step">
-        <button mat-raised-button color="primary"
-                class="checkout-step__button"
-                [disabled]="purchaseStarted"
-                (click)="purchaseImages()"
-        >Go to payment
-        </button>
-      </mat-step>
-    </mat-vertical-stepper>
-  </form>
-
-  <!--  basket-->
-  <div class="basket">
-
-    <div class="basket-header">
-      <div class="basket-header__elem">Basket</div>
-    </div>
-
-    <div *ngFor="let item of basket" class="basket-item">
-      <div class="basket-item__elem">
-        <img class="image" src="{{item.imageUrl}}">
-      </div>
-      <div class="basket-item__elem">
-        x {{item.quantity}}
-      </div>
-      <div class="basket-item__elem">
-        £{{item.price}}.00
-      </div>
-      <div class="basket-item__elem bin">
-        <fa-icon [icon]="faBin" (click)="onDelete(item.imageId)"></fa-icon>
-      </div>
-    </div>
-
-    <div class="basket-summary">
-      <div class="basket-summary__hide">
-        <div class="image">
+        <div class="basket-item__elem">
+          £{{item.price}}.00
+        </div>
+        <div class="basket-item__elem bin">
+          <fa-icon [icon]="faBin" (click)="onDelete(item.imageId)"></fa-icon>
         </div>
       </div>
-      <div class="basket-summary__hide">
-        x 1
-      </div>
-      <div class="basket-summary__desc">
-        <div>Summary</div>
-        <div>Shipping</div>
-        <div class="total-price">Total</div>
-      </div>
-      <div class="basket-summary__price">
-        <div>£15.00</div>
-        <div>£55.00</div>
-        <div class="total-price">£55.00</div>
-      </div>
-      <div class="basket-summary__hide">
-        <fa-icon [icon]="faBin"></fa-icon>
-      </div>
-    </div>
 
-    <div class="edit-order" routerLink="/basket">
-      Edit order
+      <div class="basket-summary">
+        <div class="basket-summary__hide">
+          <div class="image">
+          </div>
+        </div>
+        <div class="basket-summary__hide">
+          x 1
+        </div>
+        <div class="basket-summary__desc">
+          <div>Summary</div>
+          <div>Shipping</div>
+          <div class="total-price">Total</div>
+        </div>
+        <div class="basket-summary__price">
+          <div>£{{summary}}.00</div>
+          <div>£8.00</div>
+          <div class="total-price">£{{summary+8}}.00</div>
+        </div>
+        <div class="basket-summary__hide">
+          <fa-icon [icon]="faBin"></fa-icon>
+        </div>
+      </div>
+
+      <div class="edit-order" routerLink="/basket">
+        Edit order
+      </div>
     </div>
   </div>
 </div>
