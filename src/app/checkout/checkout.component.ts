@@ -5,6 +5,7 @@ import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
 import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-checkout',
@@ -17,7 +18,10 @@ export class CheckoutComponent implements OnInit {
   basketSubscription: Subscription;
   currentUser: UserDataModel;
   userSubscription;
+  summary;
   error: string;
+
+  faBin = faTrash;
 
   countiesOfEngland;
   countiesOfScotland;
@@ -62,4 +66,7 @@ export class CheckoutComponent implements OnInit {
   //     console.log(res);
   //   }, error => console.log(error));
   // }
+  onDelete(imageId: string) {
+
+  }
 }

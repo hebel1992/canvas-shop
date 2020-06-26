@@ -17,16 +17,117 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.checkout-step__field {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.checkout-step__button {
+
+}
+
+/*Basket*/
+
+.basket{
+  width: 90%;
+  max-width: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: #cbcac4 solid 1px;
+}
+
+.basket-header{
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #cbcac4;
+}
+
+.basket-header__elem{
+  font-weight: bold;
+}
+
+.basket-item{
+  display: flex;
+  align-items: center;
   justify-content: space-between;
+  width: 90%;
+  margin: 0.5rem auto;
 }
 
-.checkout-step__field{
-  width: 80%;
+.image {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
 }
 
-.purchase-button {
-  margin: 3rem;
+.basket-item__elem{
+  margin: 0.5rem auto;
 }
+
+.basket-item__elem.bin{
+  color: red;
+  cursor: pointer;
+}
+
+.basket-summary{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0.5rem auto;
+}
+
+.basket-summary__hide{
+  opacity: 0;
+  margin: 0.5rem auto;
+}
+
+.basket-summary__desc{
+  position: absolute;
+  left: 15%;
+  text-align: center;
+}
+
+.basket-summary__desc div{
+  margin: .7rem auto;
+}
+
+.basket-summary__price{
+  opacity: 1;
+  margin: .5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.basket-summary__price div{
+  margin: .35rem 0;
+}
+
+.total-price{
+  font-weight: bold;
+}
+
+.edit-order{
+  cursor: pointer;
+  color: cornflowerblue;
+  margin: 1rem auto;
+}
+
+.edit-order:focus{
+  outline: none;
+}
+
+
 
 .message .error {
   color: red;
@@ -42,5 +143,30 @@
   transform: translate(-50%, 0);
 }
 
+@media (min-width: 30rem) {
+  .checkout-step__field {
+    width: 80%;
+  }
+}
+
+@media (min-width: 40rem) {
+  .basket-summary__desc{
+    left: 22%;
+  }
+}
+
+
+@media (min-width: 55rem) {
+  .basket-summary__desc{
+    left: 27%;
+  }
+}
+
+@media (min-width: 70rem) {
+  /*.container{*/
+  /*  display: grid;*/
+  /*  */
+  /*}*/
+}
 
 
