@@ -31,6 +31,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { ResetPasswordDialogComponent } from './auth/reset-password/reset-password-dialog/reset-password-dialog.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {HttpClientModule} from '@angular/common/http';
+import { OrderCompleteComponent } from './checkout/order-complete/order-complete.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {HttpClientModule} from '@angular/common/http';
     BasketItemComponent,
     ResetPasswordComponent,
     ResetPasswordDialogComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    OrderCompleteComponent
   ],
   imports: [
     BrowserModule,

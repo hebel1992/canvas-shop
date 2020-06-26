@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="info" *ngIf="waiting">
+    <h2 class="message">{{waitingMessage}}</h2>
+    <app-loading-spinner class="spinner"></app-loading-spinner>
+  </div>
+  <div *ngIf="!waiting" class="info">
+    <h2>{{resultMessage}}</h2>
+  </div>
+</div>

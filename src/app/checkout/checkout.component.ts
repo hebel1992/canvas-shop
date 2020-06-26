@@ -37,8 +37,8 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  fullFillTesting() {
-    this.stripeCheckoutService.fullFillTesting('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
+  testMethod() {
+    this.stripeCheckoutService.testMethod('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
       console.log(res);
     }, error => console.log(error));
   }

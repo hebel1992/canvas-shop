@@ -5,6 +5,8 @@ import {RequestBodyItemModel} from './request-body-item.model';
 import {Observable} from 'rxjs';
 import {StripeCheckoutSessionModel} from './stripe-checkout-session.model';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {filter, first} from 'rxjs/operators';
 
 declare const Stripe;
 
@@ -15,7 +17,8 @@ export class StripeCheckoutService {
   user;
 
   constructor(private http: HttpClient,
-              private auth: AngularFireAuth) {
+              private auth: AngularFireAuth,
+              private db: AngularFirestore) {
     auth.user.subscribe(user => {
       this.user = user;
     });
@@ -51,7 +54,7 @@ export class StripeCheckoutService {
     if (port) {
       callbackUrl += port;
     }
-    callbackUrl += '/checkout';
+    callbackUrl += '/order-complete';
 
     return callbackUrl;
   }
@@ -63,8 +66,17 @@ export class StripeCheckoutService {
     });
   }
 
-  fullFillTesting(sessionId) {
-    return this.http.post<StripeCheckoutSessionModel>('/api/stripe/full-fill-test', {
+  waitForPurchaseCompleted(sessionId: string): Observable<any> {
+    return this.db.doc<any>(`purchaseSessions/${sessionId}`)
+      .valueChanges()
+      .pipe(
+        filter(purchase => purchase.status === 'completed'),
+        first()
+      );
+  }
+
+  testMethod(sessionId) {
+    return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
       sessionId
     });
   }
