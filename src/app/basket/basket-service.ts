@@ -78,10 +78,8 @@ export class BasketService {
   async deleteItem(itemId: string) {
     const foundByIndex = this.basket.findIndex(item => item.imageId === itemId);
     this.basket.splice(foundByIndex, 1);
-
-    this.basketChanged.next(this.basket);
-
     await this.updateGlobalBasket();
+    this.basketChanged.next(this.basket);
   }
 
   async updateQuantity(value: number, id: string) {

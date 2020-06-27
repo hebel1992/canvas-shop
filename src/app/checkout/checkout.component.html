@@ -1,7 +1,9 @@
 <div class="container">
-  <!--  <p class="message error">{{error}}</p>-->
+  <div *ngIf="error" class="error">
+    <p>{{error}}</p>
+  </div>
   <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
-  <div class="content">
+  <div class="content" *ngIf="!purchaseStarted">
     <h1 class="title">Checkout</h1>
     <form class="form">
       <mat-vertical-stepper linear>
@@ -71,7 +73,8 @@
               <mat-label>City/Town</mat-label>
               <input matInput
                      name="city"
-                     [ngModel]="currentUser?currentUser.city:''">
+                     [ngModel]="currentUser?currentUser.city:''"
+                     required>
             </mat-form-field>
             <mat-form-field class="checkout-step__field">
               <mat-label>Post code</mat-label>
@@ -119,7 +122,7 @@
       </mat-vertical-stepper>
     </form>
 
-    <!--  basket-->
+    <!--  Basket-->
     <div class="basket">
 
       <div class="basket-header">
@@ -133,7 +136,7 @@
         <div class="basket-item__elem">
           x {{item.quantity}}
         </div>
-        <div class="basket-item__elem">
+        <div class="basket-item__elem price">
           £{{item.price}}.00
         </div>
         <div class="basket-item__elem bin">
@@ -141,12 +144,12 @@
         </div>
       </div>
 
-      <div class="basket-summary">
-        <div class="basket-summary__hide">
+      <div class="basket-item summary">
+        <div class="basket-item__elem hide">
           <div class="image">
           </div>
         </div>
-        <div class="basket-summary__hide">
+        <div class="basket-item__elem hide">
           x 1
         </div>
         <div class="basket-summary__desc">
@@ -157,9 +160,9 @@
         <div class="basket-summary__price">
           <div>£{{summary}}.00</div>
           <div>£8.00</div>
-          <div class="total-price">£{{summary+8}}.00</div>
+          <div class="total-price">£{{summary + 8}}.00</div>
         </div>
-        <div class="basket-summary__hide">
+        <div class="basket-item__elem hide">
           <fa-icon [icon]="faBin"></fa-icon>
         </div>
       </div>

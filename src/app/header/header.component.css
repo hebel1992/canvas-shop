@@ -42,11 +42,12 @@
   padding: 0;
   list-style: none;
   display: none;
+  min-width: 13%;
 }
 
 .desktop-options li {
   color: darkgray;
-  margin: 0 0.9rem;
+  margin: 0 0.6rem;
   font-size: 1.3rem;
   cursor: pointer;
 }
@@ -226,7 +227,7 @@ a:active {
 .loadingAuthStateSpinner {
   margin: 0;
   position: fixed;
-  right: 6%;
+  right: 3%;
   opacity: 0;
 }
 
@@ -251,6 +252,7 @@ a:active {
 
   .desktop-options {
     display: flex;
+    justify-content: flex-end;
   }
 
   .mobile-nav {

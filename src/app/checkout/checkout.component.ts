@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {StripeCheckoutService} from './stripe-checkout.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
@@ -12,12 +12,12 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   purchaseStarted = false;
   basket: BasketItemModel[];
   basketSubscription: Subscription;
   currentUser: UserDataModel;
-  userSubscription;
+  userSubscription: Subscription;
   summary;
   error: string;
 
@@ -61,15 +61,20 @@ export class CheckoutComponent implements OnInit {
       console.log('Stripe checkout session has been initialized...');
       this.stripeCheckoutService.redirectToCheckout(session);
     }, error => {
-      console.log(error);
+      this.error = error.error.message;
       this.purchaseStarted = false;
     });
   }
 
   onDelete(imageId: string) {
     this.basketService.deleteItem(imageId).catch(err => {
-      this.error = err;
+      this.error = err.message;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.basketSubscription.unsubscribe();
   }
 
   // testMethod() {
