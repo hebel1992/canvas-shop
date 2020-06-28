@@ -28,6 +28,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   countiesOfScotland;
   countiesOfWales;
   countiesOfNorthernIreland;
+  userTitle = 'mr';
 
   constructor(private stripeCheckoutService: StripeCheckoutService,
               private basketService: BasketService,

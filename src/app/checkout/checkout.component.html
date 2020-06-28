@@ -10,9 +10,12 @@
         <mat-step label="Personal data" [completed]=personalData.valid>
           <div ngModelGroup="personalData" #personalData="ngModelGroup" class="checkout-step">
             <mat-radio-group class="checkout-step__field"
-                             color="primary">
-              <mat-radio-button value="mr" style="margin-right: 30px" checked>Mr.</mat-radio-button>
-              <mat-radio-button value="mrs">Mrs.</mat-radio-button>
+                             color="primary"
+                             name="userTitle"
+                             [(ngModel)]="userTitle"
+            >
+              <mat-radio-button value="mr" style="margin-right: 30px" checked>Mr</mat-radio-button>
+              <mat-radio-button value="mrs">Mrs</mat-radio-button>
             </mat-radio-group>
             <mat-form-field class="checkout-step__field">
               <mat-label>First name</mat-label>
@@ -125,13 +128,13 @@
           >Proceed to payment
           </button>
           <!--          test-->
-<!--          <button mat-raised-button color="primary"-->
-<!--                  class="purchase-button"-->
-<!--                  [disabled]="purchaseStarted"-->
-<!--                  style="margin-top: 1rem"-->
-<!--                  type="submit"-->
-<!--          >FullFill Test-->
-<!--          </button>-->
+          <!--          <button mat-raised-button color="primary"-->
+          <!--                  class="purchase-button"-->
+          <!--                  [disabled]="purchaseStarted"-->
+          <!--                  style="margin-top: 1rem"-->
+          <!--                  type="submit"-->
+          <!--          >FullFill Test-->
+          <!--          </button>-->
           <!--          test-->
         </mat-step>
       </mat-vertical-stepper>
