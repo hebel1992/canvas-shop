@@ -24,10 +24,10 @@ export class StripeCheckoutService {
     });
   }
 
-  startCheckoutSession(basket: BasketItemModel[]): Observable<StripeCheckoutSessionModel> {
-    const requestBody: RequestBodyItemModel[] = [];
+  startCheckoutSession(userData, basket: BasketItemModel[]): Observable<StripeCheckoutSessionModel> {
+    const requestBodyItems: RequestBodyItemModel[] = [];
     basket.forEach(elem => {
-      requestBody.push({id: elem.imageId, quantity: elem.quantity});
+      requestBodyItems.push({id: elem.imageId, quantity: elem.quantity});
     });
 
     let userId;
@@ -35,13 +35,14 @@ export class StripeCheckoutService {
     if (this.user) {
       userId = this.user.uid;
     } else {
-      userId = 'NoUser';
+      userId = 'UserNotRegistered';
     }
 
     return this.http.post<StripeCheckoutSessionModel>('/api/stripe/checkout', {
-      items: requestBody,
+      userId,
+      userData,
+      items: requestBodyItems,
       callbackUrl: this.buildCallbackUrl(),
-      userId
     });
   }
 
@@ -75,9 +76,18 @@ export class StripeCheckoutService {
       );
   }
 
-  // testMethod(sessionId) {
+  // testMethod(userData, basket) {
+  //   let userId;
+  //
+  //   if (this.user) {
+  //     userId = this.user.uid;
+  //   } else {
+  //     userId = 'NoUser';
+  //   }
   //   return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
-  //     sessionId
+  //     userId,
+  //     userData,
+  //     basket
   //   });
   // }
 }

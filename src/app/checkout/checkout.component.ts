@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -55,13 +56,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
   }
 
-  purchaseImages() {
+  purchaseImages(form: NgForm) {
+    const personalData = form.value.personalData;
+    const shippingAddress = form.value.address;
+
+    const joinedData = Object.assign(personalData, shippingAddress);
+
     this.purchaseStarted = true;
-    this.stripeCheckoutService.startCheckoutSession(this.basket).subscribe(session => {
+    this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket).subscribe(session => {
       console.log('Stripe checkout session has been initialized...');
       this.stripeCheckoutService.redirectToCheckout(session);
     }, error => {
-      this.error = error.error.message;
+      if (error.status === 504) {
+        this.error = 'Server is not responding. Sorry for inconvenience.';
+      } else {
+        this.error = error.error.message;
+      }
       this.purchaseStarted = false;
     });
   }
@@ -77,9 +87,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.basketSubscription.unsubscribe();
   }
 
-  // testMethod() {
-  //   this.stripeCheckoutService.testMethod('Bk6R0Y8SzsxbJ8ntjtwT').subscribe(res => {
+  // testMethod(form: NgForm) {
+  //   const personalData = form.value.personalData;
+  //   const shippingAddress = form.value.address;
+  //
+  //   const joinedData = Object.assign(personalData, shippingAddress);
+  //
+  //   this.stripeCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
   //     console.log(res);
-  //   }, error => console.log(error));
+  //   }, error => console.log(error.error.message));
   // }
 }
