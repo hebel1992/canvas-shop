@@ -104,13 +104,13 @@
         </div>
       </a>
     </li>
-    <li *ngIf="!isAuthenticated">
+    <li *ngIf="!isAuthenticated" class="mobile-nav__items__sign-in">
       <a (click)="closeMobileNavAndRedirect('/login')" [ngClass]="{'active': auth.isActive || register.isActive }">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>Sign in</span>
       </a>
     </li>
-    <li #mobileSettingsDropdown>
+    <li #mobileSettingsDropdown class="mobile-nav__items__my-account">
       <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>My account</span>
