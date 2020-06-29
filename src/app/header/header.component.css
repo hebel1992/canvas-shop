@@ -200,9 +200,8 @@ a:active {
   justify-content: space-between;
 }
 
-.arrow-down {
+.arrow {
   margin-left: 0.5rem;
-  vertical-align: top;
   font-size: 1.5rem
 }
 
@@ -286,6 +285,7 @@ a:active {
   .mobile-nav__items__my-account{
     grid-area: 2/2/2/3;
     width: 12rem;
+    height: 2.2rem;
   }
 
   .mobile-nav__items__sign-in a,
@@ -299,7 +299,7 @@ a:active {
     grid-column-start: 3;
     grid-column-end: 6;
     justify-self: center;
-    align-self: flex-end;
+    align-self: end;
     padding: 0;
     width: 90%;
   }
