@@ -114,7 +114,7 @@
       <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()">
         <fa-icon [icon]="faUser"></fa-icon>
         <span>My account</span>
-        <fa-icon class="arrow-down" [icon]="faArrowDown"></fa-icon>
+        <fa-icon class="arrow-down" [icon]="showSettingsMobile&&state==='landscape'?faArrowRight:faArrowDown"></fa-icon>
       </div>
     </li>
     <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">

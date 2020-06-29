@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {faFacebook, faInstagram, faSnapchat, faTwitter, faYoutube} from '@fortawesome/free-brands-svg-icons';
-import {faShoppingCart, faSortDown, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faCaretDown, faCaretRight, faShoppingCart, faUser} from '@fortawesome/free-solid-svg-icons';
 import {Subscription} from 'rxjs';
 import {UserService} from '../user/user-service';
 import {AuthService} from '../auth/auth.service';
@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faTwitter = faTwitter;
   faYoutube = faYoutube;
   faUser = faUser;
-  faArrowDown = faSortDown;
+  faArrowDown = faCaretDown;
+  faArrowRight = faCaretRight;
   faShoppingCart = faShoppingCart;
 
   isAuthenticated = false;
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showSettingsDesktop = false;
   showSettingsMobile = false;
   loadingAuthState = false;
+  state;
 
   userSubscription: Subscription;
   basketSubscription: Subscription;
@@ -51,6 +53,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:resize') updateOrientatioState() {
+    if (window.innerHeight > window.innerWidth) {
+      this.state = 'portrait';
+    } else {
+      this.state = 'landscape';
+    }
+  }
+
   constructor(private userService: UserService,
               private userDbService: UserDbService,
               private authService: AuthService,
@@ -59,6 +69,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (window.innerHeight > window.innerWidth) {
+      this.state = 'portrait';
+    } else {
+      this.state = 'landscape';
+    }
+
     this.loadingAuthState = true;
     const htmlElement = this.authStateElement.nativeElement as HTMLElement;
     htmlElement.style.opacity = '0';

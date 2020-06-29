@@ -152,12 +152,14 @@ a:active {
 .mobile-nav__items li {
   color: #cbcac4;
   margin: 1.5rem 0;
-  font-size: 1.3rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-.mobile-nav__items__basket a{
-  font-size: 1.5rem;
+.mobile-nav__items__basket a,
+.mobile-nav__items__sign-in a,
+.mobile-nav__items__my-account div{
+  font-size: 1.3rem;
 }
 
 .mobile-nav__items li:nth-child(7) span,
@@ -178,9 +180,10 @@ a:active {
 
 .mobile-nav-settings__item {
   color: black;
-  padding: 0.5rem 1rem;
-  margin: 0.2rem 0;
-  font-size: 1.2rem;
+  width: 50%;
+  margin: 0.2rem 2rem;
+  font-size: 1rem;;
+  text-align: center;
 }
 
 .mobile-nav-settings__item:focus {
@@ -193,11 +196,13 @@ a:active {
 }
 
 .show-settings-mobile {
-  display: block;
+  display: flex;
+  justify-content: space-between;
 }
 
 .arrow-down {
-  margin-left: 0.3rem;
+  margin-left: 0.5rem;
+  vertical-align: top;
   font-size: 1.5rem
 }
 
@@ -265,8 +270,6 @@ a:active {
   }
 
   .mobile-nav__items__basket{
-    grid-column-start: 3;
-    grid-column-end: 3;
     grid-area: 2/1/2/1;
     width: 5rem;
   }
@@ -281,14 +284,48 @@ a:active {
   }
 
   .mobile-nav__items__my-account{
-    grid-area: 2/1/2/4;
-    justify-self: center;
+    grid-area: 2/2/2/3;
     width: 12rem;
   }
 
   .mobile-nav__items__sign-in a,
   .mobile-nav__items__my-account div span{
     font-size: 1.3rem;
+  }
+
+
+  .mobile-nav-settings {
+    grid-row: 2;
+    grid-column-start: 3;
+    grid-column-end: 6;
+    justify-self: center;
+    align-self: flex-end;
+    padding: 0;
+    width: 90%;
+  }
+
+  .mobile-nav-settings__item {
+    color: black;
+    width: fit-content;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    margin: auto;
+    font-size: 1rem;;
+    text-align: center;
+  }
+
+  .mobile-nav-settings__item:focus {
+    outline: none;
+  }
+
+  .mobile-nav-settings__item:hover,
+  .mobile-nav-settings__item:active {
+    background: #e0e2de;
+  }
+
+  .show-settings-mobile {
+    display: flex;
+    justify-content: space-between;
   }
 }
 
