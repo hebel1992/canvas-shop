@@ -18,6 +18,8 @@
   text-decoration: none;
 }
 
+/*Desktop*/
+
 .desktop-social-media {
   padding: 0;
   list-style: none;
@@ -122,6 +124,8 @@ a:active {
 .animate-basket {
   animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
 }
+
+/*Mobile*/
 
 .mobile-nav {
   width: 100%;
@@ -305,13 +309,11 @@ a:active {
   }
 
   .mobile-nav-settings__item {
-    color: black;
     width: fit-content;
     height: 2.2rem;
     line-height: 2.2rem;
     margin: auto;
     font-size: 1rem;;
-    text-align: center;
   }
 
   .mobile-nav-settings__item:focus {

@@ -44,7 +44,7 @@ img {
 }
 
 .buttons{
-  max-width: 15rem;
+  width: 100%;
 }
 
 button {

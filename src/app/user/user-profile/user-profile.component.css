@@ -39,8 +39,8 @@ mat-form-field {
 }
 
 .form-buttons button {
-  width: 15%;
-  max-width: 10rem;
+  width: 35%;
+  max-width: 15rem;
   margin: 2rem 0;
 }
 

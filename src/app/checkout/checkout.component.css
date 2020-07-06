@@ -144,7 +144,7 @@
 }
 
 .error p {
-  width: 55%;
+  width: 100%;
   text-align: center;
 }
 
@@ -195,6 +195,10 @@
     align-self: start;
     justify-self: center;
     max-width: 20rem;
+  }
+
+  .error p {
+    width: 55%;
   }
 }
 
