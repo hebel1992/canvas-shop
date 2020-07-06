@@ -131,15 +131,16 @@
                   type="submit"
           >Proceed to payment
           </button>
-          <!--          test-->
-          <!--          <button mat-raised-button color="primary"-->
-          <!--                  class="purchase-button"-->
-          <!--                  [disabled]="purchaseStarted"-->
-          <!--                  style="margin-top: 1rem"-->
-          <!--                  type="submit"-->
-          <!--          >FullFill Test-->
-          <!--          </button>-->
-          <!--          test-->
+          <!--                    test-->
+          <button mat-raised-button color="primary"
+                  class="purchase-button"
+                  [disabled]="purchaseStarted"
+                  style="margin-top: 1rem"
+                  (click)="testMethod(form)"
+                  type="button"
+          >Paypal Payment
+          </button>
+
         </mat-step>
       </mat-vertical-stepper>
     </form>

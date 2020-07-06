@@ -88,14 +88,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.basketSubscription.unsubscribe();
   }
 
-  // testMethod(form: NgForm) {
-  //   const personalData = form.value.personalData;
-  //   const shippingAddress = form.value.address;
-  //
-  //   const joinedData = Object.assign(personalData, shippingAddress);
-  //
-  //   this.stripeCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
-  //     console.log(res);
-  //   }, error => console.log(error.error.message));
-  // }
+  testMethod(form: NgForm) {
+    console.log('comp works');
+    const personalData = form.value.personalData;
+    const shippingAddress = form.value.address;
+
+    const joinedData = Object.assign(personalData, shippingAddress);
+
+    this.stripeCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
+      console.log(res);
+    }, error => console.log(error.error.message));
+  }
 }

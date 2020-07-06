@@ -76,18 +76,19 @@ export class StripeCheckoutService {
       );
   }
 
-  // testMethod(userData, basket) {
-  //   let userId;
-  //
-  //   if (this.user) {
-  //     userId = this.user.uid;
-  //   } else {
-  //     userId = 'NoUser';
-  //   }
-  //   return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
-  //     userId,
-  //     userData,
-  //     basket
-  //   });
-  // }
+  testMethod(userData, basket) {
+    console.log('service works');
+    let userId;
+
+    if (this.user) {
+      userId = this.user.uid;
+    } else {
+      userId = 'NoUser';
+    }
+    return this.http.post<StripeCheckoutSessionModel>('/api/paypal/test-method', {
+      userId,
+      userData,
+      basket
+    });
+  }
 }
