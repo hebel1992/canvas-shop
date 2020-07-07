@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {StripeCheckoutService} from './stripe-checkout.service';
+import {StripeCheckoutService} from './stripe/stripe-checkout.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
@@ -7,6 +7,7 @@ import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {NgForm} from '@angular/forms';
+import {PaypalCheckoutService} from './paypal/paypal-checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -31,6 +32,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   userTitle = 'mr';
 
   constructor(private stripeCheckoutService: StripeCheckoutService,
+              private paypalCheckoutService: PaypalCheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -95,8 +97,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     const joinedData = Object.assign(personalData, shippingAddress);
 
-    this.stripeCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
+    this.paypalCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
       console.log(res);
+      const response: any = res;
+      window.location.href = response.redirect_url;
     }, error => console.log(error.error.message));
   }
 }

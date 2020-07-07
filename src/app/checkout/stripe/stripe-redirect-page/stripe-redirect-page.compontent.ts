@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StripeCheckoutService} from '../stripe-checkout.service';
-import {BasketService} from '../../basket/basket-service';
-import {UserService} from '../../user/user-service';
+import {BasketService} from '../../../basket/basket-service';
+import {UserService} from '../../../user/user-service';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-order-complete',
-  templateUrl: './order-complete.component.html',
-  styleUrls: ['./order-complete.component.css']
+  templateUrl: './stripe-redirect-page.compontent.html',
+  styleUrls: ['./stripe-redirect-page.component.css']
 })
-export class OrderCompleteComponent implements OnInit, OnDestroy {
+export class StripeRedirectPageCompontent implements OnInit, OnDestroy {
   userSub: Subscription;
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';

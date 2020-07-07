@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BasketItemModel} from '../basket/basket-item.model';
-import {RequestBodyItemModel} from './request-body-item.model';
+import {BasketItemModel} from '../../basket/basket-item.model';
+import {RequestBodyItemModel} from '../request-body-item.model';
 import {Observable} from 'rxjs';
 import {StripeCheckoutSessionModel} from './stripe-checkout-session.model';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {filter, first} from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 declare const Stripe;
 
@@ -14,7 +15,7 @@ declare const Stripe;
   providedIn: 'root'
 })
 export class StripeCheckoutService {
-  user;
+  user: firebase.User;
 
   constructor(private http: HttpClient,
               private auth: AngularFireAuth,
@@ -74,21 +75,5 @@ export class StripeCheckoutService {
         filter(purchase => purchase.status === 'completed'),
         first()
       );
-  }
-
-  testMethod(userData, basket) {
-    console.log('service works');
-    let userId;
-
-    if (this.user) {
-      userId = this.user.uid;
-    } else {
-      userId = 'NoUser';
-    }
-    return this.http.post<StripeCheckoutSessionModel>('/api/paypal/test-method', {
-      userId,
-      userData,
-      basket
-    });
   }
 }
