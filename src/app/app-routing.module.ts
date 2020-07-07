@@ -12,8 +12,8 @@ import {BasketComponent} from './basket/basket.component';
 import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
 import {CanActivateGuardService} from './user/can-activate-guard.service';
 import {CheckoutComponent} from './checkout/checkout.component';
-import {StripeRedirectPageComponent} from './checkout/stripe/stripe-redirect-page/stripe-redirect-page.component';
-import {PaypalRedirectPageComponent} from './checkout/paypal/paypal-redirect-page/paypal-redirect-page.component';
+import {StripeRedirectPageComponent} from './checkout/stripe-redirect-page/stripe-redirect-page.component';
+import {PaypalRedirectPageComponent} from './checkout/paypal-redirect-page/paypal-redirect-page.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/gallery', pathMatch: 'full'},

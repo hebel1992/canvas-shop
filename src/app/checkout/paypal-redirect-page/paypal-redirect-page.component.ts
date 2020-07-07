@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {StripeCheckoutService} from '../stripe-checkout.service';
-import {BasketService} from '../../../basket/basket-service';
-import {UserService} from '../../../user/user-service';
 import {Subscription} from 'rxjs';
+import {UserService} from '../../user/user-service';
+import {BasketService} from '../../basket/basket-service';
+import {CheckoutService} from '../checkout.service';
 
 @Component({
-  selector: 'app-order-complete',
-  templateUrl: './stripe-redirect-page.compontent.html',
-  styleUrls: ['./stripe-redirect-page.component.css']
+  selector: 'app-paypal-redirect-page',
+  templateUrl: './paypal-redirect-page.component.html',
+  styleUrls: ['./paypal-redirect-page.component.css']
 })
-export class StripeRedirectPageComponent implements OnInit, OnDestroy {
+export class PaypalRedirectPageComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';
@@ -19,9 +19,9 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private stripeCheckoutService: StripeCheckoutService,
-              private basketService: BasketService,
-              private userService: UserService) {
+              private userService: UserService,
+              private stripeCheckoutService: CheckoutService,
+              private basketService: BasketService) {
   }
 
   ngOnInit(): void {
@@ -29,9 +29,10 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     });
     const result = this.route.snapshot.queryParamMap.get('purchaseResult');
+
     if (result === 'success') {
-      const sessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
-      this.stripeCheckoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
+      const orderId = this.route.snapshot.queryParamMap.get('token');
+      this.stripeCheckoutService.captureOrder(orderId).subscribe(() => {
         this.waiting = false;
         this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
         setTimeout(() => {
@@ -53,5 +54,4 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
 }

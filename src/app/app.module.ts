@@ -31,8 +31,8 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { ResetPasswordDialogComponent } from './auth/reset-password/reset-password-dialog/reset-password-dialog.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {HttpClientModule} from '@angular/common/http';
-import { StripeRedirectPageComponent } from './checkout/stripe/stripe-redirect-page/stripe-redirect-page.component';
-import { PaypalRedirectPageComponent } from './checkout/paypal/paypal-redirect-page/paypal-redirect-page.component';
+import { StripeRedirectPageComponent } from './checkout/stripe-redirect-page/stripe-redirect-page.component';
+import { PaypalRedirectPageComponent } from './checkout/paypal-redirect-page/paypal-redirect-page.component';
 
 @NgModule({
   declarations: [

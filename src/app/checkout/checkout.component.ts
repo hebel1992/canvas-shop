@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {StripeCheckoutService} from './stripe/stripe-checkout.service';
+import {CheckoutService} from './checkout.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
@@ -7,7 +7,6 @@ import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {NgForm} from '@angular/forms';
-import {PaypalCheckoutService} from './paypal/paypal-checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -30,8 +29,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   countiesOfNorthernIreland;
   faBin = faTrash;
 
-  constructor(private stripeCheckoutService: StripeCheckoutService,
-              private paypalCheckoutService: PaypalCheckoutService,
+  constructor(private stripeCheckoutService: CheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -72,7 +70,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.purchaseStarted = true;
 
     if (paymentMethod === 'card') {
-      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket).subscribe(session => {
+      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
         console.log('Stripe checkout session has been initialized...');
         this.stripeCheckoutService.redirectToCheckout(session);
       }, error => {
@@ -84,10 +82,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.purchaseStarted = false;
       });
     } else {
-      this.paypalCheckoutService.createOrder(joinedData, this.basket).subscribe(res => {
+      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
         const response: any = res;
         window.location.href = response.redirect_url;
-      }, error => console.log(error.error.message));
+      }, error => {
+        if (error.status === 504) {
+          this.error = 'Server is not responding. Sorry for inconvenience.';
+        } else {
+          this.error = error.error.message;
+        }
+        this.purchaseStarted = false;
+      });
     }
   }
 
