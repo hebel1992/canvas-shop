@@ -43,7 +43,7 @@ export class StripeCheckoutService {
       userId,
       userData,
       items: requestBodyItems,
-      callbackUrl: this.buildCallbackUrl(),
+      callbackUrl: this.buildCallbackUrl()
     });
   }
 
@@ -56,7 +56,7 @@ export class StripeCheckoutService {
     if (port) {
       callbackUrl += port;
     }
-    callbackUrl += '/order-complete';
+    callbackUrl += '/stripe-redirect';
 
     return callbackUrl;
   }

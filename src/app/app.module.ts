@@ -31,7 +31,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { ResetPasswordDialogComponent } from './auth/reset-password/reset-password-dialog/reset-password-dialog.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {HttpClientModule} from '@angular/common/http';
-import { StripeRedirectPageCompontent } from './checkout/stripe/stripe-redirect-page/stripe-redirect-page.compontent';
+import { StripeRedirectPageComponent } from './checkout/stripe/stripe-redirect-page/stripe-redirect-page.component';
 import { PaypalRedirectPageComponent } from './checkout/paypal/paypal-redirect-page/paypal-redirect-page.component';
 
 @NgModule({
@@ -54,7 +54,7 @@ import { PaypalRedirectPageComponent } from './checkout/paypal/paypal-redirect-p
     ResetPasswordComponent,
     ResetPasswordDialogComponent,
     CheckoutComponent,
-    StripeRedirectPageCompontent,
+    StripeRedirectPageComponent,
     PaypalRedirectPageComponent
   ],
   imports: [

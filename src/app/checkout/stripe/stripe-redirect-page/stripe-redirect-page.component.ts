@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './stripe-redirect-page.compontent.html',
   styleUrls: ['./stripe-redirect-page.component.css']
 })
-export class StripeRedirectPageCompontent implements OnInit, OnDestroy {
+export class StripeRedirectPageComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';

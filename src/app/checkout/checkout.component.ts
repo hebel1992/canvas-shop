@@ -23,13 +23,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   summary;
   error: string;
 
-  faBin = faTrash;
-
+  userTitle = 'mr';
   countiesOfEngland;
   countiesOfScotland;
   countiesOfWales;
   countiesOfNorthernIreland;
-  userTitle = 'mr';
+  faBin = faTrash;
 
   constructor(private stripeCheckoutService: StripeCheckoutService,
               private paypalCheckoutService: PaypalCheckoutService,
@@ -60,23 +59,36 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   purchaseImages(form: NgForm) {
+    const paymentMethod = form.control.value.paymentMethod;
+    if (!paymentMethod) {
+      this.error = 'Please select payment method';
+      return;
+    }
+
     const personalData = form.value.personalData;
     const shippingAddress = form.value.address;
-
     const joinedData = Object.assign(personalData, shippingAddress);
 
     this.purchaseStarted = true;
-    this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket).subscribe(session => {
-      console.log('Stripe checkout session has been initialized...');
-      this.stripeCheckoutService.redirectToCheckout(session);
-    }, error => {
-      if (error.status === 504) {
-        this.error = 'Server is not responding. Sorry for inconvenience.';
-      } else {
-        this.error = error.error.message;
-      }
-      this.purchaseStarted = false;
-    });
+
+    if (paymentMethod === 'card') {
+      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket).subscribe(session => {
+        console.log('Stripe checkout session has been initialized...');
+        this.stripeCheckoutService.redirectToCheckout(session);
+      }, error => {
+        if (error.status === 504) {
+          this.error = 'Server is not responding. Sorry for inconvenience.';
+        } else {
+          this.error = error.error.message;
+        }
+        this.purchaseStarted = false;
+      });
+    } else {
+      this.paypalCheckoutService.createOrder(joinedData, this.basket).subscribe(res => {
+        const response: any = res;
+        window.location.href = response.redirect_url;
+      }, error => console.log(error.error.message));
+    }
   }
 
   onDelete(imageId: string) {
@@ -88,19 +100,5 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     this.basketSubscription.unsubscribe();
-  }
-
-  testMethod(form: NgForm) {
-    console.log('comp works');
-    const personalData = form.value.personalData;
-    const shippingAddress = form.value.address;
-
-    const joinedData = Object.assign(personalData, shippingAddress);
-
-    this.paypalCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
-      console.log(res);
-      const response: any = res;
-      window.location.href = response.redirect_url;
-    }, error => console.log(error.error.message));
   }
 }
