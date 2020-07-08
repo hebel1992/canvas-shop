@@ -19,7 +19,7 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private stripeCheckoutService: CheckoutService,
+              private checkoutService: CheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -29,13 +29,16 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     });
     const result = this.route.snapshot.queryParamMap.get('purchaseResult');
+
     if (result === 'success') {
       const sessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
-      this.stripeCheckoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
+      this.checkoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
         this.waiting = false;
         this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
         setTimeout(() => {
-          if (!this.currentUser) {
+          if (this.currentUser) {
+            this.basketService.setBasket([]);
+          } else {
             this.basketService.setLocalStorageBasket([]);
           }
           this.router.navigate(['/gallery']);
@@ -53,5 +56,4 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
 }

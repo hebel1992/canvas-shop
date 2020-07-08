@@ -20,7 +20,7 @@ export class PaypalRedirectPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private userService: UserService,
-              private stripeCheckoutService: CheckoutService,
+              private checkoutService: CheckoutService,
               private basketService: BasketService) {
   }
 
@@ -32,11 +32,13 @@ export class PaypalRedirectPageComponent implements OnInit, OnDestroy {
 
     if (result === 'success') {
       const orderId = this.route.snapshot.queryParamMap.get('token');
-      this.stripeCheckoutService.captureOrder(orderId).subscribe(() => {
+      this.checkoutService.captureOrder(orderId).subscribe(() => {
         this.waiting = false;
         this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
         setTimeout(() => {
-          if (!this.currentUser) {
+          if (this.currentUser) {
+            this.basketService.setBasket([]);
+          } else {
             this.basketService.setLocalStorageBasket([]);
           }
           this.router.navigate(['/gallery']);

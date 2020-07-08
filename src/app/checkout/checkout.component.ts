@@ -29,7 +29,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   countiesOfNorthernIreland;
   faBin = faTrash;
 
-  constructor(private stripeCheckoutService: CheckoutService,
+  constructor(private checkoutService: CheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -70,11 +70,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.purchaseStarted = true;
 
     if (paymentMethod === 'card') {
-      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
+      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
         console.log('Stripe checkout session has been initialized...');
-        this.stripeCheckoutService.redirectToCheckout(session);
+        this.checkoutService.redirectToCheckout(session);
       }, error => {
-        if (error.status === 504) {
+        if (error.status === 504 || error.status === 404) {
           this.error = 'Server is not responding. Sorry for inconvenience.';
         } else {
           this.error = error.error.message;
@@ -82,7 +82,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         this.purchaseStarted = false;
       });
     } else {
-      this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
+      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
         const response: any = res;
         window.location.href = response.redirect_url;
       }, error => {
@@ -95,6 +95,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // testMethod(){
+  //   this.checkoutService.testMethod().subscribe();
+  // }
 
   onDelete(imageId: string) {
     this.basketService.deleteItem(imageId).catch(err => {

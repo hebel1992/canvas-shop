@@ -89,4 +89,10 @@ export class CheckoutService {
         first()
       );
   }
+
+  // testMethod(){
+  //   return this.http.post('/api/paypal/test-method', {
+  //
+  //   });
+  // }
 }
