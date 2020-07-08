@@ -3,18 +3,19 @@ import {HttpClient} from '@angular/common/http';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {RequestBodyItemModel} from './request-body-item.model';
 import {Observable} from 'rxjs';
-import {StripeCheckoutSessionModel} from './stripe-checkout-session.model';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {filter, first} from 'rxjs/operators';
+import * as firebase from 'firebase';
+import {StripeCheckoutSessionModel} from './stripe-checkout-session.model';
 
 declare const Stripe;
 
 @Injectable({
   providedIn: 'root'
 })
-export class StripeCheckoutService {
-  user;
+export class CheckoutService {
+  user: firebase.User;
 
   constructor(private http: HttpClient,
               private auth: AngularFireAuth,
@@ -24,7 +25,7 @@ export class StripeCheckoutService {
     });
   }
 
-  startCheckoutSession(userData, basket: BasketItemModel[]): Observable<StripeCheckoutSessionModel> {
+  startCheckoutSession(userData, basket: BasketItemModel[], method: string): Observable<any> {
     const requestBodyItems: RequestBodyItemModel[] = [];
     basket.forEach(elem => {
       requestBodyItems.push({id: elem.imageId, quantity: elem.quantity});
@@ -38,11 +39,26 @@ export class StripeCheckoutService {
       userId = 'UserNotRegistered';
     }
 
-    return this.http.post<StripeCheckoutSessionModel>('/api/stripe/checkout', {
-      userId,
-      userData,
-      items: requestBodyItems,
-      callbackUrl: this.buildCallbackUrl(),
+    if (method === 'card') {
+      return this.http.post<StripeCheckoutSessionModel>('/api/stripe/checkout', {
+        userId,
+        userData,
+        items: requestBodyItems,
+        callbackUrl: this.buildCallbackUrl()
+      });
+    } else {
+      return this.http.post('/api/paypal/create-order', {
+        userId,
+        userData,
+        items: requestBodyItems,
+        callbackUrl: this.buildCallbackUrl()
+      });
+    }
+  }
+
+  captureOrder(orderId) {
+    return this.http.post('/api/paypal/capture-order', {
+      orderId
     });
   }
 
@@ -55,8 +71,6 @@ export class StripeCheckoutService {
     if (port) {
       callbackUrl += port;
     }
-    callbackUrl += '/order-complete';
-
     return callbackUrl;
   }
 
@@ -76,18 +90,9 @@ export class StripeCheckoutService {
       );
   }
 
-  // testMethod(userData, basket) {
-  //   let userId;
+  // testMethod(){
+  //   return this.http.post('/api/paypal/test-method', {
   //
-  //   if (this.user) {
-  //     userId = this.user.uid;
-  //   } else {
-  //     userId = 'NoUser';
-  //   }
-  //   return this.http.post<StripeCheckoutSessionModel>('/api/stripe/test-method', {
-  //     userId,
-  //     userData,
-  //     basket
   //   });
   // }
 }

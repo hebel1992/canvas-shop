@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {StripeCheckoutService} from '../stripe-checkout.service';
+import {CheckoutService} from '../checkout.service';
 import {BasketService} from '../../basket/basket-service';
 import {UserService} from '../../user/user-service';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-order-complete',
-  templateUrl: './order-complete.component.html',
-  styleUrls: ['./order-complete.component.css']
+  templateUrl: './stripe-redirect-page.component.html',
+  styleUrls: ['./stripe-redirect-page.component.css']
 })
-export class OrderCompleteComponent implements OnInit, OnDestroy {
+export class StripeRedirectPageComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';
@@ -19,7 +19,7 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private stripeCheckoutService: StripeCheckoutService,
+              private checkoutService: CheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -29,13 +29,16 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
       this.currentUser = user;
     });
     const result = this.route.snapshot.queryParamMap.get('purchaseResult');
+
     if (result === 'success') {
       const sessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
-      this.stripeCheckoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
+      this.checkoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
         this.waiting = false;
         this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
         setTimeout(() => {
-          if (!this.currentUser) {
+          if (this.currentUser) {
+            this.basketService.setBasket([]);
+          } else {
             this.basketService.setLocalStorageBasket([]);
           }
           this.router.navigate(['/gallery']);
@@ -53,5 +56,4 @@ export class OrderCompleteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
-
 }

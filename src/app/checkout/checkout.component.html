@@ -7,6 +7,7 @@
     <h1 class="title">Checkout</h1>
     <form class="form" (ngSubmit)="purchaseImages(form)" #form="ngForm">
       <mat-vertical-stepper linear>
+
         <mat-step label="Personal data" [completed]=personalData.valid>
           <div ngModelGroup="personalData" #personalData="ngModelGroup" class="checkout-step">
             <mat-radio-group class="checkout-step__field"
@@ -43,8 +44,8 @@
               <input matInput
                      name="email"
                      [ngModel]="currentUser?currentUser.email:''"
-                     required
                      email
+                     required
               >
             </mat-form-field>
             <mat-form-field class="checkout-step__field">
@@ -61,6 +62,7 @@
             </mat-form-field>
           </div>
         </mat-step>
+
         <mat-step label="Shipping address" [completed]="address.valid">
           <div ngModelGroup="address" #address="ngModelGroup" class="checkout-step">
             <mat-form-field class="checkout-step__field">
@@ -124,6 +126,32 @@
             </mat-form-field>
           </div>
         </mat-step>
+
+        <mat-step label="Payment method">
+          <div class="payment-methods">
+            <div class="payment-methods__item">
+              <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="card"
+                       ngModel
+                >
+                <img src="../../assets/5-55223_visa-mastercard-logo-png-transparent-png.png">
+              </label>
+            </div>
+            <div class="payment-methods__item">
+              <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="paypal"
+                       ngModel
+                >
+                <img src="../../assets/paypal-logo.jpg" alt="paypal">
+              </label>
+            </div>
+          </div>
+        </mat-step>
+
         <mat-step label="Finalize" class="checkout-step__finalize">
           <button mat-raised-button color="primary"
                   class="checkout-step__button"
@@ -131,15 +159,16 @@
                   type="submit"
           >Proceed to payment
           </button>
-          <!--          test-->
-          <!--          <button mat-raised-button color="primary"-->
-          <!--                  class="purchase-button"-->
-          <!--                  [disabled]="purchaseStarted"-->
-          <!--                  style="margin-top: 1rem"-->
-          <!--                  type="submit"-->
-          <!--          >FullFill Test-->
-          <!--          </button>-->
-          <!--          test-->
+          <!--                    test-->
+<!--          <button mat-raised-button color="primary"-->
+<!--                  class="purchase-button"-->
+<!--                  [disabled]="purchaseStarted"-->
+<!--                  style="margin-top: 1rem"-->
+<!--                  (click)="testMethod()"-->
+<!--                  type="button"-->
+<!--          >Test method-->
+<!--          </button>-->
+
         </mat-step>
       </mat-vertical-stepper>
     </form>

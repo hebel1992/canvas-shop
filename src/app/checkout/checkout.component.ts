@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {StripeCheckoutService} from './stripe-checkout.service';
+import {CheckoutService} from './checkout.service';
 import {BasketItemModel} from '../basket/basket-item.model';
 import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
@@ -22,15 +22,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   summary;
   error: string;
 
-  faBin = faTrash;
-
+  userTitle = 'mr';
   countiesOfEngland;
   countiesOfScotland;
   countiesOfWales;
   countiesOfNorthernIreland;
-  userTitle = 'mr';
+  faBin = faTrash;
 
-  constructor(private stripeCheckoutService: StripeCheckoutService,
+  constructor(private checkoutService: CheckoutService,
               private basketService: BasketService,
               private userService: UserService) {
   }
@@ -58,24 +57,48 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   purchaseImages(form: NgForm) {
+    const paymentMethod = form.control.value.paymentMethod;
+    if (!paymentMethod) {
+      this.error = 'Please select payment method';
+      return;
+    }
+
     const personalData = form.value.personalData;
     const shippingAddress = form.value.address;
-
     const joinedData = Object.assign(personalData, shippingAddress);
 
     this.purchaseStarted = true;
-    this.stripeCheckoutService.startCheckoutSession(joinedData, this.basket).subscribe(session => {
-      console.log('Stripe checkout session has been initialized...');
-      this.stripeCheckoutService.redirectToCheckout(session);
-    }, error => {
-      if (error.status === 504) {
-        this.error = 'Server is not responding. Sorry for inconvenience.';
-      } else {
-        this.error = error.error.message;
-      }
-      this.purchaseStarted = false;
-    });
+
+    if (paymentMethod === 'card') {
+      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
+        console.log('Stripe checkout session has been initialized...');
+        this.checkoutService.redirectToCheckout(session);
+      }, error => {
+        if (error.status === 504 || error.status === 404) {
+          this.error = 'Server is not responding. Sorry for inconvenience.';
+        } else {
+          this.error = error.error.message;
+        }
+        this.purchaseStarted = false;
+      });
+    } else {
+      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
+        const response: any = res;
+        window.location.href = response.redirect_url;
+      }, error => {
+        if (error.status === 504) {
+          this.error = 'Server is not responding. Sorry for inconvenience.';
+        } else {
+          this.error = error.error.message;
+        }
+        this.purchaseStarted = false;
+      });
+    }
   }
+
+  // testMethod(){
+  //   this.checkoutService.testMethod().subscribe();
+  // }
 
   onDelete(imageId: string) {
     this.basketService.deleteItem(imageId).catch(err => {
@@ -87,15 +110,4 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
     this.basketSubscription.unsubscribe();
   }
-
-  // testMethod(form: NgForm) {
-  //   const personalData = form.value.personalData;
-  //   const shippingAddress = form.value.address;
-  //
-  //   const joinedData = Object.assign(personalData, shippingAddress);
-  //
-  //   this.stripeCheckoutService.testMethod(joinedData, this.basket).subscribe(res => {
-  //     console.log(res);
-  //   }, error => console.log(error.error.message));
-  // }
 }
