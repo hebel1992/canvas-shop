@@ -57,6 +57,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   purchaseImages(form: NgForm) {
+    this.error = null;
     const paymentMethod = form.control.value.paymentMethod;
     if (!paymentMethod) {
       this.error = 'Please select payment method';
@@ -71,28 +72,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     if (paymentMethod === 'card') {
       this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
-        console.log('Stripe checkout session has been initialized...');
         this.checkoutService.redirectToCheckout(session);
-      }, error => {
-        if (error.status === 504 || error.status === 404) {
-          this.error = 'Server is not responding. Sorry for inconvenience.';
-        } else {
-          this.error = error.error.message;
-        }
-        this.purchaseStarted = false;
-      });
+      }, error => this.errorHandling(error));
     } else {
       this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
         const response: any = res;
         window.location.href = response.redirect_url;
-      }, error => {
-        if (error.status === 504) {
-          this.error = 'Server is not responding. Sorry for inconvenience.';
-        } else {
-          this.error = error.error.message;
-        }
-        this.purchaseStarted = false;
-      });
+      }, error => this.errorHandling(error));
     }
   }
 
@@ -104,6 +90,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.basketService.deleteItem(imageId).catch(err => {
       this.error = err.message;
     });
+  }
+
+  errorHandling(error: any) {
+    if (error.status === 504 || error.status === 404) {
+      this.error = 'Server is not responding. Sorry for inconvenience.';
+    } else {
+      this.error = error.error.message;
+    }
+    this.purchaseStarted = false;
   }
 
   ngOnDestroy(): void {

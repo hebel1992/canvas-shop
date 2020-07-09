@@ -28,7 +28,7 @@ app-basket-item {
 .summary-container {
   min-width: 16rem;
   max-width: 23rem;
-  width: 60vw;
+  width: 70vw;
   margin: 0;
   padding: 2rem 2rem 1rem 2rem;
   display: flex;
@@ -41,7 +41,7 @@ app-basket-item {
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  width: 40%;
+  width: 100%;
   min-width: 10rem;
 }
 
@@ -90,6 +90,10 @@ app-basket-item {
 
   .continue-shopping{
     margin-bottom: 0;
+  }
+
+  .total-price{
+    width: 60%;
   }
 
   .total-price__button{

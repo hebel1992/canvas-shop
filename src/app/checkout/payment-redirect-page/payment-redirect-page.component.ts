@@ -7,10 +7,10 @@ import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-order-complete',
-  templateUrl: './stripe-redirect-page.component.html',
-  styleUrls: ['./stripe-redirect-page.component.css']
+  templateUrl: './payment-redirect-page.component.html',
+  styleUrls: ['./payment-redirect-page.component.css']
 })
-export class StripeRedirectPageComponent implements OnInit, OnDestroy {
+export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';
@@ -28,22 +28,21 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
     this.userSub = this.userService.userDataChanged.subscribe(user => {
       this.currentUser = user;
     });
+
     const result = this.route.snapshot.queryParamMap.get('purchaseResult');
+    const stripeSessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
+    const paypalSessionId = this.route.snapshot.queryParamMap.get('token');
 
     if (result === 'success') {
-      const sessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
-      this.checkoutService.waitForPurchaseCompleted(sessionId).subscribe(() => {
-        this.waiting = false;
-        this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
-        setTimeout(() => {
-          if (this.currentUser) {
-            this.basketService.setBasket([]);
-          } else {
-            this.basketService.setLocalStorageBasket([]);
-          }
-          this.router.navigate(['/gallery']);
-        }, 3500);
-      });
+      if (stripeSessionId) {
+        this.checkoutService.waitForPurchaseCompleted(stripeSessionId).subscribe(() =>
+          this.successfulPaymentProcess()
+        );
+      } else {
+        this.checkoutService.captureOrder(paypalSessionId).subscribe(() =>
+          this.successfulPaymentProcess()
+        );
+      }
     } else {
       this.waiting = false;
       this.resultMessage = 'Purchase FAILED or CANCELED. Redirecting...';
@@ -55,5 +54,18 @@ export class StripeRedirectPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+  }
+
+  successfulPaymentProcess() {
+    this.waiting = false;
+    this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
+    setTimeout(() => {
+      if (this.currentUser) {
+        this.basketService.setBasket([]);
+      } else {
+        this.basketService.setLocalStorageBasket([]);
+      }
+      this.router.navigate(['/gallery']);
+    }, 3500);
   }
 }

@@ -1,5 +1,5 @@
-<p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
 <div class="container">
+  <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
   <img class="image" src="{{image.imageUrl}}" alt="Photo" (click)="onImageClick()" [ngClass]="{'full-screen-img': fullScreenImage}">
   <div class="buttons">
     <div class="quantity">

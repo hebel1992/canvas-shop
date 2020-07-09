@@ -37,6 +37,11 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onAddToBasket() {
+    this.errorMessage = null;
+    if (!this.quantity || this.quantity < 1) {
+      this.errorMessage = 'Please put a valid number larger than 0';
+      return;
+    }
     this.basketService.updateBasket(this.image, this.quantity).catch(err => {
       this.errorMessage = err;
     });

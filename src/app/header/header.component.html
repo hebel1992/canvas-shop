@@ -34,8 +34,10 @@
     <app-auth-await-spinner></app-auth-await-spinner>
   </ul>
   <ul #authStateElement class="desktop-options">
-    <li class="desktop-options__item" routerLink="/basket">
+    <li class="desktop-options__item" routerLink="/basket"
+    >
       <div [matBadgeHidden]="!basket || basket.length<1"
+           routerLinkActive="active"
            [matBadge]="basket ? basket.length : null"
            matBadgeSize="medium"
            [ngClass]="{'animate-basket':animationActive}"
@@ -50,7 +52,9 @@
       </a>
     </li>
     <li #desktopSettingsDropdown class="desktop-options__item">
-      <div *ngIf="isAuthenticated" (click)="onMyAccountClickDesktop()">
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickDesktop()"
+           [ngClass]="{'active': userProfile.isActive}"
+      >
         <fa-icon [icon]="faUser"></fa-icon>
         <span>My account</span>
         <fa-icon [icon]="faArrowDown" class="arrow"></fa-icon>
@@ -95,7 +99,9 @@
         YouTube</a>
     </li>
     <li class="mobile-nav__items__basket">
-      <a (click)="closeMobileNavAndRedirect('/basket')">
+      <a (click)="closeMobileNavAndRedirect('/basket')"
+        [ngClass]="{'active':userBasket.isActive}"
+      >
         <div style="display: inline-block" [matBadgeHidden]="!basket || basket.length<1"
              [matBadge]="basket ? basket.length : null"
              matBadgeSize="medium"
@@ -111,7 +117,9 @@
       </a>
     </li>
     <li #mobileSettingsDropdown class="mobile-nav__items__my-account">
-      <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()">
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()"
+           [ngClass]="{'active': userProfile.isActive}"
+      >
         <fa-icon [icon]="faUser"></fa-icon>
         <span>My account</span>
         <fa-icon class="arrow" [icon]="showSettingsMobile&&state==='landscape' ? faArrowRight : faArrowDown"></fa-icon>
@@ -126,6 +134,8 @@
 
 <a routerLink="/login" routerLinkActive #auth="routerLinkActive" style="display: none"></a>
 <a routerLink="/register" routerLinkActive #register="routerLinkActive" style="display: none"></a>
+<a routerLink="/basket" routerLinkActive #userBasket="routerLinkActive" style="display: none"></a>
+<a routerLink="/profile" routerLinkActive #userProfile="routerLinkActive" style="display: none"></a>
 
 <div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
   <ul class="settings-items">

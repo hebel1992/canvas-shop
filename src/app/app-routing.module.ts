@@ -12,8 +12,8 @@ import {BasketComponent} from './basket/basket.component';
 import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
 import {CanActivateGuardService} from './user/can-activate-guard.service';
 import {CheckoutComponent} from './checkout/checkout.component';
-import {StripeRedirectPageComponent} from './checkout/stripe-redirect-page/stripe-redirect-page.component';
-import {PaypalRedirectPageComponent} from './checkout/paypal-redirect-page/paypal-redirect-page.component';
+import {PaymentRedirectPageComponent} from './checkout/payment-redirect-page/payment-redirect-page.component';
+
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/gallery', pathMatch: 'full'},
@@ -25,8 +25,7 @@ const appRoutes: Routes = [
   {path: 'profile', component: UserProfileComponent, canDeactivate: [CanDeactivateGuard], canActivate: [CanActivateGuardService]},
   {path: 'basket', component: BasketComponent, resolve: [GalleryResolverService]},
   {path: 'checkout', component: CheckoutComponent, resolve: [GalleryResolverService]},
-  {path: 'stripe-redirect', component: StripeRedirectPageComponent},
-  {path: 'paypal-redirect', component: PaypalRedirectPageComponent},
+  {path: 'payment-redirect', component: PaymentRedirectPageComponent},
   {path: 'not-found', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/not-found'}
 ];

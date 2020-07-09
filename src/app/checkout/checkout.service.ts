@@ -1,15 +1,24 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BasketItemModel} from '../basket/basket-item.model';
-import {RequestBodyItemModel} from './request-body-item.model';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {filter, first} from 'rxjs/operators';
 import * as firebase from 'firebase';
-import {StripeCheckoutSessionModel} from './stripe-checkout-session.model';
+import {environment} from '../../environments/environment';
 
 declare const Stripe;
+
+interface RequestBodyItemModel {
+  id: string;
+  quantity: number;
+}
+
+interface StripeCheckoutSessionModel {
+  stripeCheckoutSessionId: string;
+  stripePublicKey: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -39,39 +48,24 @@ export class CheckoutService {
       userId = 'UserNotRegistered';
     }
 
+    const requestBody = {
+      userId,
+      userData,
+      items: requestBodyItems,
+      callbackUrl: this.buildCallbackUrl()
+    };
+
     if (method === 'card') {
-      return this.http.post<StripeCheckoutSessionModel>('/api/stripe/checkout', {
-        userId,
-        userData,
-        items: requestBodyItems,
-        callbackUrl: this.buildCallbackUrl()
-      });
+      return this.http.post<StripeCheckoutSessionModel>(environment.api.baseUrl + '/api/stripe/checkout', requestBody);
     } else {
-      return this.http.post('/api/paypal/create-order', {
-        userId,
-        userData,
-        items: requestBodyItems,
-        callbackUrl: this.buildCallbackUrl()
-      });
+      return this.http.post<{redirect_url: string}>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
     }
   }
 
   captureOrder(orderId) {
-    return this.http.post('/api/paypal/capture-order', {
+    return this.http.post(environment.api.baseUrl + '/api/paypal/capture-order', {
       orderId
     });
-  }
-
-  private buildCallbackUrl() {
-    const protocol = window.location.protocol;
-    const hostName = window.location.hostname;
-    const port = window.location.port;
-
-    let callbackUrl = `${protocol}//${hostName}:`;
-    if (port) {
-      callbackUrl += port;
-    }
-    return callbackUrl;
   }
 
   redirectToCheckout(session: StripeCheckoutSessionModel) {
@@ -88,6 +82,18 @@ export class CheckoutService {
         filter(purchase => purchase.status === 'completed'),
         first()
       );
+  }
+
+  private buildCallbackUrl(): string {
+    const protocol = window.location.protocol;
+    const hostName = window.location.hostname;
+    const port = window.location.port;
+
+    let callbackUrl = `${protocol}//${hostName}:`;
+    if (port) {
+      callbackUrl += port;
+    }
+    return callbackUrl;
   }
 
   // testMethod(){
