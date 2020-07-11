@@ -41,16 +41,20 @@ export class BasketComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateQuantity(quantity: number, imageId: string) {
-    this.basketService.updateQuantity(quantity, imageId).catch(err => {
-      this.error = err;
-    });
+  async updateQuantity(quantity: number, imageId: string) {
+    try {
+      await this.basketService.updateQuantity(quantity, imageId);
+    } catch (err) {
+      this.error = err.message;
+    }
   }
 
-  deleteElement(imageId: string) {
-    this.basketService.deleteItem(imageId).catch(err => {
-      this.error = err;
-    });
+  async deleteElement(imageId: string) {
+    try {
+      await this.basketService.deleteItem(imageId);
+    } catch (err) {
+      this.error = err.message;
+    }
   }
 
   ngOnDestroy(): void {

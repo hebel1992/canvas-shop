@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   faPassword = faUnlock;
 
   signInError: string;
-  googleFbSignInMessage: string;
   isLoading = false;
   innerWidth;
 
@@ -36,51 +35,56 @@ export class LoginComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.isLoading = true;
     this.innerWidth = window.innerWidth;
 
-    this.auth.getRedirectResult().then(cred => {
+    try {
+      const cred = await this.auth.getRedirectResult();
       if (cred.user) {
-        return this.authService.createUserProfile(cred).then(() => {
-          return this.router.navigate(['/gallery']);
-        });
+        await this.authService.createUserProfile(cred);
+        await this.router.navigate(['/gallery']);
       } else {
         this.isLoading = false;
       }
-    }).catch(err => {
-      this.googleFbSignInMessage = err.message;
+    } catch (err) {
+      this.signInError = err.message;
       this.isLoading = false;
-    });
+    }
   }
 
-  onLogin(loginForm: NgForm) {
+  async onLogin(loginForm: NgForm) {
     this.isLoading = true;
     const email = loginForm.value.emailLog;
     const password = loginForm.value.passwordLog;
 
-    this.authService.login(email, password).then(resp => {
+    try {
+      await this.authService.login(email, password);
       this.signInError = null;
-      this.router.navigate(['/gallery']);
-    }).catch(err => {
+      await this.router.navigate(['/gallery']);
+    } catch (err) {
       this.isLoading = false;
-      this.signInError = err;
-    });
+      this.signInError = err.message;
+    }
   }
 
   resetPassword() {
     const dialogRef = this.dialog.open(ResetPasswordDialogComponent);
   }
 
-  loginWithFacebook() {
-    this.authService.loginWithFacebook(this.innerWidth).catch(err => {
-      this.googleFbSignInMessage = err.message;
-    });
+  async loginWithFacebook() {
+    try {
+      await this.authService.loginWithFacebook(this.innerWidth);
+    } catch (err) {
+      this.signInError = err.message;
+    }
   }
 
-  loginWithGoogle() {
-    this.authService.loginWithGoogle(this.innerWidth).catch(err => {
-      this.googleFbSignInMessage = err.message;
-    });
+  async loginWithGoogle() {
+    try {
+      await this.authService.loginWithGoogle(this.innerWidth);
+    } catch (err) {
+      this.signInError = err.message;
+    }
   }
 }

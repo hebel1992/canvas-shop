@@ -1,4 +1,5 @@
 <div class="container">
+  <p class="error-message" *ngIf="signInError">{{signInError}}</p>
   <div class="page-title">
     <h1 class="greetings">Hello</h1>
     <p>Please sign in or <a><span class="register-link" routerLink="/register">create an account</span></a></p>
@@ -42,11 +43,9 @@
       </button>
     </form>
     <p class="forgot-password-link" (click)="resetPassword()">Forgot password?</p>
-    <p class="error-message" *ngIf="signInError">{{signInError}}</p>
   </div>
   <hr [ngClass]="{'hide-element': isLoading}">
   <div class="sign-in-with-provider" [ngClass]="{'hide-element': isLoading}">
-    <p *ngIf="googleFbSignInMessage" class="googleFbSignInError">{{googleFbSignInMessage}}</p>
     <div class="sign-in-with-provider-button facebook-button" (click)="loginWithFacebook()">
       <fa-icon [icon]="faFacebook"></fa-icon>
       <span>Sign in with Facebook</span>

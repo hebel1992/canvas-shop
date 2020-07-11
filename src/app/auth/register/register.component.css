@@ -1,10 +1,14 @@
 .container {
-  height: 80%;
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.page-title h1{
+  margin: 0;
 }
 
 .sign-up-form {
@@ -30,10 +34,10 @@ button {
 }
 
 .message {
-  position: fixed;
+  position: absolute;
+  top: 0;
   width: 100%;
   text-align: center;
-  bottom: 15%;
 }
 
 .error {
@@ -52,10 +56,6 @@ button {
 }
 
 @media (min-width: 40rem) {
-  .message{
-    top: 15%;
-  }
-
   .spinner{
     left: 47%;
     top: 30%;

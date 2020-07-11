@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Image} from '../gallery/image.model';
 import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
