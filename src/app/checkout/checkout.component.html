@@ -157,7 +157,7 @@
                   class="checkout-step__button"
                   [disabled]="purchaseStarted"
                   type="submit"
-          >Proceed to payment
+          >Confirm and pay
           </button>
           <!--                    test-->
 <!--          <button mat-raised-button color="primary"-->
@@ -174,54 +174,13 @@
     </form>
 
     <!--  Basket-->
-    <div class="basket">
-
-      <div class="basket-header">
-        <div class="basket-header__elem">Basket</div>
-      </div>
-
-      <div *ngFor="let item of basket" class="basket-item">
-        <div class="basket-item__elem">
-          <img class="image" src="{{item.imageUrl}}">
-        </div>
-        <div class="basket-item__elem">
-          x {{item.quantity}}
-        </div>
-        <div class="basket-item__elem price">
-          £{{item.price}}.00
-        </div>
-        <div class="basket-item__elem bin">
-          <fa-icon [icon]="faBin" (click)="onDelete(item.imageId)"></fa-icon>
-        </div>
-      </div>
-
-      <div class="basket-item summary">
-        <div class="basket-item__elem hide">
-          <div class="image">
-          </div>
-        </div>
-        <div class="basket-item__elem hide">
-          x 1
-        </div>
-        <div class="basket-summary__desc">
-          <div>Summary</div>
-          <div>Shipping</div>
-          <div class="total-price">Total</div>
-        </div>
-        <div class="basket-summary__price">
-          <div>£{{summary}}.00</div>
-          <div>£8.00</div>
-          <div class="total-price">£{{summary + 8}}.00</div>
-        </div>
-        <div class="basket-item__elem hide">
-          <fa-icon [icon]="faBin"></fa-icon>
-        </div>
-      </div>
-
-      <div class="edit-order" routerLink="/basket">
-        Edit order
-      </div>
-    </div>
+    <app-checkout-basket
+      class="basket"
+      [purchaseType]="purchaseType"
+      [imageId]="imageId"
+      [quantity]="quantity"
+    >
+    </app-checkout-basket>
   </div>
 </div>
 

@@ -7,6 +7,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {filter, first} from 'rxjs/operators';
 import * as firebase from 'firebase';
 import {environment} from '../../environments/environment';
+import {BasketService} from '../basket/basket-service';
 
 declare const Stripe;
 
@@ -25,20 +26,31 @@ interface StripeCheckoutSessionModel {
 })
 export class CheckoutService {
   user: firebase.User;
+  basket: BasketItemModel[];
 
   constructor(private http: HttpClient,
               private auth: AngularFireAuth,
-              private db: AngularFirestore) {
+              private db: AngularFirestore,
+              private basketService: BasketService) {
     auth.user.subscribe(user => {
       this.user = user;
     });
+    this.basket = basketService.getBasket();
+    this.basketService.basketChanged.subscribe(basket => {
+      this.basket = basket;
+    });
   }
 
-  startCheckoutSession(userData, basket: BasketItemModel[], method: string): Observable<any> {
+  startCheckoutSession(userData, paymentMethod: string, purchaseType: string, imageId: string, qty: number): Observable<any> {
     const requestBodyItems: RequestBodyItemModel[] = [];
-    basket.forEach(elem => {
-      requestBodyItems.push({id: elem.imageId, quantity: elem.quantity});
-    });
+
+    if (purchaseType === 'single') {
+      requestBodyItems.push({id: imageId, quantity: qty});
+    } else {
+      this.basket.forEach(elem => {
+        requestBodyItems.push({id: elem.imageId, quantity: elem.quantity});
+      });
+    }
 
     let userId;
 
@@ -52,18 +64,19 @@ export class CheckoutService {
       userId,
       userData,
       items: requestBodyItems,
+      purchaseType,
       callbackUrl: this.buildCallbackUrl()
     };
 
-    if (method === 'card') {
+    if (paymentMethod === 'card') {
       return this.http.post<StripeCheckoutSessionModel>(environment.api.baseUrl + '/api/stripe/checkout', requestBody);
     } else {
-      return this.http.post<{redirect_url: string}>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
+      return this.http.post<{ redirect_url: string }>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
     }
   }
 
   captureOrder(orderId) {
-    return this.http.post(environment.api.baseUrl + '/api/paypal/capture-order', {
+    return this.http.post<any>(environment.api.baseUrl + '/api/paypal/capture-order', {
       orderId
     });
   }
@@ -96,9 +109,7 @@ export class CheckoutService {
     return callbackUrl;
   }
 
-  // testMethod(){
-  //   return this.http.post('/api/paypal/test-method', {
-  //
-  //   });
+  // testMethod() {
+  //   return this.http.post('/api/paypal/test-method', {});
   // }
 }

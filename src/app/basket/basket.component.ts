@@ -2,6 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {BasketService} from './basket-service';
 import {BasketItemModel} from './basket-item.model';
 import {Subscription} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-baskets',
@@ -18,7 +19,8 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   @ViewChild('basketContainer', {static: true}) basketContainer: ElementRef;
 
-  constructor(private basketService: BasketService) {
+  constructor(private basketService: BasketService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -59,5 +61,14 @@ export class BasketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.basketSubscription.unsubscribe();
+  }
+
+  async toCheckout() {
+    await this.router.navigate(['/checkout'], {
+      queryParams:
+        {
+          purchaseType: 'multiple'
+        }
+    });
   }
 }

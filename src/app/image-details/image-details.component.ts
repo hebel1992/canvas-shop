@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Image} from '../gallery/image.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
 import {BasketService} from '../basket/basket-service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -18,6 +18,7 @@ export class ImageDetailsComponent implements OnInit {
   private innerWidth;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private imageService: ImagesService,
               private basketService: BasketService,
               private snackBar: MatSnackBar) {
@@ -57,5 +58,21 @@ export class ImageDetailsComponent implements OnInit {
     if (this.innerWidth > 1000) {
       this.fullScreenImage = !this.fullScreenImage;
     }
+  }
+
+  async singlePurchase() {
+    const isNotNumber = isNaN(Number(this.quantity));
+    if (!this.quantity || isNotNumber || this.quantity < 1) {
+      this.errorMessage = 'Please put a valid number larger than 0';
+      return;
+    }
+    await this.router.navigate(['/checkout'], {
+      queryParams:
+        {
+          purchaseType: 'single',
+          imageId: this.image.id,
+          quantity: this.quantity
+        }
+    });
   }
 }

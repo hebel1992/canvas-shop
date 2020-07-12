@@ -33,6 +33,7 @@ import {CheckoutComponent} from './checkout/checkout.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PaymentRedirectPageComponent} from './checkout/payment-redirect-page/payment-redirect-page.component';
 import {AutoSizeInputModule} from 'ngx-autosize-input';
+import { CheckoutBasketComponent } from './checkout/checkout-basket/checkout-basket.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import {AutoSizeInputModule} from 'ngx-autosize-input';
     ResetPasswordComponent,
     ResetPasswordDialogComponent,
     CheckoutComponent,
-    PaymentRedirectPageComponent
+    PaymentRedirectPageComponent,
+    CheckoutBasketComponent
   ],
   imports: [
     BrowserModule,

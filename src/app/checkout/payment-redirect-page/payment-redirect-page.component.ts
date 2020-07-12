@@ -32,15 +32,16 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
     const result = this.route.snapshot.queryParamMap.get('purchaseResult');
     const stripeSessionId = this.route.snapshot.queryParamMap.get('ongoingSessionId');
     const paypalSessionId = this.route.snapshot.queryParamMap.get('token');
+    const purchaseType = this.route.snapshot.queryParamMap.get('purchaseType');
 
     if (result === 'success') {
       if (stripeSessionId) {
         this.checkoutService.waitForPurchaseCompleted(stripeSessionId).subscribe(() =>
-          this.successfulPaymentProcess()
+          this.successfulPaymentProcess(purchaseType)
         );
       } else {
-        this.checkoutService.captureOrder(paypalSessionId).subscribe(() =>
-          this.successfulPaymentProcess()
+        this.checkoutService.captureOrder(paypalSessionId).subscribe(res =>
+          this.successfulPaymentProcess(purchaseType)
         );
       }
     } else {
@@ -56,14 +57,16 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
-  successfulPaymentProcess() {
+  successfulPaymentProcess(purchaseType: string) {
     this.waiting = false;
     this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
     setTimeout(() => {
-      if (this.currentUser) {
-        this.basketService.setBasket([]);
-      } else {
-        this.basketService.setLocalStorageBasket([]);
+      if (purchaseType && purchaseType === 'multiple') {
+        if (this.currentUser) {
+          this.basketService.setBasket([]);
+        } else {
+          this.basketService.setLocalStorageBasket([]);
+        }
       }
       this.router.navigate(['/gallery']);
     }, 3500);

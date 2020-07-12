@@ -1,12 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CheckoutService} from './checkout.service';
-import {BasketItemModel} from '../basket/basket-item.model';
-import {BasketService} from '../basket/basket-service';
 import {Subscription} from 'rxjs';
 import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {NgForm} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -15,39 +13,33 @@ import {NgForm} from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
   purchaseStarted = false;
-  basket: BasketItemModel[];
-  basketSubscription: Subscription;
   currentUser: UserDataModel;
   userSubscription: Subscription;
-  summary;
-  error: string;
 
+  purchaseType: string;
+  imageId: string;
+  quantity: number;
+
+  error: string;
   userTitle = 'mr';
   countiesOfEngland;
   countiesOfScotland;
   countiesOfWales;
   countiesOfNorthernIreland;
-  faBin = faTrash;
 
   constructor(private checkoutService: CheckoutService,
-              private basketService: BasketService,
+              private route: ActivatedRoute,
               private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.userService.getCurrentUser();
-    this.basket = this.basketService.getBasket();
-    if (this.basket) {
-      this.summary = this.basketService.setAndGetSummary(this.basket);
-    }
+    this.purchaseType = this.route.snapshot.queryParamMap.get('purchaseType');
+    this.imageId = this.route.snapshot.queryParamMap.get('imageId');
+    this.quantity = Number(this.route.snapshot.queryParamMap.get('quantity'));
 
+    this.currentUser = this.userService.getCurrentUser();
     this.userSubscription = this.userService.userDataChanged.subscribe(user => {
       this.currentUser = user;
-    });
-
-    this.basketSubscription = this.basketService.basketChanged.subscribe(basket => {
-      this.basket = basket;
-      this.summary = this.basketService.setAndGetSummary(this.basket);
     });
 
     this.countiesOfEngland = this.userService.getEnglandCounties();
@@ -71,26 +63,23 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.purchaseStarted = true;
 
     if (paymentMethod === 'card') {
-      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(session => {
-        this.checkoutService.redirectToCheckout(session);
-      }, error => this.errorHandling(error));
+      this.checkoutService.startCheckoutSession(joinedData, paymentMethod, this.purchaseType, this.imageId, this.quantity)
+        .subscribe(session => {
+          this.checkoutService.redirectToCheckout(session);
+        }, error => this.errorHandling(error));
     } else {
-      this.checkoutService.startCheckoutSession(joinedData, this.basket, paymentMethod).subscribe(res => {
-        const response: any = res;
-        window.location.href = response.redirect_url;
-      }, error => this.errorHandling(error));
+      this.checkoutService.startCheckoutSession(joinedData, paymentMethod, this.purchaseType, this.imageId, this.quantity)
+        .subscribe(res => {
+          window.location.href = res.redirect_url;
+        }, error => this.errorHandling(error));
     }
   }
-
-  // testMethod(){
-  //   this.checkoutService.testMethod().subscribe();
+  //
+  // testMethod() {
+  //   this.checkoutService.testMethod().subscribe(res => {
+  //     console.log(res);
+  //   });
   // }
-
-  onDelete(imageId: string) {
-    this.basketService.deleteItem(imageId).catch(err => {
-      this.error = err.message;
-    });
-  }
 
   errorHandling(error: any) {
     if (error.status === 504 || error.status === 404) {
@@ -103,6 +92,5 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
-    this.basketSubscription.unsubscribe();
   }
 }

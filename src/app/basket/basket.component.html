@@ -19,7 +19,7 @@
       <span class="total-price__text">Total: <span class="total-price__amount">£{{summary}}</span></span>
       <button mat-raised-button color="primary"
               class="total-price__button"
-              routerLink="/checkout"
+              (click)="toCheckout()"
       >Checkout
       </button>
     </div>

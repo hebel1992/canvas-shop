@@ -64,10 +64,11 @@ button {
 .error-message {
   color: red;
   position: absolute;
-  width: 100%;
+  width: 90%;
   text-align: center;
   top: 0;
-  margin: .2rem;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .backdrop {
