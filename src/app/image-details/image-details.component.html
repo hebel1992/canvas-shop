@@ -4,7 +4,13 @@
   <div class="buttons">
     <div class="quantity">
       Quantity:
-      <input class="quantity-input" type="text"  [(ngModel)]="quantity" AutoSizeInput [extraWidth]="15" [minWidth]="20" [maxWidth]="60">
+      <input class="quantity-input"
+             type="text"
+             [(ngModel)]="quantity"
+             AutoSizeInput
+             [extraWidth]="15"
+             [minWidth]="20"
+             [maxWidth]="60">
     </div>
     <button mat-raised-button color="primary">Buy it now</button>
     <button mat-button (click)="onAddToBasket()">Add to basket</button>

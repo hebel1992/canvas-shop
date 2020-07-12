@@ -128,12 +128,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showSettingsMobile = !this.showSettingsMobile;
   }
 
-  onLogoutClick() {
-    this.authService.logout().catch(err => {
-      this.errorMessage = err.message;
-    }).then(() => {
+  async onLogoutClick() {
+    try {
+      await this.authService.logout();
       this.closeMobileNavAndRedirect('/gallery');
-    });
+    } catch (err) {
+      this.errorMessage = err.message;
+    }
   }
 
   ngOnDestroy(): void {

@@ -17,13 +17,13 @@ export class ResetPasswordDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(email: NgModel) {
-    this.authService.resetPassword(email.value)
-      .then(() => {
-          this.error = null;
-          this.success = 'A password reset link has been sent to your email address';
-        },
-        (rejectionReason) => this.error = rejectionReason.message
-      ).catch(err => this.error = 'An error occurred while attempting to reset your password');
+  async onSubmit(email: NgModel) {
+    try {
+      await this.authService.resetPassword(email.value);
+      this.error = null;
+      this.success = 'A password reset link has been sent to your email address.';
+    } catch (err) {
+      this.error = err.message;
+    }
   }
 }

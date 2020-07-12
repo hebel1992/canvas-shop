@@ -30,15 +30,16 @@ export class AppComponent implements OnInit {
       window.scrollTo(0, 0);
     });
 
-    this.auth.authState.subscribe(user => {
+    this.auth.authState.subscribe(async user => {
       if (user) {
-        this.userDbService.fetchUserData(user.uid).then(userData => {
+        try {
+          const userData = await this.userDbService.fetchUserData(user.uid);
           if (userData) {
             this.basketService.setBasket(userData.basket);
           }
-        }).catch(err => {
+        } catch (err) {
           this.error = err.message;
-        });
+        }
       } else {
         this.userService.setUserData(null);
         this.basketService.createIfNotExistLocalStorageBasket();

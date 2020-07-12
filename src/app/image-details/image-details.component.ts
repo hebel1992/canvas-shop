@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Image} from '../gallery/image.model';
 import {ActivatedRoute} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
@@ -36,15 +36,18 @@ export class ImageDetailsComponent implements OnInit {
     });
   }
 
-  onAddToBasket() {
+  async onAddToBasket() {
     this.errorMessage = null;
-    if (!this.quantity || this.quantity < 1) {
+    const isNotNumber = isNaN(Number(this.quantity));
+    if (!this.quantity || isNotNumber || this.quantity < 1) {
       this.errorMessage = 'Please put a valid number larger than 0';
       return;
     }
-    this.basketService.updateBasket(this.image, this.quantity).catch(err => {
+    try {
+      await this.basketService.updateBasket(this.image, this.quantity);
+    } catch (err) {
       this.errorMessage = err;
-    });
+    }
     this.snackBar.open('Product added to basket!', 'Dismiss', {
       duration: 3000
     });
