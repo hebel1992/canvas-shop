@@ -63,12 +63,9 @@ button {
 
 .error-message {
   color: red;
-  position: absolute;
-  width: 90%;
+  width: 100%;
   text-align: center;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin: 0 0 .5rem 0;
 }
 
 .backdrop {
@@ -140,5 +137,13 @@ button {
     align-self: start;
     max-width: 100%;
     width: 100%;
+  }
+
+  .error-message {
+    position: absolute;
+    width: 90%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 }

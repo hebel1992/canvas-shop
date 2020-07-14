@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   error: string;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.router.events.subscribe(event => {
       if (!(event instanceof NavigationEnd)) {
         return;
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
       if (user) {
         try {
           const userData = await this.userDbService.fetchUserData(user.uid);
+          await this.userDbService.fetchUserPurchaseHistory(user.uid);
           if (userData) {
             this.basketService.setBasket(userData.basket);
           }

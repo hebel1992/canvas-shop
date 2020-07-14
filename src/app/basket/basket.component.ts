@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./basket.component.css']
 })
 export class BasketComponent implements OnInit, OnDestroy {
-
   basket: BasketItemModel[];
   basketSubscription: Subscription;
   loadingBasket = false;

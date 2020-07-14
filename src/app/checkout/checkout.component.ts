@@ -74,12 +74,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }, error => this.errorHandling(error));
     }
   }
-  //
-  // testMethod() {
-  //   this.checkoutService.testMethod().subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
 
   errorHandling(error: any) {
     if (error.status === 504 || error.status === 404) {

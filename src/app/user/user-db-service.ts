@@ -4,6 +4,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {UserDataModel} from './user-data.model';
 import {map, tap} from 'rxjs/operators';
 import {BasketItemModel} from '../basket/basket-item.model';
+import {PurchaseHistoryItemModel} from './purchase-history-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +30,33 @@ export class UserDbService {
           loggedUserData.city,
           loggedUserData.postCode,
           loggedUserData.county,
-          loggedUserData.basket
+          loggedUserData.basket,
+          []
         );
       }
       return userData;
     }), tap(userData => {
       this.userService.setUserData(userData);
     })).toPromise<UserDataModel>();
+  }
+
+  fetchUserPurchaseHistory(userId: string) {
+    return this.db.collection('users').doc(userId).collection('shoppingHistory').get().pipe(map(data => {
+      const purchaseHistory: PurchaseHistoryItemModel[] = [];
+      data.forEach(elem => {
+        const date = new Date(elem.data().timestamp.seconds * 1000);
+
+        purchaseHistory.push(new PurchaseHistoryItemModel(
+          elem.id,
+          elem.data().items,
+          elem.data().paymentMethod,
+          date
+        ));
+      });
+      return purchaseHistory;
+    }), tap(purchaseHistory => {
+      this.userService.setPurchaseHistory(purchaseHistory);
+    })).toPromise();
   }
 
   updateData(userData, userId: string) {

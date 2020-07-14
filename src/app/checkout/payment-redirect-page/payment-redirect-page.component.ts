@@ -4,6 +4,7 @@ import {CheckoutService} from '../checkout.service';
 import {BasketService} from '../../basket/basket-service';
 import {UserService} from '../../user/user-service';
 import {Subscription} from 'rxjs';
+import {UserDbService} from '../../user/user-db-service';
 
 @Component({
   selector: 'app-order-complete',
@@ -15,13 +16,15 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   currentUser;
   waitingMessage = 'Waiting for purchase to complete...';
   resultMessage;
+  errorMessage;
   waiting = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private checkoutService: CheckoutService,
               private basketService: BasketService,
-              private userService: UserService) {
+              private userService: UserService,
+              private userDbService: UserDbService) {
   }
 
   ngOnInit(): void {
@@ -37,11 +40,13 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
     if (result === 'success') {
       if (stripeSessionId) {
         this.checkoutService.waitForPurchaseCompleted(stripeSessionId).subscribe(() =>
-          this.successfulPaymentProcess(purchaseType)
+          this.successfulPaymentProcess(purchaseType), error =>
+          this.errorHandling(error)
         );
       } else {
         this.checkoutService.captureOrder(paypalSessionId).subscribe(res =>
-          this.successfulPaymentProcess(purchaseType)
+          this.successfulPaymentProcess(purchaseType), error =>
+          this.errorHandling(error)
         );
       }
     } else {
@@ -58,6 +63,11 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   }
 
   successfulPaymentProcess(purchaseType: string) {
+    if (this.currentUser) {
+      this.userDbService.fetchUserPurchaseHistory(this.currentUser.id).catch(err => {
+        this.errorMessage = err.error.message;
+      });
+    }
     this.waiting = false;
     this.resultMessage = 'Purchase SUCCESSFUL. Redirecting...';
     setTimeout(() => {
@@ -68,6 +78,13 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
           this.basketService.setLocalStorageBasket([]);
         }
       }
+      this.router.navigate(['/gallery']);
+    }, 3500);
+  }
+
+  errorHandling(error) {
+    this.errorMessage = error.error.message;
+    setTimeout(() => {
       this.router.navigate(['/gallery']);
     }, 3500);
   }

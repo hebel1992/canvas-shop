@@ -108,8 +108,4 @@ export class CheckoutService {
     }
     return callbackUrl;
   }
-
-  // testMethod() {
-  //   return this.http.post('/api/paypal/test-method', {});
-  // }
 }

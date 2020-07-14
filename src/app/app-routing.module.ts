@@ -13,6 +13,7 @@ import {ResetPasswordComponent} from './auth/reset-password/reset-password.compo
 import {CanActivateGuardService} from './user/can-activate-guard.service';
 import {CheckoutComponent} from './checkout/checkout.component';
 import {PaymentRedirectPageComponent} from './checkout/payment-redirect-page/payment-redirect-page.component';
+import {ShoppingHistoryComponent} from './user/shopping-history/shopping-history.component';
 
 
 const appRoutes: Routes = [
@@ -23,6 +24,12 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'profile', component: UserProfileComponent, canDeactivate: [CanDeactivateGuard], canActivate: [CanActivateGuardService]},
+  {
+    path: 'purchase-history',
+    component: ShoppingHistoryComponent,
+    resolve: [GalleryResolverService],
+    canActivate: [CanActivateGuardService]
+  },
   {path: 'basket', component: BasketComponent, resolve: [GalleryResolverService]},
   {path: 'checkout', component: CheckoutComponent, resolve: [GalleryResolverService]},
   {path: 'payment-redirect', component: PaymentRedirectPageComponent},

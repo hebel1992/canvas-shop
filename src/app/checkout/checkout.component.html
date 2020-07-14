@@ -5,6 +5,14 @@
   <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
   <div class="content" *ngIf="!purchaseStarted">
     <h1 class="title">Checkout</h1>
+    <!--  Basket-->
+    <app-checkout-basket
+      class="basket"
+      [purchaseType]="purchaseType"
+      [imageId]="imageId"
+      [quantity]="quantity"
+    >
+    </app-checkout-basket>
     <form class="form" (ngSubmit)="purchaseImages(form)" #form="ngForm">
       <mat-vertical-stepper linear>
 
@@ -159,28 +167,9 @@
                   type="submit"
           >Confirm and pay
           </button>
-          <!--                    test-->
-<!--          <button mat-raised-button color="primary"-->
-<!--                  class="purchase-button"-->
-<!--                  [disabled]="purchaseStarted"-->
-<!--                  style="margin-top: 1rem"-->
-<!--                  (click)="testMethod()"-->
-<!--                  type="button"-->
-<!--          >Test method-->
-<!--          </button>-->
-
         </mat-step>
       </mat-vertical-stepper>
     </form>
-
-    <!--  Basket-->
-    <app-checkout-basket
-      class="basket"
-      [purchaseType]="purchaseType"
-      [imageId]="imageId"
-      [quantity]="quantity"
-    >
-    </app-checkout-basket>
   </div>
 </div>
 

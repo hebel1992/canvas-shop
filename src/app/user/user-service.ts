@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {UserDataModel} from './user-data.model';
-import {BasketItemModel} from '../basket/basket-item.model';
+import {PurchaseHistoryItemModel} from './purchase-history-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,9 @@ import {BasketItemModel} from '../basket/basket-item.model';
 export class UserService {
   userDataChanged = new Subject<UserDataModel>();
   private userData: UserDataModel;
+
+  userPurchaseHistoryChanged = new Subject<PurchaseHistoryItemModel[]>();
+  private purchaseHistory: PurchaseHistoryItemModel[];
 
   setUserData(data: UserDataModel) {
     this.userData = data;
@@ -19,12 +22,21 @@ export class UserService {
     return this.userData;
   }
 
+  setPurchaseHistory(purchaseHistory: PurchaseHistoryItemModel[]) {
+    this.purchaseHistory = purchaseHistory;
+    this.userPurchaseHistoryChanged.next(this.purchaseHistory);
+  }
+
+  getPurchaseHistory() {
+    return this.purchaseHistory;
+  }
+
   // updateBasket(newBasket: BasketItemModel[]) {
   //   this.userData.basket = newBasket;
   //   this.userDataChanged.next(this.userData);
   // }
 
-  getEnglandCounties(){
+  getEnglandCounties() {
     return [
       'Bath and North East Somerset',
       'Bedfordshire',
@@ -80,7 +92,7 @@ export class UserService {
     ];
   }
 
-  getScotlandCounties(){
+  getScotlandCounties() {
     return [
       'Aberdeenshire',
       'Angus',
@@ -118,7 +130,8 @@ export class UserService {
       'Western Isles'
     ];
   }
-  getWalesCounties(){
+
+  getWalesCounties() {
     return [
       'Blaenau Gwent',
       'Bridgend',
@@ -145,7 +158,7 @@ export class UserService {
     ];
   }
 
-  getNorthernIrelandCounties(){
+  getNorthernIrelandCounties() {
     return [
       'Antrim',
       'Armagh',

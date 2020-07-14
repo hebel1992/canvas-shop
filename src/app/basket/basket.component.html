@@ -3,12 +3,14 @@
 <div class="container" #basketContainer>
   <h1 class="container-title">Shopping cart</h1>
   <p *ngIf="basket && basket.length<1" class="empty-cart-message">Your cart is empty</p>
+  <div class="basket-item">
   <app-basket-item *ngFor="let item of basket"
                    [imageId]="item.imageId"
                    [quantity]="item.quantity"
                    (quantityChanged)="updateQuantity($event, item.imageId)"
                    (itemDeleted)="deleteElement(item.imageId)"
   ></app-basket-item>
+  </div>
   <div class="summary-container" *ngIf="basket && basket.length>0">
     <div class="continue-shopping" routerLink="/gallery">
       <span>

@@ -12,9 +12,10 @@ export class UserDataModel {
   phone: string;
   postCode: string;
   basket: BasketItemModel[];
+  shoppingHistory: [];
 
   constructor(id: string, email: string, firstName: string, lastName: string, phone: string, addressLine1: string, addressLine2: string, city: string,
-              postCode: string, county: string, basket: BasketItemModel[]) {
+              postCode: string, county: string, basket: BasketItemModel[], shoppingHistory) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
@@ -26,5 +27,6 @@ export class UserDataModel {
     this.postCode = postCode;
     this.county = county;
     this.basket = basket;
+    this.shoppingHistory = shoppingHistory;
   }
 }

@@ -1,0 +1,19 @@
+.container{
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F8F8F8;
+}
+
+.container-title {
+  color: darkblue;;
+}
+
+app-shopping-history-item{
+  margin: .8rem 0;
+  width: 95vw;
+  max-width: 50rem;
+}
