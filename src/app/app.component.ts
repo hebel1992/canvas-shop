@@ -33,10 +33,12 @@ export class AppComponent implements OnInit {
     this.auth.authState.subscribe(async user => {
       if (user) {
         try {
-          const userData = await this.userDbService.fetchUserData(user.uid);
-          await this.userDbService.fetchUserPurchaseHistory(user.uid);
-          if (userData) {
-            this.basketService.setBasket(userData.basket);
+          const res = await Promise.all([
+            this.userDbService.fetchUserData(user.uid),
+            this.userDbService.fetchUserPurchaseHistory(user.uid)
+          ]);
+          if (res[0]) {
+            this.basketService.setBasket(res[0].basket);
           }
         } catch (err) {
           this.error = err.message;

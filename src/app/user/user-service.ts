@@ -31,11 +31,6 @@ export class UserService {
     return this.purchaseHistory;
   }
 
-  // updateBasket(newBasket: BasketItemModel[]) {
-  //   this.userData.basket = newBasket;
-  //   this.userDataChanged.next(this.userData);
-  // }
-
   getEnglandCounties() {
     return [
       'Bath and North East Somerset',

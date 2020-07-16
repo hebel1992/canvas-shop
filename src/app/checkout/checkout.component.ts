@@ -50,7 +50,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   purchaseImages(form: NgForm) {
     this.error = null;
-    const paymentMethod = form.control.value.paymentMethod;
+    const paymentMethod = form.control.value.paymentMethod as string;
     if (!paymentMethod) {
       this.error = 'Please select payment method';
       return;
@@ -58,7 +58,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     const personalData = form.value.personalData;
     const shippingAddress = form.value.address;
-    const joinedData = Object.assign(personalData, shippingAddress);
+    const joinedData = Object.assign(personalData, shippingAddress) as UserDataModel;
 
     this.purchaseStarted = true;
 

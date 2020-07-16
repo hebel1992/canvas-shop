@@ -5,6 +5,7 @@
   width: 100%;
   grid-template-rows: 5rem auto fit-content(8rem);
   grid-template-areas: "header" "main" "footer";
+  background-color: #F8F8F8;
 }
 
 app-header {
@@ -18,6 +19,7 @@ app-header {
 main {
   grid-area: main;
   width: 100%;
+  position: relative;
 }
 
 app-footer {
@@ -26,13 +28,15 @@ app-footer {
 }
 
 .error-message {
-  width: 100%;
-  position: absolute;
-  top: 4%;
+  width: 95%;
   color: red;
-  z-index: 15;
   text-align: center;
-  font-weight: bold;
-  font-size: 1.3rem;
+  margin: 1rem auto 0 auto;
+}
+
+@media (min-width: 60rem) {
+  .error-message{
+    min-width: 65%;
+  }
 }
 

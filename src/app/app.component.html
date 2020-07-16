@@ -1,7 +1,7 @@
 <div class="full-content">
-  <p class="error-message" *ngIf="error">{{error}}</p>
   <app-header></app-header>
   <main>
+    <p class="error-message" *ngIf="error">{{error}}</p>
     <router-outlet></router-outlet>
   </main>
   <app-footer></app-footer>

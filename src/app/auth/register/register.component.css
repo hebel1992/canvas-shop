@@ -1,5 +1,5 @@
 .container {
-  padding: 5rem 2rem 2rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,10 +34,9 @@ button {
 }
 
 .message {
-  position: absolute;
-  top: 0;
   width: 100%;
   text-align: center;
+  margin: 0 0 1rem 0;
 }
 
 .error {
@@ -50,14 +49,21 @@ button {
 }
 
 .spinner{
-  position: absolute;
-  left: 40%;
+  position: fixed;
   top: 40%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
-@media (min-width: 40rem) {
-  .spinner{
-    left: 47%;
-    top: 30%;
+@media (min-width: 70rem) {
+  .message{
+    position: absolute;
+    width: 60%;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .container{
+    padding-top: 4rem;
   }
 }

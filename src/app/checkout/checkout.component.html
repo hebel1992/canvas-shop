@@ -1,7 +1,5 @@
 <div class="container">
-  <div *ngIf="error" class="error">
-    <p>{{error}}</p>
-  </div>
+  <p *ngIf="error" class="error-message">{{error}}</p>
   <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
   <div class="content" *ngIf="!purchaseStarted">
     <h1 class="title">Checkout</h1>
@@ -53,7 +51,8 @@
                      name="email"
                      [ngModel]="currentUser?currentUser.email:''"
                      email
-                     required
+                     [disabled]="currentUser"
+                     [required]="!currentUser"
               >
             </mat-form-field>
             <mat-form-field class="checkout-step__field">

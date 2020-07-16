@@ -8,15 +8,24 @@ import {filter, first} from 'rxjs/operators';
 import * as firebase from 'firebase';
 import {environment} from '../../environments/environment';
 import {BasketService} from '../basket/basket-service';
+import {UserDataModel} from '../user/user-data.model';
 
 declare const Stripe;
+
+interface RequestBody {
+  userId: string;
+  userData: UserDataModel;
+  items: RequestBodyItemModel[];
+  purchaseType: string;
+  callbackUrl: string;
+}
 
 interface RequestBodyItemModel {
   id: string;
   quantity: number;
 }
 
-interface StripeCheckoutSessionModel {
+export interface StripeResponseModel {
   stripeCheckoutSessionId: string;
   stripePublicKey: string;
 }
@@ -41,7 +50,9 @@ export class CheckoutService {
     });
   }
 
-  startCheckoutSession(userData, paymentMethod: string, purchaseType: string, imageId: string, qty: number): Observable<any> {
+  startCheckoutSession(userData: UserDataModel, paymentMethod: string, purchaseType: string, imageId: string, qty: number):
+    Observable<any> {
+
     const requestBodyItems: RequestBodyItemModel[] = [];
 
     if (purchaseType === 'single') {
@@ -60,7 +71,7 @@ export class CheckoutService {
       userId = 'UserNotRegistered';
     }
 
-    const requestBody = {
+    const requestBody: RequestBody = {
       userId,
       userData,
       items: requestBodyItems,
@@ -69,9 +80,9 @@ export class CheckoutService {
     };
 
     if (paymentMethod === 'card') {
-      return this.http.post<StripeCheckoutSessionModel>(environment.api.baseUrl + '/api/stripe/checkout', requestBody);
+      return this.http.post<StripeResponseModel>(environment.api.baseUrl + '/api/stripe/checkout', requestBody);
     } else {
-      return this.http.post<{ redirect_url: string }>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
+      return this.http.post<{redirect_url: string}>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
     }
   }
 
@@ -81,7 +92,7 @@ export class CheckoutService {
     });
   }
 
-  redirectToCheckout(session: StripeCheckoutSessionModel) {
+  redirectToCheckout(session: StripeResponseModel) {
     const stripe = Stripe(session.stripePublicKey);
     stripe.redirectToCheckout({
       sessionId: session.stripeCheckoutSessionId

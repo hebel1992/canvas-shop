@@ -5,27 +5,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #F8F8F8;
 }
 
 .container-title {
   color: darkblue;;
 }
 
-.basket-item {
-  margin: 1rem 0;
+app-basket-item{
+  margin: .1rem 0;
   width: 85vw;
   max-width: 30rem;
 }
 
-app-basket-item{
-  width: 100%;
-}
-
 .spinner {
   position: fixed;
-  top: 40%;
+  top: 45%;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .empty-cart-message {
@@ -35,7 +31,7 @@ app-basket-item{
 .summary-container {
   width: 85vw;
   max-width: 30rem;
-  margin: 0;
+  margin-top: .1rem;
   padding: 2rem 2rem 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -77,16 +73,15 @@ app-basket-item{
   outline: none;
 }
 
-.error{
-  position: fixed;
+.error-message {
+  color: red;
   width: 100%;
   text-align: center;
-  color: red;
-  font-weight: bold;
+  margin: 0;
 }
 
 @media (min-width: 60rem) {
-  .basket-item {
+  app-basket-item{
     width: 50vw;
     max-width: 60rem;
   }

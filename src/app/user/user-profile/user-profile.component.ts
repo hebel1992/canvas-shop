@@ -19,10 +19,11 @@ import {faFacebookSquare, faGoogle} from '@fortawesome/free-brands-svg-icons';
 export class UserProfileComponent implements OnInit, OnDestroy {
   currentUser: UserDataModel;
   userSubscription: Subscription;
-  loadingUserData = false;
+  awaitingResult = false;
   changesSaved = false;
   errorMessage: string;
   successMessage: string;
+  pageContent;
 
   faFacebook = faFacebookSquare;
   faGoogle = faGoogle;
@@ -33,7 +34,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   countiesOfNorthernIreland;
 
   @ViewChild('form', {static: true}) form: NgForm;
-  @ViewChild('formElement', {static: true}) formElement: ElementRef;
+  @ViewChild('container', {static: true}) container: ElementRef;
+
 
   constructor(private userService: UserService,
               private userDbService: UserDbService,
@@ -42,19 +44,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    const htmlElement = this.formElement.nativeElement as HTMLElement;
+    this.pageContent = this.container.nativeElement as HTMLElement;
 
     this.currentUser = this.userService.getCurrentUser();
     if (!this.currentUser) {
-      htmlElement.style.opacity = '0';
-      this.loadingUserData = true;
+      this.pageContent.style.opacity = '0';
+      this.awaitingResult = true;
     }
 
     this.userSubscription = this.userService.userDataChanged.subscribe(user => {
       this.currentUser = user;
-      this.loadingUserData = false;
-      htmlElement.style.opacity = '1';
+      this.awaitingResult = false;
+      this.pageContent.style.opacity = '1';
     });
 
     this.countiesOfEngland = this.userService.getEnglandCounties();
@@ -63,28 +64,29 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
   }
 
-  linkAccountWithFacebook() {
-    const facebookProvider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().currentUser.linkWithPopup(facebookProvider)
-      .then(() => {
-        this.successMessage = 'Accounts successfully linked';
-      })
-      .catch(error => {
-        this.errorMessage = error.message;
-      });
-  }
+  async linkAccountToProvider(provider: string) {
+    this.awaitingResult = true;
+    this.pageContent.style.opacity = '0';
+    let loginProvider;
+    if (provider === 'facebook') {
+      loginProvider = new firebase.auth.FacebookAuthProvider();
+    } else {
+      loginProvider = new firebase.auth.GoogleAuthProvider();
+    }
 
-  linkAccountWithGoogle() {
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().currentUser.linkWithPopup(googleProvider)
-      .then(() => {
-        this.errorMessage = null;
-        this.successMessage = 'Accounts successfully linked';
-      })
-      .catch(error => {
-        this.successMessage = null;
-        this.errorMessage = error.message;
-      });
+    try {
+      await firebase.auth().currentUser.linkWithPopup(loginProvider);
+      this.awaitingResult = false;
+      this.pageContent.style.opacity = '1';
+      this.errorMessage = null;
+      this.successMessage = 'Accounts successfully linked';
+
+    } catch (err) {
+      this.awaitingResult = false;
+      this.pageContent.style.opacity = '1';
+      this.successMessage = null;
+      this.errorMessage = err.message;
+    }
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -101,19 +103,17 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  onUserUpdate(form: NgForm) {
+  async onUserUpdate(form: NgForm) {
     this.successMessage = null;
     if (this.currentUser) {
-      this.userDbService.updateData(form.form.value, this.currentUser.id).then(() => {
+      try {
+        await this.userDbService.updateData(form.form.value, this.currentUser.id);
         this.changesSaved = true;
-        this.userDbService.fetchUserData(this.currentUser.id).catch(err => {
-          throw new Error(err);
-        }).then(() => {
-          this.router.navigate(['/gallery']);
-        });
-      }).catch(err => {
+        this.userDbService.fetchUserData(this.currentUser.id);
+        await this.router.navigate(['/gallery']);
+      } catch (err) {
         this.errorMessage = err.message;
-      });
+      }
     } else {
       this.errorMessage = 'You are not logged in!';
     }

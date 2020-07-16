@@ -81,22 +81,27 @@ mat-form-field {
   font-size: 1.5rem;
 }
 
+.google-button{
+  background: white;
+}
+
 .google-button fa-icon {
   font-size: 1.5rem;
   color: green;
 }
 
-.spinner{
+.spinner {
   position: fixed;
-  top: 45%;
+  top: 40%;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .message{
-  position: absolute;
-  width: 100%;
+  width: 65%;
   text-align: center;
   top: 0;
+  margin: 1rem auto 0 auto;
 }
 
 .success{

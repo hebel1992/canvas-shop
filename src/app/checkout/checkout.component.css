@@ -77,23 +77,16 @@
 
 }
 
-.error {
-  display: flex;
-  justify-content: center;
+.error-message {
   color: red;
-  width: 100%;
-  margin: .5rem 0 0 0 ;
-}
-
-.error p {
-  width: 100%;
+  width: 90%;
   text-align: center;
-  margin: 0;
+  margin: 1rem auto;
 }
 
 .spinner {
   position: fixed;
-  top: 35%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, 0);
 }
@@ -144,8 +137,12 @@
     grid-row: 2;
   }
 
-  .error p {
-    width: 55%;
+  .error-message {
+    width: 70%;
+  }
+
+  .spinner {
+    top: 35%;
   }
 }
 

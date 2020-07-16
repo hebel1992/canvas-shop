@@ -14,25 +14,24 @@ export class UserDbService {
               private userService: UserService) {
   }
 
-  fetchUserData(userId: string) {
+  fetchUserData(userId: string): Promise<UserDataModel> {
     return this.db.collection('users').doc(userId).get().pipe(map(data => {
-      let userData;
+      let userData: UserDataModel;
       const loggedUserData = data.data();
       if (loggedUserData) {
-        userData = new UserDataModel(
-          loggedUserData.id,
-          loggedUserData.email,
-          loggedUserData.firstName,
-          loggedUserData.lastName,
-          loggedUserData.phone,
-          loggedUserData.addressLine1,
-          loggedUserData.addressLine2,
-          loggedUserData.city,
-          loggedUserData.postCode,
-          loggedUserData.county,
-          loggedUserData.basket,
-          []
-        );
+        userData = {
+          id: loggedUserData.id,
+          email: loggedUserData.email,
+          firstName: loggedUserData.firstName,
+          lastName: loggedUserData.lastName,
+          phone: loggedUserData.phone,
+          addressLine1: loggedUserData.addressLine1,
+          addressLine2: loggedUserData.addressLine2,
+          city: loggedUserData.city,
+          postCode: loggedUserData.postCode,
+          county: loggedUserData.county,
+          basket: loggedUserData.basket
+        };
       }
       return userData;
     }), tap(userData => {
@@ -45,13 +44,13 @@ export class UserDbService {
       const purchaseHistory: PurchaseHistoryItemModel[] = [];
       data.forEach(elem => {
         const date = new Date(elem.data().timestamp.seconds * 1000);
-
-        purchaseHistory.push(new PurchaseHistoryItemModel(
-          elem.id,
-          elem.data().items,
-          elem.data().paymentMethod,
-          date
-        ));
+        purchaseHistory.push({
+            id: elem.id,
+            items: elem.data().items,
+            paymentMethod: elem.data().paymentMethod,
+            timestamp: date
+          }
+        );
       });
       return purchaseHistory;
     }), tap(purchaseHistory => {
@@ -72,10 +71,9 @@ export class UserDbService {
     });
   }
 
-  updateBasket(newBasket: BasketItemModel[], userId) {
-    // this.userService.updateBasket(newBasket);
+  updateBasket(updatedBasket: BasketItemModel[], userId) {
     return this.db.collection('users').doc(userId).update({
-      basket: newBasket
+      basket: updatedBasket
     });
   }
 }

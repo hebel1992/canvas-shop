@@ -1,17 +1,17 @@
-<div class="container">
+<div class="container" #container>
   <p *ngIf="errorMessage" class="message error">{{errorMessage}}</p>
   <p *ngIf="successMessage" class="message success">{{successMessage}}</p>
   <div class="link-to-provider">
-    <div class="link-to-provider-button facebook-button" (click)="linkAccountWithFacebook()">
+    <div class="link-to-provider-button facebook-button" (click)="linkAccountToProvider('facebook')">
       <fa-icon [icon]="faFacebook"></fa-icon>
       <span>Link your Facebook Account</span>
     </div>
-    <div class="link-to-provider-button google-button" (click)="linkAccountWithGoogle()">
+    <div class="link-to-provider-button google-button" (click)="linkAccountToProvider('google')">
       <fa-icon [icon]="faGoogle"></fa-icon>
       <span>Link your Google Account</span>
     </div>
   </div>
-  <form (ngSubmit)="onUserUpdate(form)" class="form-container" #form="ngForm" #formElement>
+  <form (ngSubmit)="onUserUpdate(form)" class="form-container" #form="ngForm" >
     <h1 class="section-title">Personal details</h1>
     <div class="form-section">
       <mat-form-field appearance="standard">
@@ -152,4 +152,4 @@
     </div>
   </form>
 </div>
-<app-loading-spinner class="spinner" *ngIf="loadingUserData"></app-loading-spinner>
+<app-loading-spinner class="spinner" *ngIf="awaitingResult"></app-loading-spinner>

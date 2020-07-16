@@ -33,9 +33,9 @@ import {CheckoutComponent} from './checkout/checkout.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PaymentRedirectPageComponent} from './checkout/payment-redirect-page/payment-redirect-page.component';
 import {AutoSizeInputModule} from 'ngx-autosize-input';
-import { CheckoutBasketComponent } from './checkout/checkout-basket/checkout-basket.component';
-import { ShoppingHistoryComponent } from './user/shopping-history/shopping-history.component';
-import { ShoppingHistoryItemComponent } from './user/shopping-history/shopping-history-item/shopping-history-item.component';
+import {CheckoutBasketComponent} from './checkout/checkout-basket/checkout-basket.component';
+import {ShoppingHistoryComponent} from './user/shopping-history/shopping-history.component';
+import {ShoppingHistoryItemComponent} from './user/shopping-history/shopping-history-item/shopping-history-item.component';
 
 @NgModule({
   declarations: [
