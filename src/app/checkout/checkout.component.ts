@@ -52,6 +52,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.error = null;
     const paymentMethod = form.control.value.paymentMethod as string;
     if (!paymentMethod) {
+      window.scrollTo(0, 0);
       this.error = 'Please select payment method';
       return;
     }
@@ -59,7 +60,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const personalData = form.value.personalData;
     const shippingAddress = form.value.address;
     const joinedData = Object.assign(personalData, shippingAddress) as UserDataModel;
-
+    if (this.currentUser) {
+      joinedData.email = this.currentUser.email;
+    }
     this.purchaseStarted = true;
 
     if (paymentMethod === 'card') {
@@ -76,7 +79,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   errorHandling(error: any) {
-    if (error.status === 504 || error.status === 404) {
+    window.scrollTo(0, 0);
+    if (error.status === 500 || error.status === 504) {
       this.error = 'Server is not responding. Sorry for inconvenience.';
     } else {
       this.error = error.error.message;

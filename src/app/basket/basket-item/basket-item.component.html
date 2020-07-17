@@ -4,7 +4,7 @@
     <span>Quantity:</span>
     <div class="quantity-element__action">
       <button (click)="onDecreaseQuantity()" mat-raised-button>  <div class="sign">-</div>  </button>
-      <input type="text" [(ngModel)]="quantity">
+      <input type="text" [(ngModel)]="quantity" disabled>
       <button (click)="onIncreaseQuantity()" mat-raised-button>  <div class="sign">+</div>   </button>
     </div>
   </div>

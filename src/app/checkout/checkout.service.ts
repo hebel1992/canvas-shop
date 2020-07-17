@@ -57,6 +57,7 @@ export class CheckoutService {
 
     if (purchaseType === 'single') {
       requestBodyItems.push({id: imageId, quantity: qty});
+      console.log(requestBodyItems);
     } else {
       this.basket.forEach(elem => {
         requestBodyItems.push({id: elem.imageId, quantity: elem.quantity});

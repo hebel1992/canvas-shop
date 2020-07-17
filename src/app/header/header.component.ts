@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize') updateOrientatioState() {
+  @HostListener('window:resize') updateOrientationState() {
     if (window.innerHeight > window.innerWidth) {
       this.state = 'portrait';
     } else {

@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }
     } catch (err) {
+      window.scrollTo(0, 0);
       this.signInError = err.message;
       this.isLoading = false;
     }
@@ -63,6 +64,7 @@ export class LoginComponent implements OnInit {
       this.signInError = null;
       await this.router.navigate(['/gallery']);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.isLoading = false;
       this.signInError = err.message;
     }
@@ -76,6 +78,7 @@ export class LoginComponent implements OnInit {
     try {
       await this.authService.loginWithFacebook(this.innerWidth);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.signInError = err.message;
     }
   }
@@ -84,6 +87,7 @@ export class LoginComponent implements OnInit {
     try {
       await this.authService.loginWithGoogle(this.innerWidth);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.signInError = err.message;
     }
   }

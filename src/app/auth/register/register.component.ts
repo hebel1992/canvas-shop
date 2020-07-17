@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['']);
       }, 2500);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.error = err.message;
       this.isLoading = false;
     }

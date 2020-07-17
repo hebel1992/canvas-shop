@@ -79,12 +79,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.awaitingResult = false;
       this.pageContent.style.opacity = '1';
       this.errorMessage = null;
+      window.scrollTo(0, 0);
       this.successMessage = 'Accounts successfully linked';
 
     } catch (err) {
       this.awaitingResult = false;
       this.pageContent.style.opacity = '1';
       this.successMessage = null;
+      window.scrollTo(0, 0);
       this.errorMessage = err.message;
     }
   }
@@ -110,11 +112,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         await this.userDbService.updateData(form.form.value, this.currentUser.id);
         this.changesSaved = true;
         this.userDbService.fetchUserData(this.currentUser.id);
-        await this.router.navigate(['/gallery']);
+        this.router.navigate(['/gallery']);
       } catch (err) {
+        window.scrollTo(0, 0);
         this.errorMessage = err.message;
       }
     } else {
+      window.scrollTo(0, 0);
       this.errorMessage = 'You are not logged in!';
     }
   }

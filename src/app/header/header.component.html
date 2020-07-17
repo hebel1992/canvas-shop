@@ -1,4 +1,5 @@
 <header class="main-header">
+  <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
   <a class="main-header__title"
      (click)="closeMobileNavAndRedirect('/gallery')"> MARLO </a>
 
@@ -69,7 +70,6 @@
     <span class="toggle-button__bar"></span>
   </button>
 </header>
-<p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
 
 <!--Mobile-->
 <div #mobileNav class="mobile-nav" [ngClass]="{'show-mobile-nav': showMobileNav}">

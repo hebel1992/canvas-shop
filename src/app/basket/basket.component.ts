@@ -46,6 +46,7 @@ export class BasketComponent implements OnInit, OnDestroy {
     try {
       await this.basketService.updateQuantity(quantity, imageId);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.error = err.message;
     }
   }
@@ -54,6 +55,7 @@ export class BasketComponent implements OnInit, OnDestroy {
     try {
       await this.basketService.deleteItem(imageId);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.error = err.message;
     }
   }

@@ -37,32 +37,36 @@ export class ResetPasswordComponent implements OnInit {
         this.auth.verifyPasswordResetCode(this.actionCode).then(email => {
           this.actionCodeChecked = true;
         }).catch(err => {
+          window.scrollTo(0, 0);
           this.error = err.message;
         });
       } else {
+        window.scrollTo(0, 0);
         this.error = 'An error occurred. Please try again';
       }
     });
   }
 
-  onResetPasswordSubmit(password: NgModel, password2: NgModel) {
+  async onResetPasswordSubmit(password: NgModel, password2: NgModel) {
     this.isLoading = true;
     if (password.value !== password2.value) {
+      window.scrollTo(0, 0);
       this.error = 'Passwords do not match';
       this.isLoading = false;
       return;
     }
-
-    this.auth.confirmPasswordReset(this.actionCode, password.value).then(resp => {
+    try {
+      await this.auth.confirmPasswordReset(this.actionCode, password.value);
       this.error = null;
       this.success = 'Password has been changed. You can now log in.';
       this.isLoading = false;
       setTimeout(() => {
         this.router.navigate(['/gallery']);
       }, 2500);
-    }).catch(err => {
+    } catch (err) {
+      window.scrollTo(0, 0);
       this.error = err.message;
       this.isLoading = false;
-    });
+    }
   }
 }

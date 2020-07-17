@@ -41,12 +41,14 @@ export class ImageDetailsComponent implements OnInit {
     this.errorMessage = null;
     const isNotNumber = isNaN(Number(this.quantity));
     if (!this.quantity || isNotNumber || this.quantity < 1) {
+      window.scrollTo(0, 0);
       this.errorMessage = 'Please put a valid number larger than 0';
       return;
     }
     try {
       await this.basketService.updateBasket(this.image, this.quantity);
     } catch (err) {
+      window.scrollTo(0, 0);
       this.errorMessage = err;
     }
     this.snackBar.open('Product added to basket!', 'Dismiss', {
@@ -63,6 +65,7 @@ export class ImageDetailsComponent implements OnInit {
   async singlePurchase() {
     const isNotNumber = isNaN(Number(this.quantity));
     if (!this.quantity || isNotNumber || this.quantity < 1) {
+      window.scrollTo(0, 0);
       this.errorMessage = 'Please put a valid number larger than 0';
       return;
     }

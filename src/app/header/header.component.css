@@ -241,13 +241,16 @@ a:active {
 }
 
 .error-message {
-  position: fixed;
+  position: absolute;
+  font-size: .8rem;
+  font-weight: bold;
   z-index: 15;
   color: red;
-  top: 4%;
-  font-weight: bold;
-  width: 100%;
+  bottom: -50%;
+  width: 80%;
   text-align: center;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 @media only screen and (orientation: landscape){

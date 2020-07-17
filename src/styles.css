@@ -4,7 +4,13 @@
   font-family: 'Hind Vadodara', sans-serif;
 }
 
-html, body { height: 100%;
-width: 100%;
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #F8F8F8;
 }
-body { margin: 0; font-family: inherit; }
+
+body {
+  margin: 0;
+  font-family: inherit;
+}

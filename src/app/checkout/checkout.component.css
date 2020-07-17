@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+mat-vertical-stepper{
+  background-color: #F8F8F8;
+}
+
 .form {
   width: 100%;
   max-width: 38rem;
