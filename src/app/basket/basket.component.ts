@@ -12,9 +12,9 @@ import {Router} from '@angular/router';
 export class BasketComponent implements OnInit, OnDestroy {
   basket: BasketItemModel[];
   basketSubscription: Subscription;
+  error: string;
   loadingBasket = false;
   summary = 0;
-  error: string;
 
   @ViewChild('basketContainer', {static: true}) basketContainer: ElementRef;
 

@@ -17,9 +17,9 @@ export class CheckoutBasketComponent implements OnInit, OnDestroy {
 
   basket: BasketItemModel[];
   basketSubscription: Subscription;
-  faBin = faTrash;
   error: string;
-  summary;
+  summary: number;
+  faBin = faTrash;
 
   constructor(private basketService: BasketService,
               private imageService: ImagesService) {

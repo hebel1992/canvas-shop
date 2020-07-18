@@ -23,15 +23,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   changesSaved = false;
   errorMessage: string;
   successMessage: string;
-  pageContent;
+  pageContent: HTMLElement;
 
   faFacebook = faFacebookSquare;
   faGoogle = faGoogle;
 
-  countiesOfEngland;
-  countiesOfScotland;
-  countiesOfWales;
-  countiesOfNorthernIreland;
+  countiesOfEngland: string[];
+  countiesOfScotland: string[];
+  countiesOfWales: string[];
+  countiesOfNorthernIreland: string[];
 
   @ViewChild('form', {static: true}) form: NgForm;
   @ViewChild('container', {static: true}) container: ElementRef;

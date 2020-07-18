@@ -21,8 +21,9 @@ export class LoginComponent implements OnInit {
   faPassword = faUnlock;
 
   signInError: string;
+  innerWidth: number;
   isLoading = false;
-  innerWidth;
+
 
   constructor(private router: Router,
               private authService: AuthService,

@@ -10,13 +10,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  faUser = faEnvelope;
-  faPassword = faLock;
-
   error: string;
   success: string;
   isLoading = false;
+  faUser = faEnvelope;
+  faPassword = faLock;
 
   constructor(private authService: AuthService,
               private router: Router) {

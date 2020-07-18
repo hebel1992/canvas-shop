@@ -15,7 +15,7 @@ export class ImageDetailsComponent implements OnInit {
   quantity = 1;
   errorMessage: string;
   fullScreenImage = false;
-  private innerWidth;
+  innerWidth: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

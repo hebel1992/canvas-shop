@@ -17,21 +17,9 @@ export class UserDbService {
   fetchUserData(userId: string): Promise<UserDataModel> {
     return this.db.collection('users').doc(userId).get().pipe(map(data => {
       let userData: UserDataModel;
-      const loggedUserData = data.data();
+      const loggedUserData = data.data() as UserDataModel;
       if (loggedUserData) {
-        userData = {
-          id: loggedUserData.id,
-          email: loggedUserData.email,
-          firstName: loggedUserData.firstName,
-          lastName: loggedUserData.lastName,
-          phone: loggedUserData.phone,
-          addressLine1: loggedUserData.addressLine1,
-          addressLine2: loggedUserData.addressLine2,
-          city: loggedUserData.city,
-          postCode: loggedUserData.postCode,
-          county: loggedUserData.county,
-          basket: loggedUserData.basket
-        };
+        userData = loggedUserData;
       }
       return userData;
     }), tap(userData => {
@@ -58,17 +46,10 @@ export class UserDbService {
     })).toPromise();
   }
 
-  updateData(userData, userId: string) {
-    return this.db.collection('users').doc(userId).update({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      phone: userData.phone,
-      addressLine1: userData.addressLine1,
-      addressLine2: userData.addressLine2,
-      city: userData.city,
-      postCode: userData.postCode,
-      county: userData.county
-    });
+  updateData(userData: UserDataModel, userId: string) {
+    return this.db.collection('users').doc(userId).update(
+      userData
+    );
   }
 
   updateBasket(updatedBasket: BasketItemModel[], userId) {

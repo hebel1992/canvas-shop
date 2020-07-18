@@ -5,6 +5,7 @@ import {BasketService} from '../../basket/basket-service';
 import {UserService} from '../../user/user-service';
 import {Subscription} from 'rxjs';
 import {UserDbService} from '../../user/user-db-service';
+import {UserDataModel} from '../../user/user-data.model';
 
 @Component({
   selector: 'app-order-complete',
@@ -13,11 +14,11 @@ import {UserDbService} from '../../user/user-db-service';
 })
 export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   userSub: Subscription;
-  currentUser;
-  waitingMessage = 'Waiting for purchase to complete...';
-  resultMessage;
-  errorMessage;
+  currentUser: UserDataModel;
+  resultMessage: string;
+  errorMessage: string;
   waiting = true;
+  waitingMessage = 'Waiting for purchase to complete...';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -83,7 +84,12 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   }
 
   errorHandling(error) {
-    this.errorMessage = error.error.message;
+    if (error.error) {
+      this.errorMessage = error.error.message;
+    } else {
+      this.errorMessage = error.message;
+    }
+
     setTimeout(() => {
       this.router.navigate(['/gallery']);
     }, 3500);

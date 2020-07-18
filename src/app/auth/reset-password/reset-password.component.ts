@@ -10,14 +10,14 @@ import {AngularFireAuth} from '@angular/fire/auth';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  faPassword = faLock;
-
   mode: string;
   actionCode: string;
-  actionCodeChecked = false;
   error: string;
   success: string;
   isLoading = false;
+  actionCodeChecked = false;
+  faPassword = faLock;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,

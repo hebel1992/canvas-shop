@@ -22,10 +22,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   error: string;
   userTitle = 'mr';
-  countiesOfEngland;
-  countiesOfScotland;
-  countiesOfWales;
-  countiesOfNorthernIreland;
+  countiesOfEngland: string[];
+  countiesOfScotland: string[];
+  countiesOfWales: string[];
+  countiesOfNorthernIreland: string[];
 
   constructor(private checkoutService: CheckoutService,
               private route: ActivatedRoute,

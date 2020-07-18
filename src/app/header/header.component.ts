@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showSettingsDesktop = false;
   showSettingsMobile = false;
   loadingAuthState = false;
-  state;
+  state: string;
 
   userSubscription: Subscription;
   basketSubscription: Subscription;
