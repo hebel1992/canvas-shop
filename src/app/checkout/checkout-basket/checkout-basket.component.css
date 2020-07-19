@@ -49,6 +49,11 @@
   cursor: pointer;
 }
 
+.check{
+  color: green;
+  cursor: auto;
+}
+
 .summary{
   position: relative;
 }

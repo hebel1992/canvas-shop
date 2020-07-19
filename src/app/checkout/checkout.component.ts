@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CheckoutService} from './checkout.service';
 import {Subscription} from 'rxjs';
 import {UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {CheckoutService, PaypalResponseModel, StripeResponseModel} from './checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -68,22 +68,22 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     if (paymentMethod === 'card') {
       this.checkoutService.startCheckoutSession(joinedData, paymentMethod, this.purchaseType, this.imageId, this.quantity)
         .subscribe(session => {
-          this.checkoutService.redirectToCheckout(session);
+          this.checkoutService.redirectToCheckout(session as StripeResponseModel);
         }, error => this.errorHandling(error));
     } else {
       this.checkoutService.startCheckoutSession(joinedData, paymentMethod, this.purchaseType, this.imageId, this.quantity)
         .subscribe(res => {
-          window.location.href = res.redirect_url;
+          window.location.href = (res as PaypalResponseModel).redirect_url;
         }, error => this.errorHandling(error));
     }
   }
 
   errorHandling(error: any) {
     window.scrollTo(0, 0);
-    if (error.status === 500 || error.status === 504) {
-      this.error = 'Server is not responding. Sorry for inconvenience.';
-    } else {
+    if (error.error?.message) {
       this.error = error.error.message;
+    } else {
+      this.error = error.message;
     }
     this.purchaseStarted = false;
   }

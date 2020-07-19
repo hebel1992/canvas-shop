@@ -12,6 +12,11 @@ import {UserDataModel} from '../user/user-data.model';
 
 declare const Stripe;
 
+interface RequestBodyItemModel {
+  id: string;
+  quantity: number;
+}
+
 interface RequestBody {
   userId: string;
   userData: UserDataModel;
@@ -20,14 +25,13 @@ interface RequestBody {
   callbackUrl: string;
 }
 
-interface RequestBodyItemModel {
-  id: string;
-  quantity: number;
-}
-
 export interface StripeResponseModel {
   stripeCheckoutSessionId: string;
   stripePublicKey: string;
+}
+
+export interface PaypalResponseModel {
+  redirect_url: string;
 }
 
 @Injectable({
@@ -51,7 +55,7 @@ export class CheckoutService {
   }
 
   startCheckoutSession(userData: UserDataModel, paymentMethod: string, purchaseType: string, imageId: string, qty: number):
-    Observable<any> {
+    Observable<StripeResponseModel | PaypalResponseModel> {
 
     const requestBodyItems: RequestBodyItemModel[] = [];
 
@@ -82,7 +86,7 @@ export class CheckoutService {
     if (paymentMethod === 'card') {
       return this.http.post<StripeResponseModel>(environment.api.baseUrl + '/api/stripe/checkout', requestBody);
     } else {
-      return this.http.post<{redirect_url: string}>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
+      return this.http.post<PaypalResponseModel>(environment.api.baseUrl + '/api/paypal/create-order', requestBody);
     }
   }
 

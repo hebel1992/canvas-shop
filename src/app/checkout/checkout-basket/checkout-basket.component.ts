@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {BasketItemModel} from '../../basket/basket-item.model';
 import {Subscription} from 'rxjs';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {BasketService} from '../../basket/basket-service';
 import {ImagesService} from '../../gallery/images-service';
 
@@ -20,6 +20,7 @@ export class CheckoutBasketComponent implements OnInit, OnDestroy {
   error: string;
   summary: number;
   faBin = faTrash;
+  faCheck = faCheck;
 
   constructor(private basketService: BasketService,
               private imageService: ImagesService) {

@@ -84,7 +84,7 @@ export class PaymentRedirectPageComponent implements OnInit, OnDestroy {
   }
 
   errorHandling(error) {
-    if (error.error) {
+    if (error.error?.message) {
       this.errorMessage = error.error.message;
     } else {
       this.errorMessage = error.message;

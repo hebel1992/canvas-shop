@@ -17,7 +17,8 @@
       £{{item.price}}.00
     </div>
     <div class="basket-item__elem bin">
-      <fa-icon [icon]="faBin" (click)="onDelete(item.imageId)"></fa-icon>
+      <fa-icon *ngIf="purchaseType==='multiple'" [icon]="faBin" (click)="onDelete(item.imageId)"></fa-icon>
+      <fa-icon class="check" *ngIf="purchaseType==='single'" [icon]="faCheck" (click)="onDelete(item.imageId)"></fa-icon>
     </div>
   </div>
 
