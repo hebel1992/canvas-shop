@@ -1,6 +1,15 @@
 <div class="container">
   <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
-  <img class="image" src="{{image.imageUrl}}" alt="Photo" (click)="onImageClick()" [ngClass]="{'full-screen-img': fullScreenImage}">
+  <img #img
+       class="image"
+       src="{{image.imageUrl}}"
+       alt="Photo"
+       (click)="onImageClick()"
+       (load)="onImageLoaded(img)"
+       [ngClass]="{'full-screen-img__hor': fullScreenHorizontalImage ,
+        'full-screen-img__ver': fullScreenVerticalImage
+       }"
+  >
   <div class="buttons">
     <div class="quantity">
       Quantity:
@@ -17,7 +26,8 @@
     <button mat-button routerLink="/gallery">Back to gallery</button>
     <p class="delivery-info">Delivery: 2-3 working days</p>
   </div>
-  <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque lectus tellus. Donec pellentesque
+  <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque lectus tellus. Donec
+    pellentesque
     massa eu quam volutpat posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id egestas felis,
     non auctor nibh. Maecenas erat leo, pellentesque at pharetra eget, rutrum a massa. Fusce in nisi magna. Phasellus
     scelerisque justo eros, non vulputate nunc luctus ac. Mauris cursus dignissim turpis, sollicitudin fringilla justo
@@ -38,5 +48,9 @@
     risus, in efficitur libero
     lobortis a.</p>
 </div>
-<div class="backdrop" [ngClass]="{'show-backdrop': fullScreenImage}" (click)="onImageClick()"></div>
+<div class="backdrop" #backdrop
+     [ngClass]="{
+'add-backdrop-opacity': fullScreenHorizontalImage || fullScreenVerticalImage,
+'display-backdrop': displayBackdrop}"
+     (click)="onImageClick()"></div>
 

@@ -21,11 +21,12 @@ app-gallery-image {
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
   transition: transform 0.3s;
-  width: 95vw;
+  width : 95vw;
   max-width: 25rem;
   height: 95vw;
   max-height: 25rem;
   margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 app-gallery-image:hover {

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {UserService} from '../user/user-service';
+import {Counties, UserService} from '../user/user-service';
 import {UserDataModel} from '../user/user-data.model';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
@@ -22,10 +22,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   error: string;
   userTitle = 'mr';
-  countiesOfEngland: string[];
-  countiesOfScotland: string[];
-  countiesOfWales: string[];
-  countiesOfNorthernIreland: string[];
+  counties: Counties;
 
   constructor(private checkoutService: CheckoutService,
               private route: ActivatedRoute,
@@ -41,11 +38,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.userDataChanged.subscribe(user => {
       this.currentUser = user;
     });
-
-    this.countiesOfEngland = this.userService.getEnglandCounties();
-    this.countiesOfScotland = this.userService.getScotlandCounties();
-    this.countiesOfWales = this.userService.getWalesCounties();
-    this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
+    this.counties = this.userService.getCounties();
   }
 
   purchaseImages(form: NgForm) {

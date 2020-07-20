@@ -124,22 +124,22 @@
           [ngModel]="currentUser ? currentUser.county: null"
         >
           <mat-optgroup label="England">
-            <mat-option *ngFor="let county of countiesOfEngland"
+            <mat-option *ngFor="let county of counties.England"
                         value="{{county}}"
             >{{county}}</mat-option>
           </mat-optgroup>
           <mat-optgroup label="Scotland">
-            <mat-option *ngFor="let county of countiesOfScotland"
+            <mat-option *ngFor="let county of counties.Scotland"
                         value="{{county}}"
             >{{county}}</mat-option>
           </mat-optgroup>
           <mat-optgroup label="Wales">
-            <mat-option *ngFor="let county of countiesOfWales"
+            <mat-option *ngFor="let county of counties.Wales"
                         value="{{county}}"
             >{{county}}</mat-option>
           </mat-optgroup>
           <mat-optgroup label="Northern Ireland">
-            <mat-option *ngFor="let county of countiesOfNorthernIreland"
+            <mat-option *ngFor="let county of counties.NorthernIreland"
                         value="{{county}}"
             >{{county}}</mat-option>
           </mat-optgroup>

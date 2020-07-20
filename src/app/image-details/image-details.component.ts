@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Image} from '../gallery/image.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImagesService} from '../gallery/images-service';
@@ -14,8 +14,13 @@ export class ImageDetailsComponent implements OnInit {
   image: Image;
   quantity = 1;
   errorMessage: string;
-  fullScreenImage = false;
+  fullScreenHorizontalImage = false;
+  fullScreenVerticalImage = false;
+  displayBackdrop = false;
   innerWidth: number;
+  imageOrientation: string;
+
+  @ViewChild('backdrop', {static: true}) backdrop: ElementRef;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -57,8 +62,26 @@ export class ImageDetailsComponent implements OnInit {
   }
 
   onImageClick() {
-    if (this.innerWidth > 1000) {
-      this.fullScreenImage = !this.fullScreenImage;
+    if (this.innerWidth > 1280) {
+      if (!this.displayBackdrop) {
+        this.displayBackdrop = !this.displayBackdrop;
+        setTimeout(() => {
+          if (this.imageOrientation === 'horizontal') {
+            this.fullScreenHorizontalImage = !this.fullScreenHorizontalImage;
+          } else {
+            this.fullScreenVerticalImage = !this.fullScreenVerticalImage;
+          }
+        }, 10);
+      } else {
+        if (this.imageOrientation === 'horizontal') {
+          this.fullScreenHorizontalImage = !this.fullScreenHorizontalImage;
+        } else {
+          this.fullScreenVerticalImage = !this.fullScreenVerticalImage;
+        }
+        setTimeout(() => {
+          this.displayBackdrop = !this.displayBackdrop;
+        }, 300);
+      }
     }
   }
 
@@ -77,5 +100,13 @@ export class ImageDetailsComponent implements OnInit {
           quantity: this.quantity
         }
     });
+  }
+
+  onImageLoaded(img: HTMLImageElement) {
+    if (img.offsetWidth > img.offsetHeight) {
+      this.imageOrientation = 'horizontal';
+    } else {
+      this.imageOrientation = 'vertical';
+    }
   }
 }

@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../user-service';
+import {Counties, UserService} from '../user-service';
 import {UserDataModel} from '../user-data.model';
 import {Observable, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -28,10 +28,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   faFacebook = faFacebookSquare;
   faGoogle = faGoogle;
 
-  countiesOfEngland: string[];
-  countiesOfScotland: string[];
-  countiesOfWales: string[];
-  countiesOfNorthernIreland: string[];
+  counties: Counties;
 
   @ViewChild('form', {static: true}) form: NgForm;
   @ViewChild('container', {static: true}) container: ElementRef;
@@ -58,10 +55,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.pageContent.style.opacity = '1';
     });
 
-    this.countiesOfEngland = this.userService.getEnglandCounties();
-    this.countiesOfScotland = this.userService.getScotlandCounties();
-    this.countiesOfWales = this.userService.getWalesCounties();
-    this.countiesOfNorthernIreland = this.userService.getNorthernIrelandCounties();
+    this.counties = this.userService.getCounties();
   }
 
   async linkAccountToProvider(provider: string) {
