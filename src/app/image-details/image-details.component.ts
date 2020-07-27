@@ -61,9 +61,10 @@ export class ImageDetailsComponent implements OnInit {
     });
   }
 
-  onImageClick() {
+  onImageClick(img: HTMLImageElement) {
     if (this.innerWidth > 1280) {
       if (!this.displayBackdrop) {
+        img.style.zIndex = '11';
         this.displayBackdrop = !this.displayBackdrop;
         setTimeout(() => {
           if (this.imageOrientation === 'horizontal') {
@@ -79,6 +80,7 @@ export class ImageDetailsComponent implements OnInit {
           this.fullScreenVerticalImage = !this.fullScreenVerticalImage;
         }
         setTimeout(() => {
+          img.style.zIndex = 'unset';
           this.displayBackdrop = !this.displayBackdrop;
         }, 300);
       }

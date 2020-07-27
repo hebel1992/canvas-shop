@@ -74,6 +74,7 @@ app-basket-item{
 }
 
 .error-message {
+  word-break: break-word;
   color: red;
   width: 100%;
   text-align: center;

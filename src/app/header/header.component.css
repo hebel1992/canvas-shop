@@ -241,6 +241,7 @@ a:active {
 }
 
 .error-message {
+  word-break: break-word;
   position: absolute;
   font-size: .8rem;
   font-weight: bold;

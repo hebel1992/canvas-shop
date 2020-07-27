@@ -11,20 +11,18 @@
 img {
   max-width: 95vw;
   max-height: 95vw;
-  /*height: auto;*/
-  /*width: auto;*/
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
-  transition: transform ease-in .3s;
+  transition: all ease-in .3s;
 }
 
 .full-screen-img__hor {
-  transform: scale(2) translate(25%, 20%);
+  transform: scale(2.4) translate(22%, 16%);
   cursor: zoom-out;
 }
 
 .full-screen-img__ver {
-  transform: scale(1.9) translateX(45%) translateY(14%);
+  transform: scale(2.4) translate(40%, 20%);
   cursor: zoom-out;
 }
 
@@ -61,6 +59,7 @@ button {
 }
 
 .error-message {
+  word-break: break-word;
   color: red;
   width: 100%;
   text-align: center;
@@ -125,7 +124,6 @@ button {
     max-height: 55vh;
     justify-self: center;
     cursor: zoom-in;
-    z-index: 11;
   }
 
   .buttons {

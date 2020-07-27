@@ -82,8 +82,9 @@ mat-vertical-stepper{
 }
 
 .error-message {
+  word-break: break-word;
   color: red;
-  width: 90%;
+  max-width: 90%;
   text-align: center;
   margin: 1rem auto;
 }

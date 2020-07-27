@@ -4,7 +4,7 @@
        class="image"
        src="{{image.imageUrl}}"
        alt="Photo"
-       (click)="onImageClick()"
+       (click)="onImageClick(img)"
        (load)="onImageLoaded(img)"
        [ngClass]="{'full-screen-img__hor': fullScreenHorizontalImage ,
         'full-screen-img__ver': fullScreenVerticalImage
@@ -52,5 +52,5 @@
      [ngClass]="{
 'add-backdrop-opacity': fullScreenHorizontalImage || fullScreenVerticalImage,
 'display-backdrop': displayBackdrop}"
-     (click)="onImageClick()"></div>
+     (click)="onImageClick(img)"></div>
 

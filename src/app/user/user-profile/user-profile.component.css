@@ -98,6 +98,7 @@ mat-form-field {
 }
 
 .message{
+  word-break: break-word;
   width: 65%;
   text-align: center;
   top: 0;
