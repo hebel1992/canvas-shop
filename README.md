@@ -1,28 +1,25 @@
-# ProjectCanvas
+A complete fully responsive online shop for selling paintings.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+Technologies used: Angular 9, Angular-Material, NodeJS, Express, REST API,
+Firebase (Firestore, Firebase Authentication), Stripe , Paypal.
 
-## Development server
+AUTHENTICATION:
+The application allows you user to register account with email and password or by using Facebook/Google provider.
+After successful registration it is possible to link account with another provider. So thereafter you can login in multiple ways.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+SHOPPING:
+It is not mandatory to register before purchasing products. However, after doing so there will be no need to provide user information with
+every next shopping. Additionally registered user can view all the previous purchases.
 
-## Code scaffolding
+PAYMENTS
+At the moment both, Stripe and Paypal payments, are in the test mode.
+In order to complete payment please use:
+1.Stripe:
+card number: 4242 4242 4242 4242
+valid thru: any date in the future
+CVC: any
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2.Paypal(sandbox account):
+username: sb-izi6u1743166@personal.example.com
+password: M:!nv1c)
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-# canvas-shop
