@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="head">
+    <div>{{historyItem.timestamp.toLocaleString()}}</div>
+    <div><span class="purchase__id">ref. {{historyItem.id}}</span></div>
+  </div>
+  <div *ngFor="let image of images" class="item">
+    <div class="item-details">
+      <img class="item-image" src="{{image.imageUrl}}">
+      <p class="item-image__id">({{image.imageId}})</p>
+    </div>
+    <p class="item-price">{{image.quantity}} x £{{image.price}}.00</p>
+    <p class="item-total-price">£{{image.quantity * image.price}}.00</p>
+  </div>
+  <hr>
+  <div class="shipping">
+    Shipping: £8.00
+  </div>
+  <div class="summary">£{{summary}}.00</div>
+  <div class="payment-method">payment method: <span class="payment-method__item">{{historyItem.paymentMethod}}</span></div>
+</div>

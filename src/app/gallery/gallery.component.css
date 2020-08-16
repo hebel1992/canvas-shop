@@ -1,0 +1,68 @@
+.container {
+  margin: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  align-self: center;
+}
+
+.main-content {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+app-gallery-image {
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
+  transition: transform 0.3s;
+  width : 95vw;
+  max-width: 25rem;
+  height: 95vw;
+  max-height: 25rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+app-gallery-image:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 60rem) {
+  .main-content{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 25rem);
+    grid-auto-rows: 25rem;
+    grid-gap: 1.5rem;
+    align-items: normal;
+  }
+
+  app-gallery-image{
+    margin-bottom: 0;
+    width: auto;
+    height: auto;
+  }
+}
+
+@media (min-width: 75rem) {
+  .main-content {
+    grid-template-columns: repeat(auto-fill, 16rem);
+    grid-auto-rows: 17rem;
+  }
+
+  app-gallery-image:hover {
+    transform: scale(1.1);
+  }
+  .container{
+    width: 80%;
+  }
+
+}
+
+
+

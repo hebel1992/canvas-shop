@@ -1,0 +1,139 @@
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.form-container {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  color: darkblue;
+  align-self: center;
+  margin-top: 3rem;
+}
+
+.form-section {
+  width: 100%;
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+.form-buttons {
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.form-buttons button {
+  width: 35%;
+  max-width: 15rem;
+  margin: 2rem 0;
+}
+
+.link-to-provider {
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto 0 auto;
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link-to-provider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  height: 4rem;
+  margin: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.link-to-provider-button span {
+  margin-left: 0.5rem;
+}
+
+.facebook-button {
+  background: cornflowerblue;
+  color: white;
+  border-color: cornflowerblue;
+}
+
+.facebook-button fa-icon {
+  font-size: 1.5rem;
+}
+
+.google-button{
+  background: white;
+}
+
+.google-button fa-icon {
+  font-size: 1.5rem;
+  color: green;
+}
+
+.spinner {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.message{
+  word-break: break-word;
+  width: 65%;
+  text-align: center;
+  top: 0;
+  margin: 1rem auto 0 auto;
+}
+
+.success{
+  color: green;
+}
+
+.error{
+  color: red;
+}
+
+@media (min-width: 60rem) {
+  .form-section {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 45% 45%;
+    grid-template-rows: auto;
+    grid-gap: 1.5rem;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .wide-grid-element {
+    grid-column: span 2;
+  }
+
+  .link-to-provider{
+    flex-direction: row;
+    max-width: 49rem;
+  }
+}
+

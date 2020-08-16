@@ -1,0 +1,174 @@
+<div class="container">
+  <p *ngIf="error" class="error-message">{{error}}</p>
+  <app-loading-spinner *ngIf="purchaseStarted" class="spinner"></app-loading-spinner>
+  <div class="content" *ngIf="!purchaseStarted">
+    <h1 class="title">Checkout</h1>
+    <!--  Basket-->
+    <app-checkout-basket
+      class="basket"
+      [purchaseType]="purchaseType"
+      [imageId]="imageId"
+      [quantity]="quantity"
+    >
+    </app-checkout-basket>
+    <form class="form" (ngSubmit)="purchaseImages(form)" #form="ngForm">
+      <mat-vertical-stepper linear>
+
+        <mat-step label="Personal data" [completed]=personalData.valid>
+          <div ngModelGroup="personalData" #personalData="ngModelGroup" class="checkout-step">
+            <mat-radio-group class="checkout-step__field"
+                             color="primary"
+                             name="userTitle"
+                             [(ngModel)]="userTitle"
+            >
+              <mat-radio-button value="mr" style="margin-right: 30px" checked>Mr</mat-radio-button>
+              <mat-radio-button value="mrs">Mrs</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>First name</mat-label>
+              <input matInput
+                     name="firstName"
+                     [ngModel]="currentUser?currentUser.firstName:''"
+                     #firstName="ngModel"
+                     minlength="2"
+                     required
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Last name</mat-label>
+              <input matInput
+                     name="lastName"
+                     [ngModel]="currentUser?currentUser.lastName:''"
+                     minlength="2"
+                     required
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>
+                Email
+              </mat-label>
+              <input matInput
+                     name="email"
+                     [ngModel]="currentUser?currentUser.email:''"
+                     email
+                     [disabled]="currentUser"
+                     [required]="!currentUser"
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>
+                Phone number (optional)
+              </mat-label>
+              <input matInput
+                     name="phone"
+                     [ngModel]="currentUser?currentUser.phone:''"
+                     minlength="9"
+                     maxlength="15"
+              >
+              <mat-hint align="end">Only digits</mat-hint>
+            </mat-form-field>
+          </div>
+        </mat-step>
+
+        <mat-step label="Shipping address" [completed]="address.valid">
+          <div ngModelGroup="address" #address="ngModelGroup" class="checkout-step">
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Address line 1</mat-label>
+              <input matInput
+                     name="addressLine1"
+                     [ngModel]="currentUser?currentUser.addressLine1:''"
+                     minlength="5"
+                     required>
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Address line 2</mat-label>
+              <input matInput
+                     name="addressLine2"
+                     [ngModel]="currentUser?currentUser.addressLine2:''">
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>City/Town</mat-label>
+              <input matInput
+                     name="city"
+                     [ngModel]="currentUser?currentUser.city:''"
+                     minlength="2"
+                     required>
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>Post code</mat-label>
+              <input matInput
+                     name="postCode"
+                     [ngModel]="currentUser?currentUser.postCode:''"
+                     required
+                     pattern="([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})"
+              >
+            </mat-form-field>
+            <mat-form-field class="checkout-step__field">
+              <mat-label>County</mat-label>
+              <mat-select
+                [ngModel]="currentUser? currentUser.county : null"
+                name="county"
+              >
+                <mat-optgroup label="England">
+                  <mat-option *ngFor="let county of counties.England"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Scotland">
+                  <mat-option *ngFor="let county of counties.Scotland"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Wales">
+                  <mat-option *ngFor="let county of counties.Wales"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="Northern Ireland">
+                  <mat-option *ngFor="let county of counties.NorthernIreland"
+                              value="{{county}}"
+                  >{{county}}</mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-step>
+
+        <mat-step label="Payment method">
+          <div class="payment-methods">
+            <div class="payment-methods__item">
+              <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="card"
+                       ngModel
+                >
+                <img src="../../assets/5-55223_visa-mastercard-logo-png-transparent-png.png">
+              </label>
+            </div>
+            <div class="payment-methods__item">
+              <label>
+                <input type="radio"
+                       name="paymentMethod"
+                       value="paypal"
+                       ngModel
+                >
+                <img src="../../assets/paypal-logo.jpg" alt="paypal">
+              </label>
+            </div>
+          </div>
+        </mat-step>
+
+        <mat-step label="Finalize" class="checkout-step__finalize">
+          <button mat-raised-button color="primary"
+                  class="checkout-step__button"
+                  [disabled]="purchaseStarted"
+                  type="submit"
+          >Confirm and pay
+          </button>
+        </mat-step>
+      </mat-vertical-stepper>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,55 @@
+<div class="container">
+  <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
+  <img #img
+       src="{{image.imageUrl}}"
+       alt="Photo"
+       (click)="onImageClick(img)"
+       (load)="onImageLoaded(img)"
+       [ngClass]="{'full-screen-img__hor': fullScreenHorizontalImage ,
+        'full-screen-img__ver': fullScreenVerticalImage
+       }"
+  >
+  <div class="buttons">
+    <div class="quantity">
+      Quantity:
+      <input class="quantity-input"
+             type="text"
+             [(ngModel)]="quantity"
+             AutoSizeInput
+             [extraWidth]="15"
+             [minWidth]="20"
+             [maxWidth]="60">
+    </div>
+    <button mat-raised-button color="primary" (click)="singlePurchase()">Buy it now</button>
+    <button mat-button (click)="onAddToBasket()">Add to basket</button>
+    <button mat-button routerLink="/gallery">Back to gallery</button>
+    <p class="delivery-info">Delivery: 2-3 working days</p>
+  </div>
+  <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque lectus tellus. Donec
+    pellentesque
+    massa eu quam volutpat posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id egestas felis,
+    non auctor nibh. Maecenas erat leo, pellentesque at pharetra eget, rutrum a massa. Fusce in nisi magna. Phasellus
+    scelerisque justo eros, non vulputate nunc luctus ac. Mauris cursus dignissim turpis, sollicitudin fringilla justo
+    ultricies aliquet. Morbi sit amet nisl nibh. Sed semper, ligula vel iaculis molestie, nisi urna porttitor magna,
+    id condimentum odio dolor a purus.
+    Nullam vitae est odio. Aliquam scelerisque dapibus scelerisque. Donec cursus, ligula ut scelerisque pellentesque,
+    nisl mi porttitor metus, in ornare enim neque in eros. Suspendisse dignissim elit hendrerit, scelerisque tellus
+    ut,
+    ultricies odio. Vestibulum ante tortor, posuere sed ex quis, mattis vehicula sem. Aenean luctus sapien vitae ex
+    pellentesque,
+    in viverra purus aliquam. Ut consequat urna metus, quis gravida elit commodo id. Praesent quis ligula bibendum,
+    semper mauris eu,
+    bibendum enim. Duis sagittis dolor non eros interdum maximus. Cras ultricies purus id est luctus commodo a nec
+    dolor. In lectus libero,
+    dictum pellentesque pretium sit amet, rutrum et mauris. Mauris risus orci, varius id arcu in, viverra tristique
+    velit. Fusce consectetur
+    nunc eu congue efficitur. Sed imperdiet feugiat nulla, vel dictum velit gravida quis. Morbi sodales tristique
+    risus, in efficitur libero
+    lobortis a.</p>
+</div>
+<div class="backdrop" #backdrop
+     [ngClass]="{
+'add-backdrop-opacity': fullScreenHorizontalImage || fullScreenVerticalImage,
+'display-backdrop': displayBackdrop}"
+     (click)="onImageClick(img)"></div>
+
