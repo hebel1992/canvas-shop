@@ -1,6 +1,6 @@
 <div class="container">
   <h1 class="container-title">Purchase history</h1>
-  <div *ngIf="shoppingHistory && shoppingHistory.length<1"> You have not bought anything yet</div>
+  <div *ngIf="shoppingHistory && shoppingHistory.length<1"> You have not bought anything yet.</div>
   <app-shopping-history-item *ngFor="let item of shoppingHistory"
                              [historyItem]=item
   ></app-shopping-history-item>
