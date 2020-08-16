@@ -123,8 +123,12 @@
       }
     }
   },
+<<<<<<< HEAD
   "defaultProject": "project-canvas",
   "cli": {
     "analytics": "6d13761f-2384-4bd4-8b17-4b5212f0edfb"
   }
+=======
+  "defaultProject": "project-canvas"
+>>>>>>> cc95a4b6010928aa4459f0c32cfacca3a70acc25
 }

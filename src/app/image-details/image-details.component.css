@@ -13,7 +13,11 @@ img {
   max-height: 95vw;
   border: 3px solid white;
   box-shadow: gray 1px 1px 8px 1px;
+<<<<<<< HEAD
   transition: transform ease-in .3s;
+=======
+  transition: all ease-in .3s;
+>>>>>>> cc95a4b6010928aa4459f0c32cfacca3a70acc25
 }
 
 .full-screen-img__hor {
@@ -152,5 +156,8 @@ button {
     transform: translate(-50%, 0);
   }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cc95a4b6010928aa4459f0c32cfacca3a70acc25
