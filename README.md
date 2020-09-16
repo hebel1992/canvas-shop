@@ -8,8 +8,8 @@ The application allows you to register with email and password or by using Faceb
 After successful registration it is possible to link account with another provider. So thereafter you can login in multiple ways.
 
 SHOPPING<br />
-It is not mandatory to register before purchasing products. However, after doing so providing user data can be avoided with
-every next shopping. Additionally, registered user can view all the previous purchases.
+It is not mandatory to register before purchasing products. However, after doing so, providing user data can be avoided
+every time you do shopping. Additionally, registered user can view all the previous purchases.
 
 PAYMENTS<br />
 At the moment both, Stripe and Paypal payments, are in the test mode.
