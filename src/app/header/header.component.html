@@ -1,0 +1,149 @@
+<header class="main-header">
+  <p class="error-message" *ngIf="errorMessage">{{errorMessage}}</p>
+  <a class="main-header__title"
+     (click)="closeMobileNavAndRedirect('/gallery')"> MARLO </a>
+
+  <ul class="desktop-social-media">
+    <li>
+      <a>
+        <fa-icon [icon]="faSnapchat"></fa-icon>
+        Snapchat</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faInstagram"></fa-icon>
+        Instagram</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        Facebook</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faTwitter"></fa-icon>
+        Twitter</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faYoutube"></fa-icon>
+        YouTube</a>
+    </li>
+  </ul>
+
+  <ul *ngIf="loadingAuthState" class="loadingAuthStateSpinner">
+    <app-auth-await-spinner></app-auth-await-spinner>
+  </ul>
+  <ul #authStateElement class="desktop-options">
+    <li class="desktop-options__item" routerLink="/basket"
+    >
+      <div [matBadgeHidden]="!basket || basket.length<1"
+           routerLinkActive="active"
+           [matBadge]="basket ? basket.length : null"
+           matBadgeSize="medium"
+           [ngClass]="{'animate-basket':animationActive}"
+      >
+        <fa-icon [icon]="faShoppingCart"></fa-icon>
+      </div>
+    </li>
+    <li class="desktop-options__item" *ngIf="!isAuthenticated">
+      <a routerLink="/login" [ngClass]="{'active': auth.isActive || register.isActive }">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>Sign in</span>
+      </a>
+    </li>
+    <li #desktopSettingsDropdown class="desktop-options__item">
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickDesktop()"
+           [ngClass]="{'active': userProfile.isActive}"
+           [ngClass]="{'active': purchaseHistory.isActive}"
+      >
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>My account</span>
+        <fa-icon [icon]="faArrowDown" class="arrow"></fa-icon>
+      </div>
+    </li>
+  </ul>
+
+  <button class="toggle-button" (click)="onToggleButtonClick()">
+    <span class="toggle-button__bar"></span>
+    <span class="toggle-button__bar"></span>
+    <span class="toggle-button__bar"></span>
+  </button>
+</header>
+
+<!--Mobile-->
+<div #mobileNav class="mobile-nav" [ngClass]="{'show-mobile-nav': showMobileNav}">
+  <ul class="mobile-nav__items">
+    <li>
+      <a>
+        <fa-icon [icon]="faSnapchat"></fa-icon>
+        Snapchat</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faInstagram"></fa-icon>
+        Instagram</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        Facebook</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faTwitter"></fa-icon>
+        Twitter</a>
+    </li>
+    <li>
+      <a>
+        <fa-icon [icon]="faYoutube"></fa-icon>
+        YouTube</a>
+    </li>
+    <li class="mobile-nav__items__basket">
+      <a (click)="closeMobileNavAndRedirect('/basket')"
+         [ngClass]="{'active':userBasket.isActive}"
+      >
+        <div style="display: inline-block" [matBadgeHidden]="!basket || basket.length<1"
+             [matBadge]="basket ? basket.length : null"
+             matBadgeSize="medium"
+        >
+          <fa-icon [icon]="faShoppingCart"></fa-icon>
+        </div>
+      </a>
+    </li>
+    <li *ngIf="!isAuthenticated" class="mobile-nav__items__sign-in">
+      <a (click)="closeMobileNavAndRedirect('/login')" [ngClass]="{'active': auth.isActive || register.isActive }">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>Sign in</span>
+      </a>
+    </li>
+    <li #mobileSettingsDropdown class="mobile-nav__items__my-account">
+      <div *ngIf="isAuthenticated" (click)="onMyAccountClickMobile()"
+           [ngClass]="{'active': userProfile.isActive || purchaseHistory.isActive}"
+      >
+        <fa-icon [icon]="faUser"></fa-icon>
+        <span>My account</span>
+        <fa-icon class="arrow" [icon]="showSettingsMobile&&state==='landscape' ? faArrowRight : faArrowDown"></fa-icon>
+      </div>
+    </li>
+    <li class="mobile-nav-settings" [ngClass]="{'show-settings-mobile': showSettingsMobile}">
+      <p class="mobile-nav-settings__item" (click)="closeMobileNavAndRedirect('/profile')">Profile</p>
+      <p class="mobile-nav-settings__item" (click)="closeMobileNavAndRedirect('/purchase-history')">Purchase history</p>
+      <p class="mobile-nav-settings__item" (click)="onLogoutClick()">Log out</p>
+    </li>
+  </ul>
+</div>
+
+<a routerLink="/login" routerLinkActive #auth="routerLinkActive" style="display: none"></a>
+<a routerLink="/register" routerLinkActive #register="routerLinkActive" style="display: none"></a>
+<a routerLink="/basket" routerLinkActive #userBasket="routerLinkActive" style="display: none"></a>
+<a routerLink="/profile" routerLinkActive #userProfile="routerLinkActive" style="display: none"></a>
+<a routerLink="/purchase-history" routerLinkActive #purchaseHistory="routerLinkActive" style="display: none"></a>
+
+<div class="settings" [ngClass]="{'show-settings-desktop': showSettingsDesktop}">
+  <ul class="settings-items">
+    <li routerLink="/profile">Profile</li>
+    <li routerLink="/purchase-history">Purchase history</li>
+    <li (click)="onLogoutClick()">Log out</li>
+  </ul>
+</div>
