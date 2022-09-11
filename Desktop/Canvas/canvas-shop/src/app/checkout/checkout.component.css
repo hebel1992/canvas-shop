@@ -1,0 +1,154 @@
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 1rem 0;
+}
+
+.content{
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-vertical-stepper{
+  background-color: #F8F8F8;
+}
+
+.form {
+  width: 100%;
+  max-width: 38rem;
+}
+
+.checkout-step {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-step__field {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.payment-methods{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0 0 1rem;
+}
+
+.payment-methods__item{
+  width: 40%;
+  min-width: 13rem;
+  height: 5rem;
+  margin-top: .5rem;
+}
+.payment-methods__item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
+}
+
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+}
+
+[type=radio] + img {
+  cursor: pointer;
+}
+
+[type=radio]:checked + img {
+  outline: 2px solid #f00;
+}
+
+.checkout-step__finalize{
+  width: 100%;
+}
+
+.checkout-step__button {
+  width: 85%;
+}
+
+.basket{
+  width: 90%;
+  max-width: 35rem;
+
+}
+
+.error-message {
+  word-break: break-word;
+  color: red;
+  max-width: 90%;
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.spinner {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+@media (min-width: 30rem) {
+  .checkout-step__field {
+    width: 80%;
+  }
+
+  .checkout-step__button {
+    width: 90%;
+  }
+}
+
+@media (min-width: 40rem) {
+  .checkout-step__button {
+    width: 93%;
+  }
+}
+
+@media (min-width: 65rem) {
+  .content{
+    display: grid;
+    grid-template-columns: 35% 25%;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    grid-gap: 0 2rem;
+  }
+
+  .title{
+    grid-column: span 2;
+    justify-self: center;
+    margin-bottom: 4rem;
+  }
+
+  .form{
+    max-width: 35rem;
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .basket{
+    width: 100%;
+    align-self: start;
+    justify-self: center;
+    max-width: 20rem;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .error-message {
+    width: 70%;
+  }
+
+  .spinner {
+    top: 35%;
+  }
+}
+
+

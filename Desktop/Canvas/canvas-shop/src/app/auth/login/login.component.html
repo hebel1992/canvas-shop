@@ -1,0 +1,58 @@
+<p class="error-message" *ngIf="signInError">{{signInError}}</p>
+<div class="container">
+  <div class="page-title">
+    <h1 class="greetings">Hello</h1>
+    <p>Please sign in or <a><span class="register-link" routerLink="/register">create an account</span></a></p>
+  </div>
+  <div class="spinner" *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="sign-in-form" [ngClass]="{'hide-element': isLoading}">
+    <h2 class="sign-in-form__title">Sign in</h2>
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+      <mat-form-field appearance="outline">
+        <mat-label>
+          <fa-icon [icon]="faUser"></fa-icon>
+          Email
+        </mat-label>
+        <input matInput
+               type="text"
+               ngModel
+               name="emailLog"
+               #emailLog="ngModel"
+               required
+               email>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          <fa-icon [icon]="faPassword"></fa-icon>
+          Password
+        </mat-label>
+        <input matInput
+               type="password"
+               ngModel
+               name="passwordLog"
+               #passwordLog="ngModel"
+               required>
+      </mat-form-field>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid"
+      >Sign in
+      </button>
+    </form>
+    <p class="forgot-password-link" (click)="resetPassword()">Forgot password?</p>
+  </div>
+  <hr [ngClass]="{'hide-element': isLoading}">
+  <div class="sign-in-with-provider" [ngClass]="{'hide-element': isLoading}">
+    <div class="sign-in-with-provider-button facebook-button" (click)="loginWithFacebook()">
+      <fa-icon [icon]="faFacebook"></fa-icon>
+      <span>Sign in with Facebook</span>
+    </div>
+    <div class="sign-in-with-provider-button google-button" (click)="loginWithGoogle()">
+      <fa-icon [icon]="faGoogle"></fa-icon>
+      <span>Sign in with Google</span>
+    </div>
+  </div>
+</div>

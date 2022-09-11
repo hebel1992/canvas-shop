@@ -1,0 +1,154 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem .5rem .5rem .5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+img {
+  max-width: 95vw;
+  max-height: 95vw;
+  border: 3px solid white;
+  box-shadow: gray 1px 1px 8px 1px;
+  transition: transform ease-in .3s;
+}
+
+.full-screen-img__hor {
+  transform: scale(2.4) translate(22%, 16%);
+  cursor: zoom-out;
+}
+
+.full-screen-img__ver {
+  transform: scale(2.4) translate(45%, 18%);
+  cursor: zoom-out;
+}
+
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.4rem 0;
+}
+
+.quantity-input {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.buttons {
+  width: 95vw;
+}
+
+button {
+  display: block;
+  width: 100%;
+}
+
+.delivery-info {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  width: 100%;
+}
+
+.error-message {
+  word-break: break-word;
+  color: red;
+  width: 100%;
+  text-align: center;
+  margin: 0 0 1rem 0;
+}
+
+.backdrop {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 10;
+  cursor: zoom-out;
+  transition: all .3s linear;
+}
+
+.display-backdrop {
+  display: block;
+}
+
+.add-backdrop-opacity {
+  opacity: 1;
+}
+
+.description {
+  width: 95vw;
+  text-align: center;
+}
+
+
+@media (min-width: 50rem) {
+  img {
+    max-width: 48rem;
+    max-height: 48rem;
+  }
+
+  .buttons {
+    max-width: 48rem;
+  }
+
+  .description {
+    max-width: 48rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    display: grid;
+    grid-template-columns: 35% 35%;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    grid-gap: 0 2rem;
+  }
+
+  img {
+    grid-column: 1;
+    max-width: 100%;
+    max-height: 55vh;
+    justify-self: center;
+    cursor: zoom-in;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .description {
+    grid-column: span 2;
+    align-self: start;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .error-message {
+    position: absolute;
+    width: 90%;
+    top: 1%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}

@@ -1,0 +1,163 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.page-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+.greetings {
+  margin: 1.5rem 0 0 0;
+}
+
+.register-link {
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.sign-in-form {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-message {
+  color: red;
+  max-width: 95%;
+  text-align: center;
+  margin: 1rem auto 0 auto;
+  word-break: break-word;
+}
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.hide-element {
+  opacity: 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field fa-icon {
+  margin-right: 0.2rem;
+}
+
+button {
+  width: 100%;
+  height: 3rem;
+}
+
+.forgot-password-link {
+  width: 100%;
+  max-width: 30rem;
+  color: dodgerblue;
+  cursor: pointer;
+  text-align: right;
+  margin: 0.4rem;
+}
+
+hr {
+  width: 95%;
+  margin: 3rem 0;
+  border-top: 1px solid #eceeea;
+}
+
+.sign-in-with-provider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.sign-in-with-provider-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  height: 4rem;
+  margin: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sign-in-with-provider-button span {
+  margin-left: 0.5rem;
+}
+
+.facebook-button {
+  background: cornflowerblue;
+  color: white;
+  border-color: cornflowerblue;
+}
+
+.facebook-button fa-icon {
+  font-size: 1.5rem;
+}
+
+.google-button{
+  background: white;
+}
+
+.google-button fa-icon {
+  font-size: 1.5rem;
+  color: green;
+}
+
+@media (min-width: 55rem) {
+  .container {
+    display: grid;
+    grid-template-columns: 40% 5% 40%;
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+  }
+
+  .page-title {
+    grid-row: 1;
+    grid-column: span 3;
+  }
+
+  hr {
+    width: 1%;
+    height: 30rem;
+    margin: auto;
+    color: #eceeea;
+  }
+
+  .sign-in-with-provider-button {
+    width: 95%;
+  }
+
+  .spinner {
+    top: 45%;
+  }
+
+  .error-message {
+    width: 75%;
+  }
+}
+
+@media (min-width: 90rem) {
+  .container {
+    grid-template-columns: 30% 5% 30%;
+  }
+}
